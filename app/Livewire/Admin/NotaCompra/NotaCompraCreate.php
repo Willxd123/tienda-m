@@ -145,7 +145,7 @@ class NotaCompraCreate extends Component
     public function eliminarProducto($id)
     {
         foreach ($this->lista_productos as $key => $producto) {
-            if ($producto['id'] == $id) {
+            if ($producto['producto_id'] == $id) {
                 unset($this->lista_productos[$key]);
                 $this->getTotal();
                 break; // Detener el bucle una vez que se ha eliminado el producto
