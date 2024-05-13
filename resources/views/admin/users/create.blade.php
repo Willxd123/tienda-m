@@ -16,13 +16,16 @@
     <form action="{{ route('admin.users.store') }}" method="POST" class="card-body">
         @csrf
 
+        
+
         <div class="mb-4">
 
             <!-- NOMBRE -->
             <x-label for="name" class="block font-medium mb-2">
                 Nombre
             </x-label>
-            <x-input type="text" name="name" id="name" class="form-input w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200" 
+            <x-input type="text" name="name" id="name" class="w-full"
+                placeholder="ingrese el nombre del usuario"
                 value="{{ old('name') }}" 
                 required autofocus />
 
@@ -30,7 +33,8 @@
             <x-label for="email" class="block font-medium mt-4 mb-2">
                 Correo Electrónico
             </x-label>
-            <x-input type="email" name="email" id="email" class="form-input w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200" 
+            <x-input type="email" name="email" id="email" class="w-full"
+                placeholder="ingrese el correo electronico"
                 value="{{ old('email') }}" 
                 required />
 
@@ -38,17 +42,19 @@
             <x-label for="password" class="block font-medium mt-4 mb-2">
                 Contraseña
             </x-label>
-            <x-input type="password" name="password" id="password" class="form-input w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200" required />
+            <x-input type="password" name="password" id="password" class="w-full" required 
+                placeholder="ingrese la contraseña"/>
         
         </div>
 
         <div class="mb-4">
             {{-- Roles --}}
             <x-label for="roles" class="block font-medium mb-2">Roles:</x-label>
-            <div class="space-y-2">
+            <div class="grid grid-cols-4 gap-4">
                 @foreach ($roles as $role)
                     <div class="flex items-center">
-                        <input type="checkbox" name="roles[]" value="{{ $role->name }}" class="form-checkbox h-4 w-4 text-indigo-600">
+                        <input type="radio" class="px-2 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-blue-200 focus:border-blue-600"
+                            name="roles[]" value="{{ $role->name }}" >
                         <span class="ml-2">{{ $role->name }}</span>
                     </div>
                 @endforeach

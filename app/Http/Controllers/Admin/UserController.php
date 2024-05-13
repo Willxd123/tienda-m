@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bitacora;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    
+
     public function index()
     {
-        $users = User::orderBy('id', 'desc')->paginate(10);
+        $users = User::where('email', '!=', 'admin@gmail.com')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -30,28 +35,39 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'roles' => 'required|array',
+        ], [
+            'name.required' => 'El campo nombre es obligatorio',
+            'name.unique' => 'El nombre ya se encuentra registrado',
+            'email.required' => 'El campo correo es obligatorio',
+            'password.required' => 'La contraseña debe tener un minimo de 8 caracteres',
+            'roles.required' => 'Se debe asignar un rol'
         ]);
 
         // Crea el usuario
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt('12345678'),
+            'password' => $request->password, //bcrypt($request->password),
         ]);
 
-        // Asigna los roles al usuario
         $user->syncRoles($request->roles);
-
-        // Asigna roles al usuario
-        if ($request->has('roles')) {
-            $user->syncRoles($request->roles);
-        }
 
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Excelente',
             'text' => 'El usuario fue creado correctamente',
         ]);
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de un Usuario";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Usuario";
+        $bitacora->registro_id = $user->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
 
         return redirect()->route('admin.users.index');
     }
@@ -61,7 +77,7 @@ class UserController extends Controller
         //
     }
 
-    
+
     public function edit(User $user)
     {
         $roles = Role::all();
@@ -73,40 +89,62 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:6', 
-            'roles' => 'required|array', 
+            'password' => 'nullable|min:6',
+            'roles' => 'required|array',
         ]);
-    
+
         // Actualiza los datos del usuario
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
         ]);
-    
+
         // Asigna roles al usuario
         $user->syncRoles($request->roles);
-    
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Excelente',
             'text' => 'El usuario fue actualizado correctamente',
         ]);
-    
+
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de un Usuario";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Usuario";
+        $bitacora->registro_id = $user->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         return redirect()->route('admin.users.index');
     }
-    
-    public function destroy(User $user)
+
+    public function destroy(User $user, Request $request)
     {
         $user->roles()->detach();
-        $user->delete(); 
+        $user->delete();
 
-        session()->flash('swal',[
-            'icon'=> 'success',
-            'title'=>'Excelente!',
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Excelente!',
             'text' => 'El usuario fue eliminado.'
         ]);
 
-        return redirect()->route('admin.users.index' );
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Eliminación de un Usuario";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Usuario";
+        $bitacora->registro_id = $user->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
+        return redirect()->route('admin.users.index');
     }
 }

@@ -25,6 +25,7 @@ class Producto extends Model
         );
     }
 
+    //relacion uno a muchos
     public function imagenes(){
         return $this->hasMany(Image::class);
     }

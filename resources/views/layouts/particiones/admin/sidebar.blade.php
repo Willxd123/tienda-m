@@ -15,6 +15,13 @@
             'active' => request()->routeIs('admin.users.*'),
         ],
         [
+            //roles
+            'name' => 'Rol',
+            'icon' => 'fa-solid fa-address-book',
+            'route' => route('admin.roles.index'),
+            'active' => request()->routeIs('admin.roles.*'),
+        ],
+        [
             //familia de familias
             'name' => 'Familias',
             'icon' => 'fa-solid fa-box-open',
