@@ -6,6 +6,7 @@
             'icon' => 'fa-solid fa-gauge',
             'route' => route('admin.dashboard'),
             'active' => request()->routeIs('admin.dashboard'),
+            'can' => 'admin.dashboard',
         ],
         [
             //usuarios
@@ -13,6 +14,7 @@
             'icon' => 'fa-solid fa-user',
             'route' => route('admin.users.index'),
             'active' => request()->routeIs('admin.users.*'),
+            'can' => 'admin.users.index',
         ],
         [
             //roles
@@ -20,6 +22,7 @@
             'icon' => 'fa-solid fa-address-book',
             'route' => route('admin.roles.index'),
             'active' => request()->routeIs('admin.roles.*'),
+            'can' => 'admin.roles.index',
         ],
         [
             //familia de familias
@@ -27,6 +30,7 @@
             'icon' => 'fa-solid fa-box-open',
             'route' => route('admin.familias.index'),
             'active' => request()->routeIs('admin.familias.*'),
+            'can' => 'admin.familias.index',
         ],
         [
             //familia de catergorias
@@ -34,6 +38,7 @@
             'icon' => 'fa-solid fa-layer-group',
             'route' => route('admin.categorias.index'),
             'active' => request()->routeIs('admin.categorias.*'),
+            'can' => 'admin.categorias.index',
         ],
         [
             //familia de subcategoria
@@ -41,6 +46,7 @@
             'icon' => 'fa-solid fa-tags',
             'route' => route('admin.subcategorias.index'),
             'active' => request()->routeIs('admin.subcategorias.*'),
+            'can' => 'admin.subcategorias.index',
         ],
         [
             //familia de productos
@@ -48,6 +54,7 @@
             'icon' => 'fa-solid fa-gifts',
             'route' => route('admin.productos.index'),
             'active' => request()->routeIs('admin.productos.*'),
+            'can' => 'admin.productos.index',
         ],
         [
             //proveedores
@@ -55,6 +62,7 @@
             'icon' => 'fa-solid fa-truck-field',
             'route' => route('admin.proveedors.index'),
             'active' => request()->routeIs('admin.proveedors.*'),
+            'can' => 'admin.proveedors.index',
         ],
         [
 
@@ -62,6 +70,7 @@
             'icon' => 'fa-solid fa-book',
             'route' => route('admin.bitacora.index'),
             'active' => request()->routeIs('admin.bitacora.index'),
+            'can' => 'admin.bitacora.index',
         ],
         [
             //compra
@@ -69,6 +78,7 @@
             'icon' => 'fa-solid fa-bag-shopping',
             'route' => route('admin.nota_compras.index'),
             'active' => request()->routeIs('admin.nota_compras.*'),
+            'can' => 'admin.nota_compras.index',
 
         ],
     ];
