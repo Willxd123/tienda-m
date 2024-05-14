@@ -51,5 +51,4 @@
         'categoria_id' => $categoria->id
         ])
     </div>
-    
     </x-app-layout>

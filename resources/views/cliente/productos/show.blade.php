@@ -72,14 +72,30 @@
         <div class="card">
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="col-span-1">
-                    <figure>
-                        <img src="{{ $producto->imagenes[2]->ruta }}" class="aspect-[16/9] w-full object-cover object-center"
-                            alt="">
-                    </figure>
-                    <div class="text-sm py-2">
-                        {{ $producto->descripcion }}
-                    </div>
+                    <div class="w-90 h-90 bg-gray-200">
+                    <figure class="aspect-[1/1] w-full object-cover object-center">
+                        <!-- Slider main container -->
+                        
+                        <div class="swiper ">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                <div class="swiper-slide"><img src="{{ $producto->imagenes[1]->ruta }}"
+                                    ></div>
+                                <div class="swiper-slide"><img src="{{ $producto->imagenes[2]->ruta }}"
+                                    ></div>
+                                <div class="swiper-slide"><img src="{{ $producto->imagenes[3]->ruta }}"
+                                    ></div>
+                            </div>
+                            <!-- If we need pagination -->
+                            <div class="swiper-pagination"></div>
 
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </figure>
+                </div>
                 </div>
                 <div class="col-span-1">
                     <h1 class="text-xl text-gray-600 mb-2">
@@ -107,11 +123,9 @@
                             </p>
                         </ul>
                     </div>
-
                     <p class="font-semibold text-2xl text-gray-600 mb-4">
-                       Bs/ {{$producto->precio}}
+                        Bs/ {{ $producto->precio }}
                     </p>
-
                     <div class="flex items-center space-x-6 mb-6">
                         <button class="btn btn-gray">
                             -
@@ -124,14 +138,38 @@
                     <button class="btn btn-blue w-full mb-6">
                         Agregar al carrito
                     </button>
-                    <div class="text-gray-700 flex items-center space-x-4">
-                        <i class="fa-solid fa-truck-fast text-2xl"></i>
-                        <p>
-                            Despacho a domicilio
-                        </p>
+                     
+                    <div class="text-sm py-2">
+                        {{ $producto->descripcion }}
                     </div>
                 </div>
             </div>
         </div>
     </x-container>
+    @push('css')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    @endpush
+    @push('js')
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            const swiper = new Swiper('.swiper', {
+                // Optional parameters
+                loop: true,
+                autoplay: {
+                    delay: 7000,
+                },
+
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        </script>
+    @endpush
 </x-app-layout>
