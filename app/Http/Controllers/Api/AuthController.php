@@ -17,10 +17,7 @@ class AuthController extends Controller
         }
         $user = User::where('email', $request->email)->first();
 
-        return response()->json([
-            'mensaje' => 'Ingresado correctamente',
-            'token' => $user->createToken('token')->plainTextToken
-        ], 200);
+        return response()->json($user, 200);
     }
 
 
