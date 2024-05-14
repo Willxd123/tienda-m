@@ -13,7 +13,14 @@ class ExportController extends Controller
         return view('admin.reporte.create');
     }
 
-    public function store(){
-        return Excel::download(new NotaComprasExport(), 'notaCompra.xlsx');
-    }
+    // public function store(Request $request){
+    //     $proveedor = "";
+    //     $monto_total = "";
+    //     $ = "";
+    //     $proveedor = "";
+    //     $proveedor = "";
+    //     $proveedor = "";
+    //     $proveedor = "";
+    //     return Excel::download(new NotaComprasExport(), 'notaCompra.xlsx');
+    // }
 }
