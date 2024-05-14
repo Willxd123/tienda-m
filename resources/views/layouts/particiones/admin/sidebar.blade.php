@@ -50,19 +50,25 @@
             'active' => request()->routeIs('admin.proveedors.*'),
         ],
         [
-
-            'name' => 'Bitacora',
-            'icon' => 'fa-solid fa-book',
-            'route' => route('admin.bitacora.index'),
-            'active' => request()->routeIs('admin.bitacora.index'),
-        ],
-        [
             //compra
             'name' => 'Compra',
             'icon' => 'fa-solid fa-bag-shopping',
             'route' => route('admin.nota_compras.index'),
             'active' => request()->routeIs('admin.nota_compras.*'),
+        ],
 
+        [
+            'name' => 'Reportes',
+            'icon' => 'fa-solid fa-file-invoice',
+            'route' => route('admin.reporte.create'),
+            'active' => request()->routeIs('admin.reporte.create'),
+        ],
+
+        [
+            'name' => 'Bitacora',
+            'icon' => 'fa-solid fa-book',
+            'route' => route('admin.bitacora.index'),
+            'active' => request()->routeIs('admin.bitacora.index'),
         ],
     ];
 @endphp
