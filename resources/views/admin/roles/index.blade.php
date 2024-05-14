@@ -5,17 +5,17 @@
     ],
 
     [
-        'name' => 'Lista de Usuarios',
+        'name' => 'Roles',
     ],
 ]">
 
     <x-slot name="action">
-        <a class= "btn btn-blue" href="{{ route('admin.users.create') }}">
+        <a class= "btn btn-blue" href="{{ route('admin.roles.create') }}">
             Nuevo
         </a>
     </x-slot>
 
-    @if ($users->count())
+    @if ($roles->count())
 
         <div class="card">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -24,35 +24,23 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">Id</th>
                             <th scope="col" class="px-6 py-3">Nombre</th>
-                            <th scope="col" class="px-6 py-3">Correo</th>
-                            <th scope="col" class="px-6 py-3">Rol</th>
                             <th scope="col" class="px-6 py-3"></th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($users as $user)
+                        @foreach ($roles as $rol)
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> 
-                                    {{ $user->id }}
+                                    {{ $rol->id }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $user->name }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $user->email }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <ul class="list-none">
-                                        @foreach ($user->roles as $role)
-                                            <li>{{ $role->name }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>                           
+                                    {{ $rol->name }}
+                                </td>                        
                                 <td class="px-6 py-4 text-center md:text-left">
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="inline-block">
+                                    <a href="{{ route('admin.roles.edit', $rol) }}" class="inline-block">
                                         <b>Editar</b>
                                     </a>
                                 </td>
@@ -65,7 +53,7 @@
         </div>
 
         <div class="mt-4">
-            {{ $users->links() }}
+            {{ $roles->links() }}
         </div>
     @else
         {{-- ALERTA - WARNING --}}

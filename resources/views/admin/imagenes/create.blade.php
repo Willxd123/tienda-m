@@ -4,8 +4,8 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Categoria',
-        'route' => route('admin.categorias.index'),
+        'name' => 'Productos',
+        'route' => route('admin.productos.index'),
     ],
     [
         'name' => 'Agregar Imágenes',

@@ -13,6 +13,7 @@ Route::get('familias/{familia}', [FamiliaController::class, 'show'])->name('clie
 Route::get('categorias/{categoria}', [CategoriaController::class, 'show'])->name('cliente.categorias.show');
 Route::get('subcategorias/{subcategoria}', [SubcategoriaController::class, 'show'])->name('cliente.subcategorias.show');
 Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('cliente.productos.show');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

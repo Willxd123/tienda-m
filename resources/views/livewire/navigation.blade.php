@@ -25,14 +25,16 @@
                         <x-dropdown>
                             <x-slot name="trigger">
                                 @auth
-                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <!-- link de la imagen-->
-                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                                </button>
+                                    <button
+                                        class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                        <!-- link de la imagen-->
+                                        <img class="h-8 w-8 rounded-full object-cover"
+                                            src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    </button>
                                 @else
-                                <button class="text-xl md:text-3xl">
-                                    <i class="fas fa-user text-white "></i>
-                                </button>
+                                    <button class="text-xl md:text-3xl">
+                                        <i class="fas fa-user text-white "></i>
+                                    </button>
                                 @endauth
                             </x-slot>
                             <x-slot name="content">
@@ -44,28 +46,35 @@
                                             </a>
                                         </div>
                                         <p class="text-sm text-center mt-2">
-                                            ¿No tienes ccuenta? <a href="{{ route('register') }}"
-                                                class="text-blue-600 hover:underline">Reguistrate</a>
+                                            ¿No tienes cuenta? <a href="{{ route('register') }}"
+                                                class="text-blue-600 hover:underline">Registrate</a>
                                         </p>
                                     </div>
                                 @else
                                     <x-dropdown-link href="{{ route('profile.show') }}">
                                         Mi perfil
                                     </x-dropdown-link>
-                                    <div class="border-t border-gray-200"></div>
-                                    <x-dropdown-link href="{{ route('admin.dashboard') }}">
-                                        Administrador
-                                    </x-dropdown-link>
-                                @endguest
-                                <div class="border-t border-gray-200"></div>
-                                <!-- Authentication -->
-                                <form method="POST" action="{{ route('logout') }}" x-data>
-                                    @csrf
 
-                                    <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                       Finalizar sesíon
-                                    </x-dropdown-link>
-                                </form>
+                                    @can('admin.dashboard')
+                                        <div class="border-t border-gray-200"></div>
+                                        <x-dropdown-link href="{{ route('admin.dashboard') }}">
+                                            Administrador
+                                        </x-dropdown-link>
+                                    @endcan
+
+                                @endguest
+                                @auth
+                                    <div class="border-t border-gray-200"></div>
+                                    <!-- Authentication -->
+                                    <form method="POST" action="{{ route('logout') }}" x-data>
+                                        @csrf
+
+                                        <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                            Finalizar sesíon
+                                        </x-dropdown-link>
+
+                                    </form>
+                                @endauth
                             </x-slot>
                         </x-dropdown>
                         <button class="text-xl md:text-3xl">
@@ -102,7 +111,7 @@
                     <ul>
                         @foreach ($familias as $familia)
                             <li wire:mouseover="$set('familia_id', {{ $familia->id }})">
-                                <a href="{{route('cliente.familias.show', $familia)}}"
+                                <a href="{{ route('cliente.familias.show', $familia) }}"
                                     class=" flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-blue-200">
                                     {{ $familia->nombre }}
                                     <i class="fa-solid fa-angle-right"></i>
@@ -118,20 +127,23 @@
                         <p class="border-b-[3px] border-blue-400 uppercase text-xl font-semibold">
                             {{ $this->familiaNombre }}
                         </p>
-                        <a href="{{route('cliente.familias.show', $familia_id)}}" class="btn btn-blue" style="margin-right: 20px;">
+                        <a href="{{ route('cliente.familias.show', $familia_id) }}" class="btn btn-blue"
+                            style="margin-right: 20px;">
                             ver todo
                         </a>
                     </div>
                     <ul class="grid grid-cols-3 gap-8 ">
                         @foreach ($this->categorias as $categoria)
                             <li>
-                                <a href="{{route('cliente.categorias.show', $categoria)}}" class="text-gray-600 font-semibold text-lg">
+                                <a href="{{ route('cliente.categorias.show', $categoria) }}"
+                                    class="text-gray-600 font-semibold text-lg">
                                     {{ $categoria->nombre }}
                                 </a>
                                 <ul class="mt-4 space-y-2">
                                     @foreach ($categoria->subcategorias as $subcategoria)
                                         <li>
-                                            <a href="{{route('cliente.subcategorias.show', $subcategoria)}}" class="text-sm text-gray-700 hover:text-blue-500">
+                                            <a href="{{ route('cliente.subcategorias.show', $subcategoria) }}"
+                                                class="text-sm text-gray-700 hover:text-blue-500">
                                                 {{ $subcategoria->nombre }}
                                             </a>
                                         </li>

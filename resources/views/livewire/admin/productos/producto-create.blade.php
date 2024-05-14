@@ -1,6 +1,6 @@
 <div>
 
-    <button id="toggleFormButton">Mostrar Formulario</button>
+    <button id="toggleFormButton"></button>
 
     <!-- Formulario flotante -->
     <div id="floatingForm" style="display: none;">

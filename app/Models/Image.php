@@ -14,6 +14,7 @@ class Image extends Model
         'producto_id'
     ];
 
+    //relacion uno a muchos inversa
     public function producto(){
         return $this->belongsTo(Producto::class);
     }
