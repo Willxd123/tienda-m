@@ -75,7 +75,6 @@
                     <div class="w-90 h-90 bg-gray-200">
                     <figure class="aspect-[1/1] w-full object-cover object-center">
                         <!-- Slider main container -->
-                        
                         <div class="swiper ">
                             <!-- Additional required wrapper -->
                             <div class="swiper-wrapper">
