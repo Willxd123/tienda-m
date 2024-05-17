@@ -47,7 +47,7 @@
                                         </div>
                                         <p class="text-sm text-center mt-2">
                                             ¿No tienes cuenta? <a href="{{ route('register') }}"
-                                                class="text-blue-600 hover:underline">Registrate</a>
+                                                class="text-blue-600 hover:underline">Unete a nosotros</a>
                                         </p>
                                     </div>
                                 @else
