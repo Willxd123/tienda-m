@@ -47,7 +47,7 @@
                                         </div>
                                         <p class="text-sm text-center mt-2">
                                             ¿No tienes cuenta? <a href="{{ route('register') }}"
-                                                class="text-blue-600 hover:underline">Registrate</a>
+                                                class="text-blue-600 hover:underline">Unete a nosotros</a>
                                         </p>
                                     </div>
                                 @else
@@ -77,9 +77,13 @@
                                 @endauth
                             </x-slot>
                         </x-dropdown>
-                        <button class="text-xl md:text-3xl">
-                            <i class="fas fa-shopping-cart text-white"></i>
-                        </button>
+                        <a href="{{ route('cart.index') }}" class="relative">
+                            <i class="fas fa-shopping-cart text-white text-xl md:text-3xl"></i>
+                            <span id="cart-count" 
+                            class="absolute -top-2 -end-4 inline-flex items-center justify-center w-4 h-4 bg-red-500 rounded-full text-xs font-bold text-white">
+                                {{Cart::instance('shopping')->count()}}
+                            </span>
+                        </a>
 
 
                     </div>
@@ -158,8 +162,10 @@
     </div>
     @push('js')
         <script>
+            Livewire.on('cartUpdated',(count)=>{
+                document.getElementById('cart-count').innerText = count;
+            })
             function search(value) {
-                alert(value);
                 Livewire.emit('search', value);
             }
         </script>
