@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FamiliaController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Models\Producto;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -16,6 +17,7 @@ Route::get('categorias/{categoria}', [CategoriaController::class, 'show'])->name
 Route::get('subcategorias/{subcategoria}', [SubcategoriaController::class, 'show'])->name('cliente.subcategorias.show');
 Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('cliente.productos.show');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

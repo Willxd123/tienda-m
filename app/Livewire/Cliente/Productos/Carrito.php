@@ -22,11 +22,11 @@ class Carrito extends Component
             ]
         ]);
 
-        if(auth()->check()){
+        if (auth()->check()) {
             Cart::store(auth()->id());
         }
         $this->dispatch('cartUpdated', Cart::count()); //evento para el carrito
-        $this->dispatch('swal',[
+        $this->dispatch('swal', [
             'icon' => 'success',
             'title' => '¡Bien hecho!',
             'text' => 'El producto se ha añadido al carrito'
