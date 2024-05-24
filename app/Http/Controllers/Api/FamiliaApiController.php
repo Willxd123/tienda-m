@@ -8,8 +8,17 @@ use Illuminate\Http\Request;
 
 class FamiliaApiController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $familias = Familia::all();
-        return response()->json($familias,200);
+        return response()->json($familias, 200);
+    }
+
+    public function store(Request $request)
+    {
+        $familia = Familia::create([
+            'nombre' => $request->nombre
+        ]);
+        return response()->json($familia,200);
     }
 }

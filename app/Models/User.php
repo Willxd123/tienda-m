@@ -64,4 +64,27 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function esPromotor(){
+        $roles = $this->roles;
+        foreach($roles as $rol){
+            if($rol == "promotor"){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function esAdministrador(){
+        $roles = $this->roles;
+        foreach($roles as $rol){
+            if($rol->name == "admin"){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
+
 }

@@ -21,3 +21,4 @@ Route::get('/familias',[FamiliaApiController::class, 'index']);
 Route::get('/categorias/{id}',[CategoriaApiCntroller::class, 'show']);
 Route::get('/categorias',[CategoriaApiCntroller::class, 'index']);
 Route::get('/producto/{id}',[ProductoApiController::class, 'show']);
+Route::post('/familia',[FamiliaApiController::class, 'store']);
