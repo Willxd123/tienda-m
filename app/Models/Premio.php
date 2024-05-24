@@ -13,17 +13,12 @@ class Premio extends Model
         'stock',
         'precio_puntos',
         'producto_id',
-
-        'nombre',
-        'descripcion' ,
-        'imagen' ,
-        'precio_puntos',
     ];
 
     //relacion uno a muchos inversa
     public function producto(){
         return $this->belongsTo(Producto::class, 'producto_id');
-        return $this->belongsTo(Producto::class);
+       
 
     }
     //relacion muchos a muchos 
