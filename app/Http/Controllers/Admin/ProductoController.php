@@ -72,6 +72,13 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'Excelente!',
+            'text' => 'El usuario fue eliminado.'
+        ]);
+
+        return redirect()->route('admin.productos.index' );
     }
 }

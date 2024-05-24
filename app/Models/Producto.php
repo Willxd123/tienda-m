@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,8 +13,8 @@ class Producto extends Model
     //asignacion masiva
     protected $fillable = [
         'nombre',
-        'stock' ,
-        'descripcion' ,
+        'stock',
+        'descripcion',
         'precio',
         'imagen',
         'subcategoria_id',
@@ -21,41 +22,47 @@ class Producto extends Model
     protected function image(): Attribute
     {
         return Attribute::make(
-            get: fn() => Storage::url($this->imagen),
+            get: fn () => Storage::url($this->imagen),
         );
     }
 
     //relacion uno a muchos
-    public function imagenes(){
+    public function imagenes()
+    {
         return $this->hasMany(Image::class);
     }
 
     //relacion uno a muchos inversa
-    public function subcategoria(){
+    public function subcategoria()
+    {
         return $this->belongsTo(Subcategoria::class);
     }
 
 
     //relacion uno a muchos
-    public function variantes(){
+    public function variantes()
+    {
         return $this->hasMany(Variante::class);
     }
 
     //relacion muchos a muchos 
-    public function opcions(){
+    public function opcions()
+    {
         return $this->belongsToMany(Opcion::class)
-                    ->withPivot('valor')
-                    ->withTimestamps();
+            ->withPivot('valor')
+            ->withTimestamps();
     }
 
     //relacion muchos a muchos 
-    public function nota_compras(){
+    public function nota_compras()
+    {
         return $this->belongsToMany(NotaCompra::class)
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     //relacion uno a muchos
-    public function premios(){
+    public function premios()
+    {
         return $this->hasMany(Premio::class);
     }
 }
