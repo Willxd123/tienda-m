@@ -54,11 +54,8 @@ class Producto extends Model
                     ->withTimestamps();
     }
 
-   
-
     //relacion uno a muchos
     public function premios(){
         return $this->hasMany(Premio::class);
     }
-    
 }

@@ -2,8 +2,7 @@
     <div class="px-4 py-3 ">
         <x-container>
             <h1 class="text-3x1 font-bold text-gray-700 mb-4">
-                Ultimo productos
-                
+                {{-- Ultimo productos --}}
             </h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($productos as $producto)

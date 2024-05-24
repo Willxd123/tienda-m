@@ -15,6 +15,7 @@ class Filtro extends Component
     public $familia_id;
     public $orderBy = 1;
     public $search;
+    
 
     public function render()
     {
@@ -41,6 +42,8 @@ class Filtro extends Component
             $query->orderBy('precio', 'asc');
         })
         ->paginate(10);
+
+        
 
         return view('livewire.filtro', compact('productos'));
     }

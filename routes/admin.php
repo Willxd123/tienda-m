@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProveedorController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ExportController;
+use App\Http\Controllers\Admin\PremioController;
 use App\Http\Controllers\Admin\RangoController;
 use App\Http\Controllers\ImageController;
 use App\Models\Categoria;
@@ -21,7 +22,7 @@ Route::get('/', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::middleware(['auth'])->group(function () {
     Route::resource('familias', FamiliaController::class);
     Route::resource('categorias', CategoriaController::class);
     Route::resource('subcategorias', SubcategoriaController::class);
@@ -32,9 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('rangos', RangoController::class);
+    Route::resource('premios', PremioController::class);
     Route::get('/imagenes/{id}', [ImageController::class, 'create'])->name('imagenes.create');
     Route::post('/imagenes/{id}', [ImageController::class, 'store'])->name('imagenes.store');
     Route::get('/reportes', [ExportController::class, 'create'])->name('reporte.create');
     Route::post('/reportes', [ExportController::class, 'store'])->name('reporte.store');
 });
-

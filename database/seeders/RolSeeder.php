@@ -14,11 +14,11 @@ class RolSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::create(['name' => 'admin']);
-        $promotor = Role::create(['name' => 'promotor']);
+        $admin = Role::updateOrCreate(['name' => 'admin']);
+        $promotor = Role::updateOrCreate(['name' => 'promotor']);
 
         Permission::create(['name' => 'admin.dashboard',
-                            'description'=> 'Ver dashboard'])->syncRoles([$admin],[$promotor]);
+                            'description'=> 'Ver dashboard'])->syncRoles([$admin, $promotor]);
 
         //Permission::create(['name' => 'admin.users']);
         Permission::create(['name' => 'admin.users.index',
@@ -69,6 +69,16 @@ class RolSeeder extends Seeder
                             'description'=> 'Editar producto'])->syncRoles([$admin]);
         Permission::create(['name' => 'admin.productos.destroy',
                             'description'=> 'Eliminar producto'])->syncRoles([$admin]);
+    
+        //Permission::create(['name' => 'admin.premios']);
+        Permission::create(['name' => 'admin.premios.index',
+                            'description'=> 'Ver premios'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.premios.create',
+                            'description'=> 'Crear premio'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.premios.edit',
+                            'description'=> 'Editar premio'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.premios.destroy',
+                            'description'=> 'Eliminar premio'])->syncRoles([$admin]);
 
         //Permission::create(['name' => 'admin.proveedors']);
         Permission::create(['name' => 'admin.proveedors.index',
@@ -102,10 +112,21 @@ class RolSeeder extends Seeder
         Permission::create(['name' => 'admin.roles.destroy',
                             'description'=> 'Eliminar rol'])->syncRoles([$admin]);
 
+        //Permission::create(['name' => 'admin.rangos']);
+        Permission::create(['name' => 'admin.rangos.index',
+                            'description'=> 'Ver rangos'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.rangos.create',
+                            'description'=> 'Crear rango'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.rangos.edit',
+                            'description'=> 'Editar rango'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.rangos.destroy',
+                            'description'=> 'Eliminar rango'])->syncRoles([$admin]);
+
         //Permission::create(['name' => 'admin.imagenes']);
         Permission::create(['name' => 'admin.imagenes.create',
                             'description'=> 'Crear imagenes'])->syncRoles([$admin]);
         Permission::create(['name' => 'admin.imagenes.store',
                             'description'=> 'Visualizar imagenes'])->syncRoles([$admin]);
+
     }
 }

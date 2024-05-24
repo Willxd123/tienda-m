@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\SubcategoriaController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FamiliaController;
+use App\Http\Controllers\Admin\PremioController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Models\Producto;
 
@@ -13,6 +14,8 @@ Route::get('familias/{familia}', [FamiliaController::class, 'show'])->name('clie
 Route::get('categorias/{categoria}', [CategoriaController::class, 'show'])->name('cliente.categorias.show');
 Route::get('subcategorias/{subcategoria}', [SubcategoriaController::class, 'show'])->name('cliente.subcategorias.show');
 Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('cliente.productos.show');
+
+Route::get('premios', [PremioController::class, 'show'])->name('cliente.premios.show');
 
 Route::middleware([
     'auth:sanctum',
