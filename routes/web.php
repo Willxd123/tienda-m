@@ -17,7 +17,7 @@ Route::get('categorias/{categoria}', [CategoriaController::class, 'show'])->name
 Route::get('subcategorias/{subcategoria}', [SubcategoriaController::class, 'show'])->name('cliente.subcategorias.show');
 Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('cliente.productos.show');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
