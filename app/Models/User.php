@@ -68,4 +68,25 @@ class User extends Authenticatable
     public function promotor(){
         return $this->hasOne(Promotor::class);
     }
+
+    public function esPromotor(){
+        $roles = $this->roles;
+        foreach($roles as $rol){
+            if($rol == "promotor"){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function esAdministrador(){
+        $roles = $this->roles;
+        foreach($roles as $rol){
+            if($rol->name == "admin"){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
