@@ -50,8 +50,15 @@ class Producto extends Model
 
     //relacion muchos a muchos 
     public function nota_compras(){
-        return $this->belongsToMany(Proveedor::class)
+        return $this->belongsToMany(NotaCompra::class)
                     ->withTimestamps();
+    }
+
+   
+
+    //relacion uno a muchos
+    public function premios(){
+        return $this->hasMany(Premio::class);
     }
     
 }

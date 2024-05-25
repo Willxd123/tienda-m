@@ -25,6 +25,14 @@
             'can' => 'admin.roles.index',
         ],
         [
+            //rango
+            'name' => 'Rango',
+            'icon' => 'fa-solid fa-list-ol',
+            'route' => route('admin.rangos.index'),
+            'active' => request()->routeIs('admin.rangos.*'),
+            'can' => 'admin.rangos.index',
+        ],
+        [
             //familia de familias
             'name' => 'Familias',
             'icon' => 'fa-solid fa-box-open',

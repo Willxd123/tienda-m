@@ -45,24 +45,19 @@ class NotaCompraCreate extends Component
         // Validar los datos de la NOTACOMPRA
         $this->validate([
             'proveedor_id' => 'required',
-            'producto.producto_id' => 'required',
+            //'producto.producto_id' => 'required',
             'header.monto_total' => 'required',
-            'producto.stock' => 'required|numeric',
-            'producto.precio' => 'required|numeric',
+            //'producto.stock' => 'required|numeric',
+            //'producto.precio' => 'required|numeric',
             'lista_productos' => 'required|array|min:1',
         ], [
             'proveedor_id.required' => 'El campo Proveedor es obligatorio',
-            'producto.producto_id.required' => 'El campo Producto es obligatorio',
-            'producto.stock.required' => 'El campo Cantidad es obligatorio',
+            //'producto.producto_id.required' => 'El campo Producto es obligatorio',
+            //'producto.stock.required' => 'El campo Cantidad es obligatorio',
             'header.monto_total.required' => 'El campo Monto Total es obligatorio',
-            'producto.precio.required' => 'El campo Precio es obligatorio',
+            //'producto.precio.required' => 'El campo Precio es obligatorio',
             'lista_productos.required' => 'Debe agregar al menos un producto a la lista',
         ]);
-
-        // Validar que al menos un producto esté agregado a la lista
-        /*if (empty($this->lista_productos)) {
-            return redirect()->back()->withErrors(['producto' => 'Debe agregar al menos un producto a la lista']);
-        }*/
 
         $notaCompra = new NotaCompra;
         $notaCompra->monto_total = $this->header['monto_total'];

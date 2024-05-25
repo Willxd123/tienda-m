@@ -18,7 +18,7 @@ class RolSeeder extends Seeder
         $promotor = Role::create(['name' => 'promotor']);
 
         Permission::create(['name' => 'admin.dashboard',
-                            'description'=> 'Ver dashboard'])->syncRoles([$admin]);
+                            'description'=> 'Ver dashboard'])->syncRoles([$admin],[$promotor]);
 
         //Permission::create(['name' => 'admin.users']);
         Permission::create(['name' => 'admin.users.index',

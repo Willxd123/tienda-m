@@ -2,6 +2,8 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Promotor;
+use App\Models\Rango;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -23,13 +25,28 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
+            'telefono' => ['required', 'numeric'],
+            'direccion' => ['required', 'string', 'max:255'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-        ])->assignRole('promotor');
+        ]);
+
+        $user->assignRole('promotor');
+        $rango = Rango::find(1);
+
+        Promotor::create([
+            'user_id' => $user->id,
+            'rango_id' => $rango->id,
+            'telefono' => $input['telefono'],
+            'direccion' => $input['direccion'],
+            'puntos' => 0,
+        ]);
+
+        return $user;
     }
 }
