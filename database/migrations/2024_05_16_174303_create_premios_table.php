@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('premios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('imagen');
+            $table->string('precio_puntos');
+            $table->string('stock');
             $table->foreignId('producto_id')
-                ->constrained();   
+                ->constrained();
             $table->timestamps();
         });
     }

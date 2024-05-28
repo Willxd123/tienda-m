@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('pemio_promotors', function (Blueprint $table) {
             $table->id();
+            $table->integer('cantidad');
+            $table->datetime('fecha');
             $table->foreignId('premio_id')
                 ->constrained();
              $table->foreignId('promotor_id')

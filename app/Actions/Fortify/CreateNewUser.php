@@ -44,7 +44,7 @@ class CreateNewUser implements CreatesNewUsers
             'rango_id' => $rango->id,
             'telefono' => $input['telefono'],
             'direccion' => $input['direccion'],
-            'puntos' => 0,
+            'puntos' => 5000,
         ]);
 
         return $user;

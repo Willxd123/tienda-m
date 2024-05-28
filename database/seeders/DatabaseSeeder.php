@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Rango;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         //$role = Role::create(['name' => 'admin']);
         // User::factory(10)->create();
         $this->call([FamiliaSeeder::class,]);
+        $this->call(RangoSeeder::class);
         $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
         

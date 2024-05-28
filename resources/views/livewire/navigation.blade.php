@@ -123,6 +123,12 @@
                             </li>
                         @endforeach
                     </ul>
+                    <!-- Aquí agregamos el enlace a "Premios" -->
+                    {{-- <a href="{{ route('cliente.premios.show') }}"
+                         class="flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-blue-200">
+                            Premios
+                            <i class="fa-solid fa-trophy"></i>
+                    </a> --}}
                 </div>
             </div>
             <div class="w-[780px] pt-[52px] ">

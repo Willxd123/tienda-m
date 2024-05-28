@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\SubcategoriaController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\FamiliaController;
+use App\Http\Controllers\Admin\PremioController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\StripeController;
 use App\Http\Controllers\CartController;
@@ -19,11 +20,15 @@ Route::get('subcategorias/{subcategoria}', [SubcategoriaController::class, 'show
 Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('cliente.productos.show');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
+
 Route::get('/checkout',[StripeController::class, 'checkout'])->name('checkout');
 Route::post('/session',[StripeController::class, 'session'])->name('session');
 Route::get('/success',[StripeController::class, 'success'])->name('success');
 
 Route::get('/prueba', [StripeController::class, 'prueba'])->name('prueba');
+
+
+Route::get('premios/{premio}', [PremioController::class, 'show'])->name('cliente.premios.show');
 
 
 Route::middleware([

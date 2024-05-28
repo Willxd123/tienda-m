@@ -9,6 +9,8 @@ class PemioPromotor extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'cantidad',
+        'fecha',
         'premio_id',
         'promotor_id',
     ];

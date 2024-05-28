@@ -61,6 +61,7 @@ class ProductoEdit extends Component
             'productoEdit.subcategoria_id' => 'required|exists:subcategorias,id',
             'productoEdit.nombre' => 'required|max:255',
             'productoEdit.stock' => 'required|numeric|min:0',
+            'productoEdit.puntos' => 'required|numeric|min:0',
             'productoEdit.descripcion' => 'nullable',
             'productoEdit.precio' => 'required|numeric|min:0',
             'image' => 'nullable|image|max:1024', // Validación para la imagen

@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "f5ffc1538cf1aea7e68ac2eb3a7c167a",
+    "content-hash": "bcd68aedda5b4a820e6e3a053d435719",
     "packages": [
         {
             "name": "archtechx/enums",

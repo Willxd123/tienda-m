@@ -17,6 +17,14 @@
             'can' => 'admin.users.index',
         ],
         [
+            //Promotor
+            'name' => 'Promotor',
+            'icon' => 'fa-solid fa-users',
+            'route' => route('admin.promotors.index'),
+            'active' => request()->routeIs('admin.promotors.*'),
+            'can' => 'admin.promotors.index',
+        ],
+        [
             //roles
             'name' => 'Rol',
             'icon' => 'fa-solid fa-address-book',
@@ -65,6 +73,14 @@
             'can' => 'admin.productos.index',
         ],
         [
+            //premios
+            'name' => 'Premios',
+            'icon' => 'fa-solid fa-award',
+            'route' => route('admin.premios.index'),
+            'active' => request()->routeIs('admin.premios.*'),
+            'can' => 'admin.premios.index',
+        ],
+        [
             //proveedores
             'name' => 'Proveedor',
             'icon' => 'fa-solid fa-truck-field',
@@ -78,23 +94,38 @@
             'icon' => 'fa-solid fa-bag-shopping',
             'route' => route('admin.nota_compras.index'),
             'active' => request()->routeIs('admin.nota_compras.*'),
+            'can' => 'admin.nota_compras.index',
         ],
         [
             'name' => 'Reportes',
             'icon' => 'fa-solid fa-file-invoice',
             'route' => route('admin.reporte.create'),
             'active' => request()->routeIs('admin.reporte.create'),
+            'can' => 'admin.reporte.index',
         ],
         [
             'name' => 'Bitacora',
             'icon' => 'fa-solid fa-book',
             'route' => route('admin.bitacora.index'),
             'active' => request()->routeIs('admin.bitacora.index'),
+            'can' => 'admin.bitacora.index',
         ],
     ];
 @endphp
 
-<!--funcionalidad y estilo de sidebar -->
+{{-- <ul>
+    @foreach ($links as $link)
+        @can($link['can'])
+            <li class="{{ $link['active'] ? 'active' : '' }}">
+                <a href="{{ $link['route'] }}">
+                    <i class="{{ $link['icon'] }}"></i> {{ $link['name'] }}
+                </a>
+            </li>
+        @endcan
+    @endforeach
+</ul> --}}
+
+<!-- Funcionalidad y estilo del sidebar -->
 <aside id="logo-sidebar"
     class="fixed top-0 left-0 z-40 w-64 h-[100vh] pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     :class="{
@@ -104,27 +135,19 @@
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
-            <!-- declaracion de foreachs-->
             @foreach ($links as $link)
-                <!-- gregar botones y estilos-->
-
-                <!--boton inicio-->
-                <li>
-                    <a href="{{ $link['route'] }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group {{ $link['active'] ? 'bg-gray-100' : '' }}">
-
-                        <!-- estilo de icono-->
-                        <span class="inline-flex w-6 h6 justify-center items-center">
-                            <i class="{{ $link['icon'] }} text-gray-500"></i>
-                        </span>
-                        <!-- nombre del boton-->
-                        <span class="ms-2">
-                            {{ $link['name'] }}
-                        </span>
-                    </a>
-                </li>
+                @can($link['can'])
+                    <li class="{{ $link['active'] ? 'bg-gray-100' : '' }}">
+                        <a href="{{ $link['route'] }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <span class="inline-flex w-6 h-6 justify-center items-center">
+                                <i class="{{ $link['icon'] }} text-gray-500"></i>
+                            </span>
+                            <span class="ms-2">{{ $link['name'] }}</span>
+                        </a>
+                    </li>
+                @endcan
             @endforeach
-
         </ul>
     </div>
 </aside>
