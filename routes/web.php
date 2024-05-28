@@ -23,6 +23,8 @@ Route::get('/checkout',[StripeController::class, 'checkout'])->name('checkout');
 Route::post('/session',[StripeController::class, 'session'])->name('session');
 Route::get('/success',[StripeController::class, 'success'])->name('success');
 
+Route::get('/prueba', [StripeController::class, 'prueba'])->name('prueba');
+
 
 Route::middleware([
     'auth:sanctum',
