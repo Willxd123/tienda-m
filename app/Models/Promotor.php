@@ -10,6 +10,7 @@ class Promotor extends Model
     use HasFactory;
     protected $fillable = [
         'telefono',
+        'nit',
         'direccion' ,
         'rango_id' ,
         'puntos',

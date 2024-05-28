@@ -4,22 +4,19 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Productos',
+        'name' => 'Promotor',
     ],
 ]">
-
-    <!--boton y el llamado a buttons.css-->
-    <!-- Botón "Nuevo" -->
-    <div>
-        <x-slot name="action">
-            <a class="btn btn-blue" href="{{ route('admin.productos.create') }}">
-                Nuevo
-            </a>
-        </x-slot>
-    </div>
+        <!--boton y el llamado a buttons.css-->
+    <x-slot name="action">
+        <a class="btn btn-blue" href="{{route('admin.promotors.create')}}">
+            Nuevo
+        </a>
+    </x-slot>
 
 
-    @if ($productos->count())
+    @if ($promotores->count())
+
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -31,70 +28,57 @@
                             Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Familia
+                            NIT
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Categoria
+                            Telefono
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Stock
+                            Direccion
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Correo
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Puntos
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Precio
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Acciones
-                        </th>
-                        <th scope="col" class="px-6 py-3">
 
                         </th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($productos as $producto)
+                    @foreach ($promotores as $promotor)
                         <tr class="bg-white dark:bg-gray-800">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $producto->id }}
+                                {{ $promotor->id }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $producto->nombre }}
+                                {{ $promotor->nit }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->puntos }}
+                                {{ $promotor->user->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->subcategoria->categoria->familia->nombre }}
+                                {{ $promotor->telefono }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->subcategoria->categoria->nombre }}
+                                {{ $promotor->direccion }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->stock }}
+                                {{ $promotor->user->email }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->precio }}
+                                {{ $promotor->puntos }}
                             </td>
-
                             <td class="px-6 py-4">
-                                <a href="{{ route('admin.productos.edit', $producto) }}">
+                                <a href="{{ route('admin.promotors.edit', $promotor) }}">
                                     Editar
                                 </a>
                             </td>
-                            @if ($producto->imagenes->isEmpty())
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('admin.imagenes.create', $producto) }}">
-                                        Agregar Imágenes
-                                    </a>
-                                </td>
-                            @else
-                                <td class="px-6 py-4">
-                                    <i class="fa-solid fa-check"></i>
-                                </td>
-                            @endif
+
                         </tr>
                     @endforeach
 
@@ -105,7 +89,7 @@
 
         <!-- paginacion-->
         <div>
-            {{ $productos->links() }}
+            {{ $promotores->links() }}
         </div>
     @else
         <!--estilo de alertas-->
@@ -118,7 +102,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se reguistraron productos
+                <span class="font-medium">Info alert!</span> Aun no se registraron proveedores
             </div>
     @endif
 </x-admin-layout>

@@ -18,9 +18,9 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <a href="{{ route('cliente.premios.show') }}"
+                            <a href="{{ route('cliente.premios.show', $premio->producto) }}"
                                 class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
-                                Premios
+                                {{ $premio->producto->nombre }}
                             </a>
                         </div>
                     </li>
@@ -30,7 +30,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
                             </svg>
                             <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
-                                {{ $premio->id }}
+                                {{ $premio->producto->nombre }}
                             </span>
                         </div>
                     </li>
@@ -39,48 +39,6 @@
         </x-container>
     </div>
     
-    {{-- <x-container>
-        <div class="card">
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="col-span-1">
-                    <figure>
-                        <img src="{{ $premio->producto->imagen[2]->ruta }}" class="aspect-[16/9] w-full object-cover object-center" alt="">
-                    </figure>
-                    <div class="text-sm py-2">
-                        {{ $premio->producto->descripcion }}
-                    </div>
-                </div>
-                <div class="col-span-1">
-                    <h1 class="text-xl text-gray-600 mb-2">
-                        {{ $premio->producto->nombre }}
-                    </h1>
-                    <p class="font-semibold text-2xl text-gray-600 mb-4">
-                       Puntos {{ $premio->precio_puntos }}
-                    </p>
-                    <div class="flex items-center space-x-6 mb-6">
-                        <button class="btn btn-gray">
-                            -
-                        </button>
-                        <span> 1</span>
-                        <button class="btn btn-gray">
-                            +
-                        </button>
-                    </div>
-                    <button class="btn btn-blue w-full mb-6">
-                        Agregar al carrito
-                    </button>
-                    <div class="text-gray-700 flex items-center space-x-4">
-                        <i class="fa-solid fa-truck-fast text-2xl"></i>
-                        <p>
-                            Despacho a domicilio
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </x-container> --}}
+    @livewire('cliente.premios.cange', ['premio' => $premio])
 
-    <div class="mt-8">
-        @livewire('filtropremio', ['premio' => $premio])
-    </div>
 </x-app-layout>

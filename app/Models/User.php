@@ -68,4 +68,6 @@ class User extends Authenticatable
     public function promotor(){
         return $this->hasOne(Promotor::class);
     }
+
+    
 }

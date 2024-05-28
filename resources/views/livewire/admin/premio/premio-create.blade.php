@@ -44,9 +44,6 @@
                         Guardar
                     </x-button>
                 </div>
-            </div>
-
-            
-
+            </div>       
     </form>
 </div>

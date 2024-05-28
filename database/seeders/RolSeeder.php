@@ -29,6 +29,16 @@ class RolSeeder extends Seeder
         Permission::create(['name' => 'admin.users.destroy',
                             'description'=> 'Eliminar usuario'])->syncRoles([$admin]);
 
+        //Permission::create(['name' => 'admin.promotors']);
+        Permission::create(['name' => 'admin.promotors.index',
+                            'description'=> 'Ver Promotor'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.promotors.create',
+                            'description'=> 'Crear Promotor'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.promotors.edit',
+                            'description'=> 'Editar Promotor'])->syncRoles([$admin]);
+        Permission::create(['name' => 'admin.promotors.destroy',
+                            'description'=> 'Eliminar Promotor'])->syncRoles([$admin]);
+
         //Permission::create(['name' => 'admin.familias']);
         Permission::create(['name' => 'admin.familias.index',
                             'description'=> 'Ver familias'])->syncRoles([$admin]);

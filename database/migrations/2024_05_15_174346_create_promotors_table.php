@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('promotors', function (Blueprint $table) {
             $table->id();
+            $table->integer('nit');
             $table->integer('telefono');
             $table->string('direccion');
             $table->integer('puntos')->default(0);

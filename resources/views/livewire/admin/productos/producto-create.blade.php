@@ -62,6 +62,11 @@
                             wire:model="producto.stock" />
                     </div>
                     <div>
+                        <x-label class="mb-3">puntos</x-label>
+                        <x-input type="number" class="w-full" placeholder="Ingrese los puntos del producto"
+                            wire:model="producto.puntos" />
+                    </div>
+                    <div>
                         <x-label class="mb-3">Descripcion</x-label>
                         <x-textarea class="w-full" placeholder="Ingrese la descripsion del producto"
                             wire:model="producto.descripcion" />

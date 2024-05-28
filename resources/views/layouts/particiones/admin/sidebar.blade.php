@@ -17,6 +17,14 @@
             'can' => 'admin.users.index',
         ],
         [
+            //Promotor
+            'name' => 'Promotor',
+            'icon' => 'fa-solid fa-users',
+            'route' => route('admin.promotors.index'),
+            'active' => request()->routeIs('admin.promotors.*'),
+            'can' => 'admin.promotors.index',
+        ],
+        [
             //roles
             'name' => 'Rol',
             'icon' => 'fa-solid fa-address-book',

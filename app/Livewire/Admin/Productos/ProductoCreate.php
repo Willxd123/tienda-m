@@ -33,6 +33,7 @@ class ProductoCreate extends Component
         'subcategoria_id' => '',
         'nombre' => '',
         'stock' => '',
+        'puntos' => '',
         'descripcion' => '',
         'precio' => '',
         'imagen' => '',
@@ -63,6 +64,7 @@ class ProductoCreate extends Component
             'producto.familia_id' => 'required|exists:familias,id',
             'producto.nombre' => 'required|max:255',
             'producto.stock' => 'required|numeric|min:0',
+            'producto.puntos' => 'required|numeric|min:0',
             'producto.descripcion' => 'nullable',
             'producto.precio' => 'required|numeric|min:0',
         ], [], [
@@ -71,6 +73,7 @@ class ProductoCreate extends Component
             'producto.familia_id' => 'familia',
             'producto.nombre' => 'nombre',
             'producto.stock' => 'stock',
+            'producto.puntos' => 'stock',
             'producto.descripcion' => 'descripcion',
             'producto.precio' => 'precio',
         ]);

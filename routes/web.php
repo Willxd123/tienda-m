@@ -19,7 +19,7 @@ Route::get('subcategorias/{subcategoria}', [SubcategoriaController::class, 'show
 Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('cliente.productos.show');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
-Route::get('premios', [PremioController::class, 'show'])->name('cliente.premios.show');
+Route::get('premios/{premio}', [PremioController::class, 'show'])->name('cliente.premios.show');
 
 Route::middleware([
     'auth:sanctum',

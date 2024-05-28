@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\PremioController;
+use App\Http\Controllers\Admin\PromotorController;
 use App\Http\Controllers\Admin\RangoController;
 use App\Http\Controllers\ImageController;
 use App\Models\Categoria;
@@ -28,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('subcategorias', SubcategoriaController::class);
     Route::resource('productos', ProductoController::class);
     Route::resource('proveedors', ProveedorController::class);
+    Route::resource('promotors', PromotorController::class);
     Route::get('/admin-bitacora', [BitacoraController::class, 'index'])->name('bitacora.index');
     Route::resource('nota_compras', NotaCompraController::class);
     Route::resource('users', UserController::class);
