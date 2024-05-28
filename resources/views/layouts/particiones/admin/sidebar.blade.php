@@ -6,7 +6,7 @@
             'icon' => 'fa-solid fa-gauge',
             'route' => route('admin.dashboard'),
             'active' => request()->routeIs('admin.dashboard'),
-            'can' => 'admin.dashboard',
+            //'can' => 'admin.dashboard',
         ],
         [
             //usuarios
@@ -14,7 +14,7 @@
             'icon' => 'fa-solid fa-user',
             'route' => route('admin.users.index'),
             'active' => request()->routeIs('admin.users.*'),
-            'can' => 'admin.users.index',
+            //'can' => 'admin.users.index',
         ],
         [
             //Promotor
@@ -22,7 +22,7 @@
             'icon' => 'fa-solid fa-users',
             'route' => route('admin.promotors.index'),
             'active' => request()->routeIs('admin.promotors.*'),
-            'can' => 'admin.promotors.index',
+            //'can' => 'admin.promotors.index',
         ],
         [
             //roles
@@ -30,7 +30,7 @@
             'icon' => 'fa-solid fa-address-book',
             'route' => route('admin.roles.index'),
             'active' => request()->routeIs('admin.roles.*'),
-            'can' => 'admin.roles.index',
+            //'can' => 'admin.roles.index',
         ],
         [
             //rango
@@ -38,7 +38,7 @@
             'icon' => 'fa-solid fa-list-ol',
             'route' => route('admin.rangos.index'),
             'active' => request()->routeIs('admin.rangos.*'),
-            'can' => 'admin.rangos.index',
+            //'can' => 'admin.rangos.index',
         ],
         [
             //familia de familias
@@ -78,7 +78,7 @@
             'icon' => 'fa-solid fa-award',
             'route' => route('admin.premios.index'),
             'active' => request()->routeIs('admin.premios.*'),
-            'can' => 'admin.premios.index',
+            //'can' => 'admin.premios.index',
         ],
         [
             //proveedores
@@ -86,7 +86,7 @@
             'icon' => 'fa-solid fa-truck-field',
             'route' => route('admin.proveedors.index'),
             'active' => request()->routeIs('admin.proveedors.*'),
-            'can' => 'admin.proveedors.index',
+            //'can' => 'admin.proveedors.index',
         ],
         [
             //compra
@@ -94,21 +94,21 @@
             'icon' => 'fa-solid fa-bag-shopping',
             'route' => route('admin.nota_compras.index'),
             'active' => request()->routeIs('admin.nota_compras.*'),
-            'can' => 'admin.nota_compras.index',
+            //'can' => 'admin.nota_compras.index',
         ],
         [
             'name' => 'Reportes',
             'icon' => 'fa-solid fa-file-invoice',
             'route' => route('admin.reporte.create'),
             'active' => request()->routeIs('admin.reporte.create'),
-            'can' => 'admin.reporte.index',
+            //'can' => 'admin.reporte.index',
         ],
         [
             'name' => 'Bitacora',
             'icon' => 'fa-solid fa-book',
             'route' => route('admin.bitacora.index'),
             'active' => request()->routeIs('admin.bitacora.index'),
-            'can' => 'admin.bitacora.index',
+            //'can' => 'admin.bitacora.index',
         ],
     ];
 @endphp
@@ -136,7 +136,7 @@
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
             @foreach ($links as $link)
-                @can($link['can'])
+                {{-- @can($link['can']) --}}
                     <li class="{{ $link['active'] ? 'bg-gray-100' : '' }}">
                         <a href="{{ $link['route'] }}"
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -146,7 +146,7 @@
                             <span class="ms-2">{{ $link['name'] }}</span>
                         </a>
                     </li>
-                @endcan
+                {{-- @endcan --}}
             @endforeach
         </ul>
     </div>
