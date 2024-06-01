@@ -110,6 +110,13 @@
             'active' => request()->routeIs('admin.bitacora.index'),
             //'can' => 'admin.bitacora.index',
         ],
+        [
+            'name' => 'Portada',
+            'icon' => 'fa-solid fa-panorama',
+            'route' => route('admin.portadas.index'),
+            'active' => request()->routeIs('admin.portadas.*'),
+            //'can' => 'admin.bitacora.index',
+        ],
     ];
 @endphp
 
