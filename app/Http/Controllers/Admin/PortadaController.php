@@ -32,12 +32,6 @@ class PortadaController extends Controller
      */
     public function store(Request $request)
     {
-/*
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
-        $image_ruta = $request->file('image');
-        $image_url = $aws_ruta . $image_ruta;
-        $imagen = $image_url; */
-
         $request->validate([
             'imagen' => 'required|image|max:1024',
             'titulo' => 'required|string|max:250',
@@ -61,7 +55,7 @@ class PortadaController extends Controller
             'inicio' => $request->inicio,
             'fin' => $request->fin,
             'activo' => $request->activo,
-            'orden' => $newOrden// Asignar el valor de orden si está presente
+            'orden' => $newOrden // Asignar el valor de orden si está presente
         ]);
 
         session()->flash('swal', [
@@ -94,8 +88,48 @@ class PortadaController extends Controller
      */
     public function update(Request $request, Portada $portada)
     {
-        //
+        $request->validate([
+            'imagen' => 'nullable|image|max:1024',
+            'titulo' => 'required|string|max:250',
+            'inicio' => 'required|date',
+            'fin' => 'nullable|date|after_or_equal:inicio',
+            'activo' => 'required|boolean'
+        ]);
+
+        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $image_url = $portada->imagen;
+
+        if ($request->hasFile('imagen')) {
+            // Eliminar la imagen anterior del almacenamiento
+            if ($portada->imagen) {
+                $oldImagePath = str_replace($aws_ruta, '', $portada->imagen);
+                Storage::delete($oldImagePath);
+            }
+
+            // Almacenar la nueva imagen
+            $image_ruta = $request->file('imagen')->storePublicly('portadas');
+            $image_url = $aws_ruta . $image_ruta;
+        }
+
+        // Actualizar los campos en la base de datos
+        $portada->update([
+            'imagen' => $image_url,
+            'titulo' => $request->titulo,
+            'inicio' => $request->inicio,
+            'fin' => $request->fin,
+            'activo' => $request->activo
+        ]);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Bien Hecho',
+            'text' => 'Portada actualizada correctamente.'
+        ]);
+
+        return redirect()->route('admin.portadas.index');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

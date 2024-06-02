@@ -15,11 +15,11 @@
         </a>
     </x-slot>
 
-    <ul class="space-y-4">
+    <ul class="space-y-4 " id="portadas">
         @foreach ($portadas as $portada)
-            <li class="bg-white rounded-lg shadow-lg overflow-hidden flex ">
-                <img src="{{ $portada->imagen }}"
-                    class="w-64 aspect-[3/1] object-cover object-center">
+            <li class="bg-white rounded-lg shadow-lg overflow-hidden flex hover:bg-blue-200"
+                data-id="{{ $portada->id }}">
+                <img src="{{ $portada->imagen }}" class="w-64 aspect-[3/1] object-cover object-center">
                 <div class="p-4 flex-1 flex justify-between items-center">
                     <div>
                         <h1 class="font-semibold">
@@ -27,11 +27,13 @@
                         </h1>
                         <p>
                             @if ($portada->activo)
-                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                Activo</span>
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                    Activo</span>
                             @else
-                            <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                                Inactivo</span>
+                                <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                                    Inactivo</span>
                             @endif
                         </p>
                     </div>
@@ -62,4 +64,19 @@
             </li>
         @endforeach
     </ul>
+    @push('js')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+        <script>
+            new Sortable(portadas, {
+                animation: 150,
+                ghostClass: 'bg-blue-200', // Coma añadida aquí
+                store: {
+                    set: (sortable) => {
+                        const order = sortable.toArray();
+                        console.log(order);
+                    }
+                }
+            });
+        </script>
+    @endpush
 </x-admin-layout>

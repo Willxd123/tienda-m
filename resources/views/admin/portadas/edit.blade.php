@@ -14,11 +14,13 @@
 
 
 <div class="card">
-    <form action="{{ route('admin.portadas.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.portadas.update', $portada) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="flex items-center justify-center w-full mb-2">
             <label for="dropzone-file"
                 class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+               
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -36,36 +38,36 @@
             <x-label class="mb-3">
                 Titulo
             </x-label>
-            <x-input class="w-full" placeholder="ingrese el titulo de la portada" name="titulo"
-                value="{{ old('titulo') }}" />
+            <x-input class="w-full" name="titulo"
+                value="{{ old('titulo', $portada->titulo) }}" />
         </div>
         <div class="mb-4">
             <x-label class="mb-3">
                 Fecha de Incio
             </x-label>
             <x-input type="date" class="w-full" name="inicio"
-                value="{{ old('inicio', now()->format('Y-m-d')) }}" />
+                value="{{ old('inicio',$portada->inicio->format('Y-m-d')) }}" />
         </div>
         <div class="mb-4">
             <x-label class="mb-3">
                 Fecha final de portada
             </x-label>
             <x-input type="date" class="w-full" name="fin"
-                value="{{ old('fin')}}" />
+            value="{{ old('fin', $portada->fin ? $portada->fin->format('Y-m-d') : '') }}" />
         </div>
         <div class="mb-4 flex space-x-2">
             <label for="">
-                <x-input type="radio" name="activo" value="1" checked/>
+                <x-input type="radio" name="activo" value="1" :checked="$portada->activo == 1"/>
                 Activo
             </label>
             <label for="">
-                <x-input type="radio" name="activo" value="0" />
+                <x-input type="radio" name="activo" value="0" :checked="$portada->activo == 0"/>
                 Inactivo
             </label>
         </div>
         <div class="flex justify-end ">
             <x-button class="ml-2">
-                Guardar
+                Actualizar
             </x-button>
         </div>
     </form>
