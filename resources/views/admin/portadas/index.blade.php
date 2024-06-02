@@ -14,77 +14,52 @@
             Nuevo
         </a>
     </x-slot>
-{{--
-    @if ($portadas->count())
 
-        <div class="card">
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Id</th>
-                            <th scope="col" class="px-6 py-3">Nombre</th>
-                            <th scope="col" class="px-6 py-3">Correo</th>
-                            <th scope="col" class="px-6 py-3">Rol</th>
-                            <th scope="col" class="px-6 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach ($portadas as $portada)
-                            <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $portada->id }}
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{ $portada->name }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $portada->email }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <ul class="list-none">
-                                        @foreach ($portada->roles as $role)
-                                            <li>{{ $role->name }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td class="px-6 py-4 text-center md:text-left">
-                                    <a href="{{ route('admin.portadas.edit', $portada) }}" class="inline-block">
-                                        <b>Editar</b>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="mt-4">
-            {{ $portadas->links() }}
-        </div>
-    @else
-        {{-- ALERTA - WARNING --}}
-       {{--  <div id="alert-1"
-            class="flex items-center p-4 mb-4 mt-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
-            role="alert">
-            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                viewBox="0 0 20 20">
-                <path
-                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-            </svg>
-            <span class="sr-only">Info</span>
-            <div class="ms-3 text-sm font-medium">
-                A simple info alert with an <a href="#" class="font-semibold underline hover:no-underline">No hay
-                    información cargada.</a>
-            </div>
-        </div>
-    @endif
-
-    </div> --}}
-
+    <ul class="space-y-4">
+        @foreach ($portadas as $portada)
+            <li class="bg-white rounded-lg shadow-lg overflow-hidden flex ">
+                <img src="{{ $portada->imagen }}"
+                    class="w-64 aspect-[3/1] object-cover object-center">
+                <div class="p-4 flex-1 flex justify-between items-center">
+                    <div>
+                        <h1 class="font-semibold">
+                            {{ $portada->titulo }}
+                        </h1>
+                        <p>
+                            @if ($portada->activo)
+                            <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                                Activo</span>
+                            @else
+                            <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
+                                Inactivo</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold">
+                            Fecha de inicio
+                        </p>
+                        <p>
+                            {{ $portada->inicio->format('d/m/Y') }}
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold">
+                            Fecha de finalizacion
+                        </p>
+                        <p>
+                            {{ $portada->fin ? $portada->fin->format('d/m/Y') : '-' }}
+                        </p>
+                    </div>
+                    <div>
+                        <a class="btn btn-blue" href="{{ route('admin.portadas.edit', $portada) }}"> Editar </a>
+                    </div>
+                    {{--                 <h2 class="text-xl font-bold">{{ $portada->titulo }}</h2>
+                <p>Fecha de Inicio: {{ $portada->inicio }}</p>
+                <p>Fecha de Fin: {{ $portada->fin }}</p>
+                <p>Estado: {{ $portada->activo ? 'Activo' : 'Inactivo' }}</p> --}}
+                </div>
+            </li>
+        @endforeach
+    </ul>
 </x-admin-layout>

@@ -69,7 +69,6 @@
             </div>
         </form>
     </div>
-
     <script>
         function updateFileName() {
             var input = document.getElementById('dropzone-file');

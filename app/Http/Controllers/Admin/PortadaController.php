@@ -48,7 +48,7 @@ class PortadaController extends Controller
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         // Almacenar la imagen
         if ($request->hasFile('imagen')) {
-            $image_ruta = $request->file('imagen')->storePublicly('portadas', 'public');
+            $image_ruta = $request->file('imagen')->storePublicly('portadas');
             $image_url = $aws_ruta . $image_ruta;
         }
         // Obtener el valor máximo actual de "orden" y sumarle 1
