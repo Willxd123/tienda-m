@@ -136,6 +136,13 @@ class PortadaController extends Controller
      */
     public function destroy(Portada $portada)
     {
-        //
+        $portada->delete();
+        session()->flash('swal',[
+            'icon'=> 'success',
+            'title'=>'Excelente!',
+            'text' => 'La portada fue Eliminada con existo.'
+        ]);
+
+        return redirect()->route('admin.portadas.index' );
     }
 }

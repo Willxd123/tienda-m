@@ -20,7 +20,7 @@
         <div class="flex items-center justify-center w-full mb-2">
             <label for="dropzone-file"
                 class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-               
+
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -66,12 +66,42 @@
             </label>
         </div>
         <div class="flex justify-end ">
+            <x-danger-button onclick="confirmDelete()">
+                Eliminar
+            </x-danger-button>
             <x-button class="ml-2">
                 Actualizar
             </x-button>
         </div>
+
     </form>
 </div>
+<form action="{{ route('admin.portadas.destroy', $portada) }}" method="POST" id="delete-from">
+    @csrf
+    @method('DELETE')
+</form>
+
+@push('js')
+    <script>
+        function confirmDelete() {
+            Swal.fire({
+                title: "Estas seguro?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Sí, bórralo!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    document.getElementById('delete-from').submit();
+                }
+            });
+        }
+    </script>
+@endpush
 <script>
     function updateFileName() {
         var input = document.getElementById('dropzone-file');
