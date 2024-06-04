@@ -79,38 +79,6 @@
             });
         </script>
     @endpush
-    @push('js')
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-            // Escuchar el evento para confirmar el canje
-            window.addEventListener('confirm-cange', function () {
-                Swal.fire({
-                    title: '¿Estás seguro de canjear el premio?',
-                    text: "¡Esta acción no se puede deshacer!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, canjear',
-                    cancelButtonText: 'No, cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Acción de canje confirmada
-                        Livewire.emit('canjeConfirmed');
-                    }
-                });
-            });
-
-            // Escuchar el evento para mostrar el mensaje de error
-            window.addEventListener('swal', function (event) {
-                Swal.fire({
-                    icon: event.detail.icon,
-                    title: event.detail.title,
-                    text: event.detail.text
-                });
-            });
-        });
-        </script>
-    @endpush
+    
 </div>
 

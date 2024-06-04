@@ -24,23 +24,6 @@ class Cange extends Component
         }
     }
 
-    public function confirmCange()
-    {
-        $promotor = $this->promotor;
-
-        // Verificar si el promotor tiene suficientes puntos para canjear el premio
-        if ($promotor->puntos >= $this->premio->precio_puntos * $this->qty) {
-            // Mostrar el cuadro de diálogo de confirmación
-            $this->dispatchBrowserEvent('confirm-cange');
-        } else {
-            // Mostrar mensaje de error si el promotor no tiene suficientes puntos
-            $this->dispatchBrowserEvent('swal', [
-                'icon' => 'error',
-                'title' => 'No tienes suficientes puntos',
-                'text' => 'No tienes suficientes puntos para canjear este premio.'
-            ]);
-        }
-    }
 
     public function cange()
     {
