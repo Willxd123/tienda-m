@@ -4,7 +4,7 @@
             <div class="lg:col-span-5">
                 <div class="flex justify-between mb-2">
                     <h1 class="text-lg">
-                        Carrito de compras ({{ Cart::count() }} productos)
+                        Carrito de compras ({{ Cart::content()->count() }} productos)
                     </h1>
                     <button class="font-semibold text-gray-600 hover:text-blue-400"
                     wire:click="destroy()">
@@ -65,9 +65,12 @@
                             Bs/ {{ Cart::subtotal() }}
                         </p>
                     </div>
-                    <a href="" class="btn btn-blue block w-full text-center">
-                        Continuar compra
-                    </a>
+                    <form action="{{ route('session') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-blue block w-full text-center">
+                            Continuar compra
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

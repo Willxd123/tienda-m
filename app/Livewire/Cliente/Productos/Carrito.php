@@ -25,7 +25,7 @@ class Carrito extends Component
         if (auth()->check()) {
             Cart::store(auth()->id());
         }
-        $this->dispatch('cartUpdated', Cart::count()); //evento para el carrito
+        $this->dispatch('cartUpdated', Cart::content()->count()); //evento para el carrito
         $this->dispatch('swal', [
             'icon' => 'success',
             'title' => '¡Bien hecho!',

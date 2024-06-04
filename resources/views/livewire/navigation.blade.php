@@ -81,7 +81,7 @@
                             <i class="fas fa-shopping-cart text-white text-xl md:text-3xl"></i>
                             <span id="cart-count" 
                             class="absolute -top-2 -end-4 inline-flex items-center justify-center w-4 h-4 bg-red-500 rounded-full text-xs font-bold text-white">
-                                {{Cart::instance('shopping')->count()}}
+                                {{Cart::instance('shopping')->content()->count()}}
                             </span>
                         </a>
 

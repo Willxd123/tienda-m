@@ -16,8 +16,13 @@ class AuthController extends Controller
             return response()->json(['mensaje' => 'Ha ocurrido un error'],401);
         }
         $user = User::where('email', $request->email)->first();
-
-        return response()->json($user, 200);
+        $usuario = [];
+        $usuario['id'] = $user->id;
+        $usuario['name'] = $user->name;
+        $usuario['email'] = $user->email;
+        $usuario['admin'] = $user->esAdministrador();
+        
+        return response()->json($usuario, 200);
     }
 
 
