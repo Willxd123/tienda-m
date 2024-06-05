@@ -1,12 +1,30 @@
 <x-app-layout>
+    <figure class="w-full mb-4">
+        <div class="swiper ">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                @foreach ($portadas as $portada)
+                    <div class="swiper-slide"><img src="{{ $portada->imagen }}"
+                            class="w-full aspect-[3/1] object-cover object-center"></div>
+                @endforeach
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+    </figure>
+    <div class="flex items-center justify-center h-screenobject-cover object-center ">
+        <x-button class="text-2xl rounded-full px-6 py-3">Ver Catalogo</x-button>
+    </div>
     <div class="px-4 py-3">
         <x-container>
-            <h1 class="text-3xl font-bold text-gray-700 mb-4">
-                {{-- Últimos productos --}}
-            </h1>
+
+
             @auth
                 <div class="mx-auto" style="max-width: 350px;">
                     <!-- Swiper -->
+
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             @foreach ($premios as $premio)
@@ -24,6 +42,11 @@
                     </div>
                 </div>
             @endauth
+
+
+            <!-- Slider main container -->
+
+
 
             <!-- Productos -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
@@ -58,7 +81,7 @@
     </div>
 
     <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    {{--  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <!-- Initialize Swiper -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -75,9 +98,35 @@
                 },
             });
         });
-    </script>
+    </script> --}}
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    @push('css')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    @endpush
+    @push('js2')
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            const swiper = new Swiper('.swiper', {
+                // Optional parameters
+                loop: true,
+                autoplay: {
+                    delay: 7000,
+                },
 
+                // If we need pagination
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        </script>
+    @endpush
 </x-app-layout>

@@ -1,7 +1,7 @@
 <div x-data="{
     open: false
 }">
-    <header class="bg-blue-800">
+    <header class="bg-blue-950">
         <div class="px-4 py-3 ">
             <x-container>
                 <div class="flex justify-between items-center space-x-8">
@@ -79,7 +79,7 @@
                         </x-dropdown>
                         <a href="{{ route('cart.index') }}" class="relative">
                             <i class="fas fa-shopping-cart text-white text-xl md:text-3xl"></i>
-                            <span id="cart-count" 
+                            <span id="cart-count"
                             class="absolute -top-2 -end-4 inline-flex items-center justify-center w-4 h-4 bg-red-500 rounded-full text-xs font-bold text-white">
                                 {{Cart::instance('shopping')->content()->count()}}
                             </span>
