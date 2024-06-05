@@ -80,8 +80,8 @@
                         <a href="{{ route('cart.index') }}" class="relative">
                             <i class="fas fa-shopping-cart text-white text-xl md:text-3xl"></i>
                             <span id="cart-count"
-                            class="absolute -top-2 -end-4 inline-flex items-center justify-center w-4 h-4 bg-red-500 rounded-full text-xs font-bold text-white">
-                                {{Cart::instance('shopping')->content()->count()}}
+                                class="absolute -top-2 -end-4 inline-flex items-center justify-center w-4 h-4 bg-red-500 rounded-full text-xs font-bold text-white">
+                                {{ Cart::instance('shopping')->content()->count() }}
                             </span>
                         </a>
 
@@ -101,7 +101,7 @@
     <div x-show="open" style="display: none" class="fixed top-0 left-0 z-20">
         <div class="flex">
             <div class="w-screen sm:w-80 h-screen bg-white">
-                <div class="bg-blue-400 px-4 py-3 text-white font-semibold">
+                <div class="bg-blue-950 px-4 py-3 text-white font-semibold">
                     <div class="flex justify-between items-center">
                         <span class="text-lg">
                             Familias
@@ -116,12 +116,14 @@
                         @foreach ($familias as $familia)
                             <li wire:mouseover="$set('familia_id', {{ $familia->id }})">
                                 <a href="{{ route('cliente.familias.show', $familia) }}"
-                                    class=" flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-blue-200">
+                                    class="flex items-center justify-between px-4 py-4 font-semibold text-gray-500 hover:text-blue-950 hover:bg-custom-blue-gray-400 hover:bg-opacity-20">
                                     {{ $familia->nombre }}
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
                             </li>
                         @endforeach
+
+
                     </ul>
                     <!-- Aquí agregamos el enlace a "Premios" -->
                     {{-- <a href="{{ route('cliente.premios.show') }}"
@@ -168,9 +170,10 @@
     </div>
     @push('js')
         <script>
-            Livewire.on('cartUpdated',(count)=>{
+            Livewire.on('cartUpdated', (count) => {
                 document.getElementById('cart-count').innerText = count;
             })
+
             function search(value) {
                 Livewire.emit('search', value);
             }

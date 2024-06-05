@@ -1,11 +1,11 @@
 
 
-<footer class="bg-white ">
+<footer class="bg-blue-950 ">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
             <h1 class="text-white">
-                <a href="/" class="flex flex-col text-gray-600">
+                <a href="/" class="flex flex-col text-custom-blue-gray-300">
                     <span class="text-xl md:text-3xl leading-3 md:leading-6 font-semibold">
                         Ecommerce
                     </span>
@@ -17,7 +17,7 @@
           </div>
           <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Resources</h2>
+                  <h2 class="mb-6 text-sm font-semibold text-custom-blue-gray-300 uppercase ">Resources</h2>
                   <ul class="text-gray-500  font-medium">
                       <li class="mb-4">
                           <a href="https://flowbite.com/" class="hover:underline">Ecomerce</a>
@@ -28,7 +28,7 @@
                   </ul>
               </div>
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Follow us</h2>
+                  <h2 class="mb-6 text-sm font-semibold text-custom-blue-gray-300 uppercase ">Follow us</h2>
                   <ul class="text-gray-500 dark:text-gray-400 font-medium">
                       <li class="mb-4">
                           <a href="https://github.com/themesberg/flowbite" class="hover:underline ">Github</a>
@@ -39,7 +39,7 @@
                   </ul>
               </div>
               <div>
-                  <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Legal</h2>
+                  <h2 class="mb-6 text-sm font-semibold text-custom-blue-gray-300 uppercase ">Legal</h2>
                   <ul class="text-gray-500 dark:text-gray-400 font-medium">
                       <li class="mb-4">
                           <a href="#" class="hover:underline">Privacy Policy</a>
