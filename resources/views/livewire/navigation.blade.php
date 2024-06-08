@@ -110,16 +110,20 @@
     <div x-show="open" style="display: none" class="fixed top-0 left-0 z-20">
         <div class="flex">
             <div class="w-screen sm:w-80 h-screen bg-white">
-                <div class="bg-blue-950 px-4 py-3 text-white font-semibold">
-                    <div class="flex justify-between items-center">
-                        <span class="text-lg">
-                            Familias
-                        </span>
-                        <button x-on:click="open = false">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
+                @foreach ($configuracions as $configuracion)
+                    @foreach ($configuracion->colors as $color)
+                        <div class="bg-{{ $color->color }} px-4 py-3 text-white font-semibold">
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg">
+                                    Familias
+                                </span>
+                                <button x-on:click="open = false">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    @endforeach
+                @endforeach
                 <div class="h-[calc(100vh-52px)] overflow-auto">
                     <ul>
                         @foreach ($familias as $familia)

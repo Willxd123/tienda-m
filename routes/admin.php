@@ -2,6 +2,7 @@
 //use Illuminate\Http\Request;
 
 use App\Http\Controllers\Admin\BitacoraController;
+use App\Http\Controllers\admin\CatalogoController;
 use App\Http\Controllers\Admin\FamiliaController;
 use App\Http\Controllers\Admin\SubcategoriaController;
 use App\Http\Controllers\Admin\CategoriaController;
@@ -46,4 +47,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/imagenes/{id}', [ImageController::class, 'store'])->name('imagenes.store');
     Route::get('/reportes', [ExportController::class, 'create'])->name('reporte.create');
     Route::post('/reportes', [ExportController::class, 'store'])->name('reporte.store');
+    Route::resource('catalogos', CatalogoController::class);
 });

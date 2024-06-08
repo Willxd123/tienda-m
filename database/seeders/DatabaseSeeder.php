@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(ConfiguracionSeeder::class);
         $this->call(ColorSeeder::class);
-
+        $this->call(CatalogoSeeder::class);
+        $this->call(ConfiguracionColorSeeder::class);
         /*User::factory()->create([
             'name' => 'Administrador',
             'email' => 'admin@gmail.com',

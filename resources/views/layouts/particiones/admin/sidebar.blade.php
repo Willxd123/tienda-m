@@ -120,10 +120,18 @@
         ],
         //configuracion
         [
-            'name' => 'configuracion',
+            'name' => 'Configuracion',
             'icon' => 'fa-solid fa-gears',
             'route' => route('admin.configuracions.index'),
             'active' => request()->routeIs('admin.configuracions.*'),
+            //'can' => 'admin.bitacora.index',
+        ],
+        //Catalogo
+        [
+            'name' => 'Catalogo',
+            'icon' => 'fa-solid fa-book-open',
+            'route' => route('admin.catalogos.index'),
+            'active' => request()->routeIs('admin.catalogos.*'),
             //'can' => 'admin.bitacora.index',
         ],
     ];

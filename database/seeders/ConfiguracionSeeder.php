@@ -18,4 +18,5 @@ class ConfiguracionSeeder extends Seeder
             'logotipo' => 'https://laravel-f.s3.amazonaws.com/configuracions/GENrS6K2qLy9iw41X1U88HJPwiqJq3H30Bdr8nha.png',
         ]);
     }
+
 }
