@@ -86,7 +86,15 @@ class CatalogoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'catalogo' => 'required|file|mimes:pdf|max:51200', // Validación para PDF de hasta 50MB
+            'catalogo' => 'nullable|file|mimes:pdf|max:51200', // Validación para PDF de hasta 50MB
+        ], [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'nombre.string' => 'El nombre debe ser una cadena de texto.',
+            'nombre.max' => 'El nombre no debe tener más de 255 caracteres.',
+            'catalogo.required' => 'El archivo de catálogo es obligatorio.',
+            'catalogo.file' => 'El archivo de catálogo debe ser un archivo.',
+            'catalogo.mimes' => 'El archivo de catálogo debe ser un archivo PDF.',
+            'catalogo.max' => 'El archivo de catálogo no debe superar los 50MB.',
         ]);
 
         // Almacenar el nuevo PDF en S3, si se proporciona

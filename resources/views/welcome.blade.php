@@ -22,8 +22,6 @@
     </div>
     <div class="px-4 py-3">
         <x-container>
-
-
             @auth
                 <div class="mx-auto" style="max-width: 350px;">
                     <!-- Swiper -->

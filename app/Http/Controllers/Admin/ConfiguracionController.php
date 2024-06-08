@@ -100,10 +100,14 @@ class ConfiguracionController extends Controller
     public function update(Request $request, Configuracion $configuracion)
     {
         $request->validate([
-            'logotipo' => 'nullable|image|max:1024',
+            'logotipo' => 'nullable|image|max:5024',
             'colors' => 'required|array',
+        ], [
+            'logotipo.image' => 'El logotipo debe ser una imagen.',
+            'logotipo.max' => 'El logotipo no debe superar los 5mb.',
+            'colors.required' => 'Debe seleccionar al menos un color.',
+            'colors.array' => 'Los colores seleccionados deben ser un arreglo válido.'
         ]);
-
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         $image_url = $configuracion->logotipo;
 

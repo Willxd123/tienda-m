@@ -35,9 +35,23 @@ class PortadaController extends Controller
         $request->validate([
             'imagen' => 'required|image|max:1024',
             'titulo' => 'required|string|max:250',
-            'inicio' => 'required|date',
+            'inicio' => 'required|date|after_or_equal:today',
             'fin' => 'nullable|date|after_or_equal:inicio',
             'activo' => 'required|boolean'
+        ], [
+            'imagen.required' => 'La imagen es obligatoria.',
+            'imagen.image' => 'El archivo debe ser una imagen.',
+            'imagen.max' => 'La imagen no debe superar los 1024KB.',
+            'titulo.required' => 'El título es obligatorio.',
+            'titulo.string' => 'El título debe ser una cadena de texto.',
+            'titulo.max' => 'El título no debe tener más de 250 caracteres.',
+            'inicio.required' => 'La fecha de inicio es obligatoria.',
+            'inicio.date' => 'La fecha de inicio debe ser una fecha válida.',
+            'inicio.after_or_equal' => 'La fecha de inicio debe ser hoy o una fecha futura.',
+            'fin.date' => 'La fecha de fin debe ser una fecha válida.',
+            'fin.after_or_equal' => 'La fecha de fin debe ser igual o posterior a la fecha de inicio.',
+            'activo.required' => 'El campo activo es obligatorio.',
+            'activo.boolean' => 'El campo activo debe ser verdadero o falso.',
         ]);
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         // Almacenar la imagen
@@ -89,13 +103,25 @@ class PortadaController extends Controller
     public function update(Request $request, Portada $portada)
     {
         $request->validate([
-            'imagen' => 'nullable|image|max:1024',
+            'imagen' => 'nullable|image|max:5024',
             'titulo' => 'required|string|max:250',
-            'inicio' => 'required|date',
+            'inicio' => 'required|date|after_or_equal:today',
             'fin' => 'nullable|date|after_or_equal:inicio',
             'activo' => 'required|boolean'
+        ], [
+            'imagen.image' => 'El archivo debe ser una imagen.',
+            'imagen.max' => 'La imagen no debe superar los 5Mb.',
+            'titulo.required' => 'El título es obligatorio.',
+            'titulo.string' => 'El título debe ser una cadena de texto.',
+            'titulo.max' => 'El título no debe tener más de 250 caracteres.',
+            'inicio.required' => 'La fecha de inicio es obligatoria.',
+            'inicio.date' => 'La fecha de inicio debe ser una fecha válida.',
+            'inicio.after_or_equal' => 'La fecha de inicio debe ser hoy o una fecha futura.',
+            'fin.date' => 'La fecha de fin debe ser una fecha válida.',
+            'fin.after_or_equal' => 'La fecha de fin debe ser igual o posterior a la fecha de inicio.',
+            'activo.required' => 'El campo activo es obligatorio.',
+            'activo.boolean' => 'El campo activo debe ser verdadero o falso.',
         ]);
-
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         $image_url = $portada->imagen;
 
