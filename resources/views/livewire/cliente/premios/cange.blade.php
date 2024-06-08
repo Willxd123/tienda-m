@@ -30,7 +30,7 @@
                     </h1>
                     
                     <p class="font-semibold text-2xl text-gray-600 mb-4">
-                        {{ $premio->precio_puntos }}
+                        {{ $premio->precio_puntos }} puntos
                     </p>
                     <div class="flex items-center space-x-6 mb-6" x-data="{
                         qty: @entangle('qty'),
@@ -46,9 +46,13 @@
                     <div class="text-sm py-2">
                         {{ $premio->producto->descripcion }}
                     </div>
-                    <button class="btn btn-blue w-full mb-6" wire:click="cange">
-                        Canjear Producto
-                    </button>
+                    @if ($premio->stock > 0)
+                        <button class="btn btn-blue w-full mb-6" wire:click="cange">
+                            Canjear Producto
+                        </button>
+                    @else
+                        <span class="text-white-500 block btn btn-red w-full text-center">Agotado</span>
+                    @endif
                 </div>
             </div>
         </div>

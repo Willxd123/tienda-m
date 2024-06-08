@@ -4,20 +4,18 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Compra',
+        'name' => 'Mis Premios',
     ],
 ]">
-        <!--boton y el llamado a buttons.css-->
-    <x-slot name="action">
-        <a class="btn btn-blue" href="{{route('admin.nota_compras.create')}}">
-            Nuevo 
-            {{-- {{$premio_promotor}} --}}
+    <!--boton y el llamado a buttons.css-->
+    {{-- <x-slot name="action">
+        <a class="btn btn-blue" href="{{route('admin.nota_compras.create')}}"> 
+            {{$premio_promotor}}
         </a>
-    </x-slot>
+    </x-slot> --}}
 
-
-    @if ($compras->count())
-
+    @if ($premio_promotors->count())
+    
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -26,7 +24,7 @@
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Proveedor
+                            Premio
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Fecha
@@ -40,24 +38,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($compras as $compra)
+                    @foreach ($premio_promotors as $premio_promotor)
                         <tr class="bg-white dark:bg-gray-800">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $compra->id }}
+                                {{ $premio_promotor->id }}
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $compra->proveedor->nombre }}
+                                {{ $premio_promotor->premio->producto->nombre }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $compra->created_at }}
+                                {{ $premio_promotor->fecha }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $compra->monto_total }}
+                                {{ $premio_promotor->cantidad * $premio_promotor->premio->precio_puntos }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('admin.nota_compras.show', $compra) }}">
+                                <a href="{{ route('admin.premios_promotors.show', $premio_promotor->id) }}">
                                     Ver
                                 </a>
                             </td>

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PemioPromotor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PremioPromotorController extends Controller
 {
@@ -12,7 +15,23 @@ class PremioPromotorController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $promotor = $user->promotor;        
+
+        if ($promotor){
+            $prom = $user->promotor;
+            
+            $premio_promotors = PemioPromotor::with('premio.producto')
+                ->where('promotor_id', $prom->id )
+                ->get();
+            return view('admin.premio_promotor.index', compact('premio_promotors'));
+            
+            }else{
+            $premio_promotors = PemioPromotor::with('premio.producto')
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+            return view('admin.premio_promotor.index', compact('premio_promotors'));
+        }
     }
 
     /**
@@ -34,9 +53,13 @@ class PremioPromotorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        //dentro del whith va con el nombre del modelo al que se llama
+        $premio_promotor = PemioPromotor::with('premio.producto', 'promotor.user')
+            ->findOrFail($id);
+
+        return view('admin.premio_promotor.show', compact('premio_promotor'));
     }
 
     /**
