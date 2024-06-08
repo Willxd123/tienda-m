@@ -14,8 +14,11 @@
         </div>
 
     </figure>
+
     <div class="flex items-center justify-center h-screenobject-cover object-center ">
-        <x-button class="text-2xl rounded-full px-6 py-3">Ver Catalogo</x-button>
+        <a href="{{ route('welcome.show', $catalogo) }}" target="_blank" class="btn btn-gray">
+            ver catalogo
+        </a>
     </div>
     <div class="px-4 py-3">
         <x-container>
