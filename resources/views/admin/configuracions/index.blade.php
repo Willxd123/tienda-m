@@ -8,23 +8,21 @@
     ],
 ]">
 
-    <x-slot name="action">
+    {{--     <x-slot name="action">
         <a class="btn btn-blue" href="{{ route('admin.configuracions.create') }}">
             Nuevo
         </a>
 
-    </x-slot>
+    </x-slot> --}}
     @foreach ($configuracions as $configuracion)
-        <div class="flex justify-end mb-3">
+        <div class="mb-2 flex items-end justify-end -mt-14 lg:mb-5">
             <div>
                 <a class="btn btn-greenblue" href="{{ route('admin.configuracions.edit', $configuracion) }}"> Logotipo y
                     Color </a>
             </div>
         </div>
-<div>
-    
-</div>
-        <div class="grid grid-cols-2 gap-2">
+
+        <div class="grid grid-cols-2 gap-2 py-5">
             <div>
                 <img class="bg-gray-200 h-auto max-w-full rounded-lg" src="{{ $configuracion->logotipo }}" alt="">
             </div>
