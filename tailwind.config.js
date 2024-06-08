@@ -9,30 +9,23 @@ export default {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        "./node_modules/flowbite/**/*.js"
     ],
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
             colors: {
-                'custom-blue-gray': {
-                  50: '#f8fafc',
-                  100: '#f1f5f9',
-                  200: '#e2e8f0',
-                  300: '#cbd5e1',
-                  400: '#94a3b8',
-                  500: '#64748b',
-                  600: '#475569',
-                  700: '#364152',
-                  800: '#27303f',
-                  900: '#1a202e',
-                },
-                'custom-blue': '#233040',
-            }
+        'custom-red': '#ff0000',
+        'custom-blue': '#0000ff',
+        'custom-green': '#00ff00',
+        'custom-yellow': '#ffff00',
+        'custom-purple': '#800080',
+        'custom-gray': '#808080',
+            },
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [forms, typography,
+        require('flowbite/plugin')
+    ],
 };

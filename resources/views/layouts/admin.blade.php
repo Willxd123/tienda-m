@@ -9,15 +9,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link href="/path/to/tailwind.css" rel="stylesheet">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <!--enlace para los estilo de iconos -->
     <script src="https://kit.fontawesome.com/e8744251ae.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
- 
+
     <!-- Styles -->
     @livewireStyles
 </head>
@@ -47,10 +49,13 @@
                 @include('layouts.particiones.admin.breadcrumb')
 
                 @isset($action)
-                    <div>
+                    <div class="space-x-2">
                         {{ $action }}
+
                     </div>
+
                 @endisset
+
 
             </div>
 

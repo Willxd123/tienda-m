@@ -39,12 +39,11 @@ class CategoriaController extends Controller
             'familia_id' => 'required|exists:familias,id',
             'nombre' => 'required',
         ]);
-
         $categoria = Categoria::create([
             'familia_id' => $request->familia_id,
             'nombre' => $request->nombre,
         ]);
-        
+
         $bitacora = new Bitacora();
         $bitacora->descripcion = "Creacion de una Categoría";
         $bitacora->usuario = auth()->user()->name;

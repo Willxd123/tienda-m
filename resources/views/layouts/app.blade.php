@@ -41,7 +41,7 @@
 
         </main>
         <div class="mt-16">
-            @include('layouts.particiones.app.footer')
+            @livewire('footer')
         </div>
     </div>
 
