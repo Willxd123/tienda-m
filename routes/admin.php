@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\PremioController;
+use App\Http\Controllers\Admin\PremioPromotorController;
 use App\Http\Controllers\Admin\PromotorController;
 use App\Http\Controllers\Admin\RangoController;
 use App\Http\Controllers\Admin\PortadaController;
@@ -43,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rangos', RangoController::class);
     Route::resource('premios', PremioController::class);
     Route::resource('configuracions', ConfiguracionController::class);
+    Route::resource('premios_promotors', PremioPromotorController::class);
     Route::get('/imagenes/{id}', [ImageController::class, 'create'])->name('imagenes.create');
     Route::post('/imagenes/{id}', [ImageController::class, 'store'])->name('imagenes.store');
     Route::get('/reportes', [ExportController::class, 'create'])->name('reporte.create');

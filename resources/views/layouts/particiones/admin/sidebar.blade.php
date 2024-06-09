@@ -46,7 +46,7 @@
             'icon' => 'fa-solid fa-box-open',
             'route' => route('admin.familias.index'),
             'active' => request()->routeIs('admin.familias.*'),
-            'can' => 'admin.familias.index',
+            //'can' => 'admin.familias.index',
         ],
         [
             //familia de catergorias
@@ -54,7 +54,7 @@
             'icon' => 'fa-solid fa-layer-group',
             'route' => route('admin.categorias.index'),
             'active' => request()->routeIs('admin.categorias.*'),
-            'can' => 'admin.categorias.index',
+            //'can' => 'admin.categorias.index',
         ],
         [
             //familia de subcategoria
@@ -62,7 +62,7 @@
             'icon' => 'fa-solid fa-tags',
             'route' => route('admin.subcategorias.index'),
             'active' => request()->routeIs('admin.subcategorias.*'),
-            'can' => 'admin.subcategorias.index',
+            //'can' => 'admin.subcategorias.index',
         ],
         [
             //familia de productos
@@ -70,7 +70,7 @@
             'icon' => 'fa-solid fa-gifts',
             'route' => route('admin.productos.index'),
             'active' => request()->routeIs('admin.productos.*'),
-            'can' => 'admin.productos.index',
+            //'can' => 'admin.productos.index',
         ],
         [
             //premios
@@ -79,6 +79,13 @@
             'route' => route('admin.premios.index'),
             'active' => request()->routeIs('admin.premios.*'),
             //'can' => 'admin.premios.index',
+        ],
+        [
+            //premio del promotor detalle
+            'name' => 'Mis premios',
+            'icon' => 'fa-solid fa-gift',
+            'route' => route('admin.premios_promotors.index'),
+            'active' => request()->routeIs('admin.premios_promotors.*'),
         ],
         [
             //proveedores

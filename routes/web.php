@@ -32,7 +32,7 @@ Route::get('/success',[StripeController::class, 'success'])->name('success');
 Route::get('/prueba', [StripeController::class, 'prueba'])->name('prueba');
 Route::get('/catalogos/{catalogo}', [WelcomeController::class, 'show'])->name('welcome.show');
 
-//Route::get('premios/{premio}', [PremioController::class, 'show'])->name('cliente.premios.show');
+Route::get('premios/{premio}', [PremioController::class, 'show'])->name('cliente.premios.show');
 
 
 Route::middleware([
