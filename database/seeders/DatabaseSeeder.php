@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Color;
 use App\Models\Rango;
 use App\Models\User;
+
 use Spatie\Permission\Models\Role;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,7 +24,10 @@ class DatabaseSeeder extends Seeder
         $this->call(RangoSeeder::class);
         $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
-        
+        $this->call(ConfiguracionSeeder::class);
+        $this->call(ColorSeeder::class);
+        $this->call(CatalogoSeeder::class);
+        $this->call(ConfiguracionColorSeeder::class);
         /*User::factory()->create([
             'name' => 'Administrador',
             'email' => 'admin@gmail.com',

@@ -10,7 +10,8 @@
         <!--boton y el llamado a buttons.css-->
     <x-slot name="action">
         <a class="btn btn-blue" href="{{route('admin.nota_compras.create')}}">
-            Nuevo
+            Nuevo 
+            {{-- {{$premio_promotor}} --}}
         </a>
     </x-slot>
 

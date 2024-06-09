@@ -21,7 +21,7 @@ class PemioPromotor extends Model
     }
 
     //relacion muchos a muchos
-    public function promotors(){
+    public function promotor(){
         return $this->belongsTo(Promotor::class);
     }
 }

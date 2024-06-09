@@ -107,6 +107,12 @@ class RolSeeder extends Seeder
         Permission::create(['name' => 'admin.nota_compras.ver',
                             'description'=> 'Detalle nota compra'])->syncRoles([$admin]);
 
+        //Route::resource('premios_promotors', PremioPromotorController::class);
+        Permission::create(['name' => 'admin.premio_promotor.show',
+                            'description'=> 'Detalle del premio'])->syncRoles([$admin, $promotor]);
+        Permission::create(['name' => 'admin.premio_promotor.index',
+                            'description'=> 'Ver mis premios'])->syncRoles([$admin, $promotor]);                    
+
         //Permission::create(['name' => 'admin.bitacora']);
         Permission::create(['name' => 'admin.bitacora.index',
                             'description'=> 'Ver bitacora'])->syncRoles([$admin]);

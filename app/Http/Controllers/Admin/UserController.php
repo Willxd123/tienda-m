@@ -10,16 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
+
 class UserController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware(['auth', 'permission:admin.users.index'])->only(['index', 'show']);
-        $this->middleware(['auth', 'permission:admin.users.create'])->only(['create', 'store']);
-        $this->middleware(['auth', 'permission:admin.users.edit'])->only(['edit', 'update']);
-        $this->middleware(['auth', 'permission:admin.users.destroy'])->only(['destroy']);
-    }
 
     public function index()
     {

@@ -13,11 +13,18 @@ export default {
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            colors: {
+        'custom-red': '#ff0000',
+        'custom-blue': '#0000ff',
+        'custom-green': '#00ff00',
+        'custom-yellow': '#ffff00',
+        'custom-purple': '#800080',
+        'custom-gray': '#808080',
             },
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [forms, typography,
+        // require('flowbite/plugin')
+    ],
 };

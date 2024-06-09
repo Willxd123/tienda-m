@@ -30,7 +30,7 @@
                     </h1>
                     
                     <p class="font-semibold text-2xl text-gray-600 mb-4">
-                        {{ $premio->precio_puntos }}
+                        {{ $premio->precio_puntos }} puntos
                     </p>
                     <div class="flex items-center space-x-6 mb-6" x-data="{
                         qty: @entangle('qty'),
@@ -46,9 +46,13 @@
                     <div class="text-sm py-2">
                         {{ $premio->producto->descripcion }}
                     </div>
-                    <button class="btn btn-blue w-full mb-6" wire:click="cange">
-                        Canjear Producto
-                    </button>
+                    @if ($premio->stock > 0)
+                        <button class="btn btn-blue w-full mb-6" wire:click="cange">
+                            Canjear Producto
+                        </button>
+                    @else
+                        <span class="text-white-500 block btn btn-red w-full text-center">Agotado</span>
+                    @endif
                 </div>
             </div>
         </div>
@@ -79,38 +83,6 @@
             });
         </script>
     @endpush
-    @push('js')
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-            // Escuchar el evento para confirmar el canje
-            window.addEventListener('confirm-cange', function () {
-                Swal.fire({
-                    title: '¿Estás seguro de canjear el premio?',
-                    text: "¡Esta acción no se puede deshacer!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, canjear',
-                    cancelButtonText: 'No, cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Acción de canje confirmada
-                        Livewire.emit('canjeConfirmed');
-                    }
-                });
-            });
-
-            // Escuchar el evento para mostrar el mensaje de error
-            window.addEventListener('swal', function (event) {
-                Swal.fire({
-                    icon: event.detail.icon,
-                    title: event.detail.title,
-                    text: event.detail.text
-                });
-            });
-        });
-        </script>
-    @endpush
+    
 </div>
 
