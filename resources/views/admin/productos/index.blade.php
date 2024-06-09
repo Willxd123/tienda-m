@@ -64,9 +64,6 @@
                                 {{ $producto->nombre }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $producto->puntos }}
-                            </td>
-                            <td class="px-6 py-4">
                                 {{ $producto->subcategoria->categoria->familia->nombre }}
                             </td>
                             <td class="px-6 py-4">
@@ -74,6 +71,9 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $producto->stock }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $producto->puntos }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $producto->precio }}
