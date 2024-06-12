@@ -10,12 +10,12 @@
 ]">
 
     <x-slot name="action">
-        <a class= "btn btn-blue" href="{{ route('admin.roles.create') }}">
+        <a class="btn btn-blue" href="{{ route('admin.rangos.create') }}">
             Nuevo
         </a>
     </x-slot>
 
-    @if ($roles->count())
+    @if ($rangos->count())
 
         <div class="card">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -23,25 +23,39 @@
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">Id</th>
-                            <th scope="col" class="px-6 py-3">Nombre</th>
+                            <th scope="col" class="px-6 py-3">Nivel</th>
+                            <th scope="col" class="px-6 py-3">Descuento</th>
+                            <th scope="col" class="px-6 py-3">Compras mínimas</th>
+                            <th scope="col" class="px-6 py-3"></th>
                             <th scope="col" class="px-6 py-3"></th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($roles as $rol)
+                        @foreach ($rangos as $rango)
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> 
-                                    {{ $rol->id }}
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $rango->id }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $rol->name }}
-                                </td>                        
+                                    {{ $rango->nivel }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $rango->descuento }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $rango->compras_minimas }}
+                                </td>
                                 <td class="px-6 py-4 text-center md:text-left">
-                                    <a href="{{ route('admin.roles.edit', $rol) }}" class="inline-block">
+                                    <a href="{{ route('admin.rangos.edit', $rango) }}" class="inline-block">
                                         <b>Editar</b>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 text-center md:text-left">
+                                    <a href="{{ route('admin.rangos.show', $rango) }}" class="inline-block">
+                                        <b>Ver</b>
                                     </a>
                                 </td>
                             </tr>
@@ -53,7 +67,7 @@
         </div>
 
         <div class="mt-4">
-            {{ $roles->links() }}
+            {{ $rangos->links() }}
         </div>
     @else
         {{-- ALERTA - WARNING --}}
@@ -72,7 +86,5 @@
             </div>
         </div>
     @endif
-
-    </div>
 
 </x-admin-layout>

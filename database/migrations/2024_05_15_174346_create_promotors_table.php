@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('telefono');
             $table->string('direccion');
             $table->integer('puntos')->default(0);
+            
             $table->foreignId('rango_id')
                 ->constrained();
             $table->foreignId('user_id')

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('rangos', function (Blueprint $table) {
             $table->id();
             $table->string('nivel');
+            $table->float('descuento')->default(0);
+            $table->float('compras_minimas');
             $table->timestamps();
         });
     }

@@ -21,12 +21,12 @@
     </div> --}}
     @auth
         <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
-        <div class="w-full mx-auto">
+        <div class="w-full mx-auto ">
             <!-- Swiper -->
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     @foreach ($premios as $premio)
-                        <div class="swiper-slide flex w-full h-full">
+                        <div class="swiper-slide flex w-full h-full hover:shadow-2xl hover:shadow-gray-600">
                             <article
                                 class="bg-white shadow-xl rounded overflow-hidden mx-auto flex flex-col justify-between h-72">
                                 <div class="py-3 flex-shrink-0">

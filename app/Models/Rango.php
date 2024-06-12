@@ -10,12 +10,14 @@ class Rango extends Model
     use HasFactory;
     protected $fillable = [
         'nivel',
+        'descuento',
+        'compras_minimas',
     ];
 
-    //relacion uno a muchos inversa
+    //relacion uno a muchos 
     public function promotor(){
         return $this->hasMany(Promotor::class);
     }
 
-    
+
 }
