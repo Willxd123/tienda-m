@@ -18,9 +18,10 @@ class PromotorController extends Controller
      */
     public function index()
     {
-        $promotores = Promotor::orderBy('id', 'desc')->paginate(10);
+        $promotores = Promotor::with('user', 'rango')->orderBy('id', 'desc')->paginate(10);
         return view('admin.promotors.index', compact('promotores'));
     }
+
 
     /**
      * Show the form for creating a new resource.

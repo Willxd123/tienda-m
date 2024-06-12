@@ -15,6 +15,7 @@ class Promotor extends Model
         'rango_id' ,
         'puntos',
         'user_id' ,
+
     ];
 
     //relacion uno a muchos inversa
@@ -27,7 +28,7 @@ class Promotor extends Model
         return $this->belongsTo(User::class);
     }
 
-    //relacion muchos a muchos 
+    //relacion muchos a muchos
     public function premios(){
         return $this->belongsToMany(Premio::class, 'pemio_promotors');
     }

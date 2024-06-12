@@ -4,42 +4,44 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Lista de Usuarios',
-        'route' => route('admin.roles.index'),
+        'name' => 'Rangos',
+        'route' => route('admin.rangos.index'),
     ],
     [
-        'name' => 'Nuevo Rol',
+        'name' => 'Nuevo Rango',
     ],
 ]">
 
     <div class="card">
-        <form action="{{ route('admin.roles.store') }}" method="POST" class="card-body">
+        <form action="{{ route('admin.rangos.store') }}" method="POST" class="card-body">
             @csrf
 
             <div class="mb-4">
-
-                <!-- NOMBRE -->
-                <x-label for="name" class="block font-medium mb-2">
-                    Nombre
+                <!-- NIVEL -->
+                <x-label for="nivel" class="block font-medium mb-2">
+                    Nivel
                 </x-label>
-                <x-input type="text" name="name" id="name" class="w-full"
-                    placeholder="ingrese el nombre del rol" value="{{ old('name') }}" required autofocus />
+                <x-input type="text" name="nivel" id="nivel" class="w-full"
+                    placeholder="Ingrese el nivel" value="{{ old('nivel') }}" required autofocus />
             </div>
 
-            
             <div class="mb-4">
-                {{-- Permisos --}}
-                <x-label for="permisos" class="block font-medium mb-2">Permisos</x-label>
-                <div class="grid grid-cols-4 gap-4">
-                    @foreach ($permisos as $permiso)
-                        <div class="flex items-center">
-                            <input type="checkbox" class="px-2 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-blue-200 focus:border-blue-600" 
-                                name="permisos[]" value="{{ $permiso->id }}">
-                                <span class="ml-2">{{ $permiso->description }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            </div>            
+                <!-- DESCUENTO -->
+                <x-label for="descuento" class="block font-medium mb-2">
+                    Descuento
+                </x-label>
+                <x-input type="text" name="descuento" id="descuento" class="w-full"
+                    placeholder="Ingrese el descuento" value="{{ old('descuento') }}" required />
+            </div>
+
+            <div class="mb-4">
+                <!-- COMPRAS MÍNIMAS -->
+                <x-label for="compras_minimas" class="block font-medium mb-2">
+                    Compras Mínimas
+                </x-label>
+                <x-input type="text" name="compras_minimas" id="compras_minimas" class="w-full"
+                    placeholder="Ingrese las compras mínimas" value="{{ old('compras_minimas') }}" required />
+            </div>
 
             <div class="flex justify-end ">
                 <x-button class="ml-2">

@@ -4,52 +4,52 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Lista de Usuarios',
-        'route' => route('admin.roles.index'),
+        'name' => 'Rangos',
+        'route' => route('admin.rangos.index'),
     ],
     [
-        'name' => $role->name,
+        'name' => $rango->nivel,
     ],
 ]">
 
-<div class="card">
-    <form action="{{ route('admin.roles.update', $role) }}" method="POST">
-        @method('PUT')
-        @csrf
-        <div class="mb-4">
-            <x-label class="mb-3">
-                Nombre
-            </x-label>
-            <x-input class="w-full" placeholder="Ingrese el nombre" name="name" value="{{ old('name', $role->name) }}" />
-        </div>
+    <div class="card">
+        <form action="{{ route('admin.rangos.update', $rango) }}" method="POST">
+            @method('PUT')
+            @csrf
+            <div class="mb-4">
+                <x-label class="mb-3">
+                    Nivel
+                </x-label>
+                <x-input class="w-full" placeholder="Ingrese el nivel" name="nivel" value="{{ old('nivel', $rango->nivel) }}" />
+            </div>
 
-        <div class="mb-4">
-                {{-- Permisos --}}
-                <x-label for="permisos" class="block font-medium mb-2">Permisos</x-label>
-                <div class="grid grid-cols-4 gap-4">
-                    @foreach ($permisos as $permiso)
-                        <div class="flex items-center">
-                            <input type="checkbox" class="px-2 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-blue-200 focus:border-blue-600" 
-                                name="permisos[]" value="{{ $permiso->id }}" {{ $role->hasPermissionTo($permiso) ? 'checked' : '' }}>
-                                <span class="ml-2">{{ $permiso->description }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            </div>         
+            <div class="mb-4">
+                <x-label class="mb-3">
+                    Descuento
+                </x-label>
+                <x-input class="w-full" placeholder="Ingrese el descuento" name="descuento" value="{{ old('descuento', $rango->descuento) }}" />
+            </div>
 
-        <div class="flex justify-end mt-4">
-            <x-button class="mr-4">
-                Actualizar
-            </x-button>
-            <x-danger-button onclick="confirmDelete()">
-                Eliminar
-            </x-danger-button>
-        </div>
+            <div class="mb-4">
+                <x-label class="mb-3">
+                    Compras Mínimas
+                </x-label>
+                <x-input class="w-full" placeholder="Ingrese las compras mínimas" name="compras_minimas" value="{{ old('compras_minimas', $rango->compras_minimas) }}" />
+            </div>
 
-    </form>
-</div>
+            <div class="flex justify-end mt-4">
+                <x-button class="mr-4">
+                    Actualizar
+                </x-button>
+                <x-danger-button onclick="confirmDelete()">
+                    Eliminar
+                </x-danger-button>
+            </div>
 
-    <form id="delete-form" action="{{ route('admin.roles.destroy', $role) }}" method="POST" name="delete-form">
+        </form>
+    </div>
+
+    <form id="delete-form" action="{{ route('admin.rangos.destroy', $rango) }}" method="POST" name="delete-form">
         @csrf
         @method('DELETE')
     </form>
