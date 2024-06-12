@@ -132,7 +132,7 @@ class StripeController extends Controller
             Cart::instance('shopping')->destroy();
             
             // Descarga el PDF
-            return $pdf->download('factura-' . Carbon::now()->format('Y-m-d_H-i-s') . '.pdf');
+            return $pdf->download('factura.pdf');
         } catch (\Exception $e) {
             Log::error('Error generating PDF: ' . $e->getMessage());
             return redirect()->route('fallback.route')->with('error', 'Error generating PDF. Please try again later.');
