@@ -10,9 +10,11 @@
                                 <!-- Additional required wrapper -->
                                 <div class="swiper-wrapper">
                                     <!-- Slides -->
-                                    <div class="swiper-slide"><img src="{{ $producto->imagenes[1]->ruta }}"></div>
-                                    <div class="swiper-slide"><img src="{{ $producto->imagenes[2]->ruta }}"></div>
-                                    <div class="swiper-slide"><img src="{{ $producto->imagenes[3]->ruta }}"></div>
+                                    @foreach ($producto->imagenes as $imagen)
+                                    <div class="swiper-slide">
+                                        <img src="{{ $imagen->ruta }}" class="mx-auto object-center size-[520px]" style="max-height: 100%; max-width: 100%;" />
+                                    </div>
+                                    @endforeach
                                 </div>
                                 <!-- If we need pagination -->
                                 <div class="swiper-pagination"></div>
@@ -75,6 +77,7 @@
             </div>
         </div>
     </x-container>
+
     @push('css')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @endpush

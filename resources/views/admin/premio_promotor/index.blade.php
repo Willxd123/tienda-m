@@ -9,13 +9,13 @@
 ]">
     <!--boton y el llamado a buttons.css-->
     {{-- <x-slot name="action">
-        <a class="btn btn-blue" href="{{route('admin.nota_compras.create')}}"> 
+        <a class="btn btn-blue" href="{{route('admin.nota_compras.create')}}">
             {{$premio_promotor}}
         </a>
     </x-slot> --}}
 
     @if ($premio_promotors->count())
-    
+
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -31,7 +31,7 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Monto Total
-                        </th>                     
+                        </th>
                         <th scope="col" class="px-6 py-3">
 
                         </th>
@@ -71,7 +71,7 @@
         {{-- <div>
             {{ $compras->links() }}
         </div> --}}
-        
+
     @else
         <!--estilo de alertas-->
         <div class="flex items-center p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
@@ -83,7 +83,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se registraron proveedores
+                <span class="font-medium">Info alert!</span> Aun no se registraron premios del promotor
             </div>
     @endif
 </x-admin-layout>

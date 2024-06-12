@@ -10,9 +10,11 @@
                                 <!-- Additional required wrapper -->
                                 <div class="swiper-wrapper">
                                     <!-- Slides -->
-                                    <div class="swiper-slide"><img src="{{ $premio->producto->imagenes[1]->ruta }}"></div>
-                                    <div class="swiper-slide"><img src="{{ $premio->producto->imagenes[2]->ruta }}"></div>
-                                    <div class="swiper-slide"><img src="{{ $premio->producto->imagenes[3]->ruta }}"></div>
+                                    @foreach ($premio->producto->imagenes as $imagen)
+                                    <div class="swiper-slide">
+                                        <img src="{{ $imagen->ruta }}" class="mx-auto object-center size-[520px]" style="max-height: 100%; max-width: 100%;" />
+                                    </div>
+                                    @endforeach
                                 </div>
                                 <!-- If we need pagination -->
                                 <div class="swiper-pagination"></div>
@@ -28,18 +30,19 @@
                     <h1 class="text-xl text-gray-600 mb-2">
                         {{ $premio->producto->nombre }}
                     </h1>
-                    
+
                     <p class="font-semibold text-2xl text-gray-600 mb-4">
                         {{ $premio->precio_puntos }} puntos
                     </p>
                     <div class="flex items-center space-x-6 mb-6" x-data="{
                         qty: @entangle('qty'),
+                        maxQty: {{ $premio->stock }},
                          }">
                         <button class="btn btn-gray" x-on:click="qty = qty - 1" x-bind:disabled="qty == 1">
                             -
                         </button>
                         <span x-text="qty" class="inline-block w-2 text-center"> </span>
-                        <button class="btn btn-gray" x-on:click="qty = qty + 1">
+                        <button class="btn btn-gray" x-on:click="qty = qty + 1" x-bind:disabled="qty >= maxQty">
                             +
                         </button>
                     </div>
@@ -83,6 +86,4 @@
             });
         </script>
     @endpush
-    
 </div>
-

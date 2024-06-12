@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\NotaVentaController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoriaApiCntroller;
 use App\Http\Controllers\Api\FamiliaApiController;
 use App\Http\Controllers\Api\ImagenApiController;
 use App\Http\Controllers\Api\ProductoApiController;
+use App\Http\Controllers\Api\PromotorApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +24,7 @@ Route::get('/categorias/{id}',[CategoriaApiCntroller::class, 'show']);
 Route::get('/categorias',[CategoriaApiCntroller::class, 'index']);
 Route::get('/producto/{id}',[ProductoApiController::class, 'show']);
 Route::post('/familia',[FamiliaApiController::class, 'store']);
+Route::post('/factura/{id}',[NotaVentaController::class, 'store']);
+Route::get('/pdf-factura/{id}',[ProductoApiController::class, 'pdfFactura']);
+Route::get('/pdf-factura/{id}/{prods}',[ProductoApiController::class, 'pdfFacturaUrl']);
+Route::put('/promotor/{id}',[PromotorApiController::class, 'actualizarPuntos']);

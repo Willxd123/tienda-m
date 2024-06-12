@@ -3,68 +3,34 @@
 namespace App\Exports;
 
 use App\Models\NotaCompra;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View;
+use Illuminate\Contracts\View\View as ViewView;
 
-class NotaComprasExport implements FromCollection
+class NotaComprasExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    protected $id;
-    protected $proveedor;
-    protected $fecha;
-    protected $monto_total;
-    protected $fecha_ini;
-    protected $fecha_fin;
+    protected $nota_compras;
+    protected $proveedores;
+    protected $campos;
 
-    public function __construct($proveedor, $fecha, $monto_total, $fecha_ini, $fecha_fin)
+    public function __construct($nota_compras, $proveedores, $campos)
     {
-        $this->proveedor = $proveedor;
-        $this->fecha = $fecha;
-        $this->monto_total = $monto_total;
-        $this->fecha_ini = $fecha_ini;
-        $this->fecha_fin = $fecha_fin;
-
+        $this->nota_compras = $nota_compras;
+        $this->proveedores = $proveedores;
+        $this->campos = $campos;
     }
 
-    public function collection()
+    public function view(): ViewView
     {
-        if($this->proveedor != "" && $this->fecha == "" && $this->monto_total == "" ){
-            $nota_compras = NotaCompra::select('id',$this->proveedor)->get();
-            return $nota_compras;
-        }
-
-        if($this->fecha != "" && $this->proveedor == "" && $this->monto_total == ""){
-            $nota_compras = NotaCompra::select('id',$this->fecha)->get();
-            return $nota_compras;
-        }
-
-        if($this->monto_total != "" && $this->proveedor == "" && $this->fecha == ""){
-            $nota_compras = NotaCompra::select('id',$this->monto_total)->get();
-            return $nota_compras;
-        }
-
-        if($this->monto_total != "" && $this->proveedor != "" & $this->fecha == ""){
-            $nota_compras = NotaCompra::select('id',$this->proveedor, $this->monto_total)->get();
-            return $nota_compras;
-        }
-
-        if($this->monto_total != "" && $this->fecha != "" && $this->proveedor == ""){
-            $nota_compras = NotaCompra::select('id',$this->fecha, $this->monto_total)->get();
-            return $nota_compras;
-        }
-
-        if($this->proveedor != "" && $this->fecha != "" && $this->monto_total == ""){
-            $nota_compras = NotaCompra::select('id',$this->fecha, $this->proveedor)->get();
-            return $nota_compras;
-        }
-
-        if($this->proveedor != "" && $this->fecha != "" && $this->monto_total !=""){
-            $nota_compras = NotaCompra::select('id',$this->fecha, $this->proveedor, $this->monto_total)->get();
-            return $nota_compras;
-        }
-
-        return NotaCompra::all();
+        //dd($this->campos);
+        return view('pdf.export_compras',[
+            'nota_compras' => $this->nota_compras,
+            'proveedores' => $this->proveedores,
+            'campos' => $this->campos
+        ]);
     }
 }

@@ -31,4 +31,8 @@ class Promotor extends Model
     public function premios(){
         return $this->belongsToMany(Premio::class, 'pemio_promotors');
     }
+
+    public function notaVentas(){
+        return $this->hasMany(NotaVenta::class);
+    }
 }

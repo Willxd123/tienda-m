@@ -40,7 +40,7 @@
                             Acciones
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            
+
                         </th>
                     </tr>
                 </thead>
@@ -89,7 +89,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se reguistraron productos
+                <span class="font-medium">Info alert!</span> Aun no se reguistraron premios
             </div>
     @endif
 </x-admin-layout>

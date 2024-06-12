@@ -24,6 +24,5 @@ class UserSeeder extends Seeder
             'email' => 'prom@gmail.com',
             'password' => bcrypt('12345678'),
         ])->assignRole('promotor');
-
     }
 }

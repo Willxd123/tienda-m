@@ -24,10 +24,4 @@ class Portada extends Model
         'fin' => 'datetime',
         'activo' => 'boolean',
     ];
-    protected function image(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => Storage::url($this->imagen),
-        );
-    }
 }

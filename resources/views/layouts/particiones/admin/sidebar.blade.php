@@ -117,6 +117,30 @@
             'active' => request()->routeIs('admin.bitacora.index'),
             //'can' => 'admin.bitacora.index',
         ],
+        //portadas
+        [
+            'name' => 'Portada',
+            'icon' => 'fa-solid fa-panorama',
+            'route' => route('admin.portadas.index'),
+            'active' => request()->routeIs('admin.portadas.*'),
+            //'can' => 'admin.bitacora.index',
+        ],
+        //configuracion
+        [
+            'name' => 'Configuracion',
+            'icon' => 'fa-solid fa-gears',
+            'route' => route('admin.configuracions.index'),
+            'active' => request()->routeIs('admin.configuracions.*'),
+            //'can' => 'admin.bitacora.index',
+        ],
+        //Catalogo
+        [
+            'name' => 'Catalogo',
+            'icon' => 'fa-solid fa-book-open',
+            'route' => route('admin.catalogos.index'),
+            'active' => request()->routeIs('admin.catalogos.*'),
+            //'can' => 'admin.bitacora.index',
+        ],
     ];
 @endphp
 
@@ -144,15 +168,15 @@
         <ul class="space-y-2 font-medium">
             @foreach ($links as $link)
                 {{-- @can($link['can']) --}}
-                    <li class="{{ $link['active'] ? 'bg-gray-100' : '' }}">
-                        <a href="{{ $link['route'] }}"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="inline-flex w-6 h-6 justify-center items-center">
-                                <i class="{{ $link['icon'] }} text-gray-500"></i>
-                            </span>
-                            <span class="ms-2">{{ $link['name'] }}</span>
-                        </a>
-                    </li>
+                <li class="{{ $link['active'] ? 'bg-gray-400 rounded-lg' : '' }}">
+                    <a href="{{ $link['route'] }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group">
+                        <span class="inline-flex w-6 h-6 justify-center items-center">
+                            <i class="{{ $link['icon'] }} text-gray-500"></i>
+                        </span>
+                        <span class="ms-2">{{ $link['name'] }}</span>
+                    </a>
+                </li>
                 {{-- @endcan --}}
             @endforeach
         </ul>

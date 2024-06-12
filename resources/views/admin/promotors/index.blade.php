@@ -25,10 +25,10 @@
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Nombre
+                            NIT
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            NIT
+                            Nombre
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Telefono
@@ -102,7 +102,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se registraron proveedores
+                <span class="font-medium">Info alert!</span> Aun no se registraron promotores...
             </div>
     @endif
 </x-admin-layout>
