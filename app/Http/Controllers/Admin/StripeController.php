@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class StripeController extends Controller
 {
@@ -74,27 +75,68 @@ class StripeController extends Controller
 
     public function success()
     {
-        $pdf = Pdf::loadView('pdf.factura');
-        $productos = Cart::instance('shopping')->content();
-        $nota_venta = NotaVenta::create([
-            'monto_total'=>Cart::instance('shopping')->subTotal(),
-            'fecha'=>Carbon::now(),
-            'promotor_id' => Auth::user()->promotor->id
-        ]);
-        foreach ($productos as $producto) {
-            $producto_original = Producto::where('nombre', $producto->name)->first();
-            DetalleVenta::create([
-                'cantidad' => $producto->qty,
-                'precio' => $producto->price,
-                'producto_id' => $producto_original->id,
-                'nota_venta_id' => $nota_venta->id
+        // $pdf = Pdf::loadView('pdf.factura');
+        // $productos = Cart::instance('shopping')->content();
+        // $nota_venta = NotaVenta::create([
+        //     'monto_total'=>Cart::instance('shopping')->subTotal(),
+        //     'fecha'=>Carbon::now(),
+        //     'promotor_id' => Auth::user()->promotor->id
+        // ]);
+        // foreach ($productos as $producto) {
+        //     $producto_original = Producto::where('nombre', $producto->name)->first();
+        //     DetalleVenta::create([
+        //         'cantidad' => $producto->qty,
+        //         'precio' => $producto->price,
+        //         'producto_id' => $producto_original->id,
+        //         'nota_venta_id' => $nota_venta->id
+        //     ]);
+        //     $producto_original->update([
+        //         'stock' => ($producto_original->stock - $producto->qty)
+        //     ]);
+        // }
+        // Cart::instance('shopping')->destroy();
+        // return $pdf->download('factura-' . Carbon::now() . '.pdf');
+        try {
+            // Renderiza la vista del PDF
+            $pdf = Pdf::loadView('pdf.factura');
+            
+            // Obtiene los productos del carrito
+            $productos = Cart::instance('shopping')->content();
+            
+            // Crea una nueva nota de venta
+            $nota_venta = NotaVenta::create([
+                'monto_total' => Cart::instance('shopping')->subTotal(),
+                'fecha' => Carbon::now(),
+                'promotor_id' => Auth::user()->promotor->id
             ]);
-            $producto_original->update([
-                'stock' => ($producto_original->stock - $producto->qty)
-            ]);
+            
+            // Itera sobre los productos del carrito
+            foreach ($productos as $producto) {
+                $producto_original = Producto::where('nombre', $producto->name)->first();
+                
+                // Crea un nuevo detalle de venta
+                DetalleVenta::create([
+                    'cantidad' => $producto->qty,
+                    'precio' => $producto->price,
+                    'producto_id' => $producto_original->id,
+                    'nota_venta_id' => $nota_venta->id
+                ]);
+                
+                // Actualiza el stock del producto
+                $producto_original->update([
+                    'stock' => ($producto_original->stock - $producto->qty)
+                ]);
+            }
+            
+            // Limpia el carrito
+            Cart::instance('shopping')->destroy();
+            
+            // Descarga el PDF
+            return $pdf->download('factura-' . Carbon::now()->format('Y-m-d_H-i-s') . '.pdf');
+        } catch (\Exception $e) {
+            Log::error('Error generating PDF: ' . $e->getMessage());
+            return redirect()->route('fallback.route')->with('error', 'Error generating PDF. Please try again later.');
         }
-        Cart::instance('shopping')->destroy();
-        return $pdf->download('factura-' . Carbon::now() . '.pdf');
     }
 
     public function redireccionar()
