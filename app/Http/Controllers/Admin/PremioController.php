@@ -66,14 +66,17 @@ class PremioController extends Controller
      */
     public function destroy(Premio $premio, Request $request)
     {
-        $premio->delete();
+        // Obtener el producto asociado al premio
+        $producto = Producto::find($premio->producto_id);
 
-        session()->flash('swal', [
-            'icon'=> 'success',
-            'title'=>'¡Bien hecho!',
-            'text' => 'El Premio se eliminó correctamente.'
-        ]);
+        // Verificar si se encontró el producto
+        if ($producto) {
+            // Sumar los puntos del premio al producto
+            $producto->stock += $premio->stock;
+            $producto->save();
+        }
 
+        // Guardar información en la bitácora
         $bitacora = new Bitacora();
         $bitacora->descripcion = "Eliminación de un Premio";
         $bitacora->usuario = auth()->user()->name;
@@ -84,6 +87,14 @@ class PremioController extends Controller
         $bitacora->registro_id = $premio->id;
         $bitacora->fecha_hora = Carbon::now();
         $bitacora->save();
+
+        $premio->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'El Premio se eliminó correctamente.'
+        ]);
 
         return redirect()->route('admin.premios.index');
     }

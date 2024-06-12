@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit="store" enctype="multipart/form-data">
+    <form wire:submit="update" enctype="multipart/form-data">
 
         <div class="card">
             <div>

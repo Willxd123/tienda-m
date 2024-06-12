@@ -27,16 +27,28 @@ class PremioEdit extends Component
         $this->originalStock = $premio->stock; // Guardar el stock original
     }
 
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $this->validate([
             'premioEdit.stock' => 'required|numeric|min:0',
             'premioEdit.precio_puntos' => 'required|numeric|min:0',
             'premioEdit.producto_id' => 'required|exists:productos,id',
+        ], [
+            'premioEdit.stock.required' => 'El stock es obligatorio.',
+            'premioEdit.stock.numeric' => 'El stock debe ser un número.',
+            'premioEdit.precio_puntos.required' => 'El precio en puntos es obligatorio.',
+            'premioEdit.producto_id.required' => 'El ID del producto es obligatorio.',
+            'premioEdit.precio_puntos.numeric' => 'El precio en puntos debe ser un número.',
         ]);
 
         // Buscar el producto
         $prod = Producto::find($this->premioEdit['producto_id']);
+
+        // Validar que el stock del producto no sea menor al stock del premio
+        if ($prod->stock < $this->premioEdit['stock']) {
+            $this->addError('premioEdit.stock', 'El stock del producto no puede ser menor que la cantidad solicitada.');
+            return;
+        }
 
         // Encuentra el premio existente y actualízalo
         $premio = Premio::findOrFail($this->premioEdit['id']);
