@@ -23,10 +23,10 @@
         </div>
 
         <div class="grid grid-cols-2 gap-2 py-5">
-            <div>
-                <img class="bg-gray-200 h-auto max-w-full rounded-lg" src="{{ $configuracion->logotipo }}" alt="">
+            <div class="flex col-span-1">
+                <img class="bg-gray-200 h-auto w-full max-w-full rounded-lg" src="{{ $configuracion->logotipo }}" alt="">
             </div>
-            <div>
+            <div class="col-span-1">
                 @foreach ($configuracion->colors as $color)
                     <div class="bg-{{ $color->color }} h-full max-w-full rounded-lg text-{{ $color->color }}">
                         {{ $color->color }}

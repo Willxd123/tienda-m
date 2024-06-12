@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bitacora;
 use App\Models\Portada;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class PortadaController extends Controller
 {
@@ -14,7 +16,6 @@ class PortadaController extends Controller
      */
     public function index()
     {
-        //migrasion = modulo (identifica al modulo y la bd para la funcionalidad)
         $portadas = Portada::orderBy('id', 'desc')->paginate(10);
         return view('admin.portadas.index', compact('portadas'));
     }
@@ -53,24 +54,41 @@ class PortadaController extends Controller
             'activo.required' => 'El campo activo es obligatorio.',
             'activo.boolean' => 'El campo activo debe ser verdadero o falso.',
         ]);
+
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $image_url = null;
+
         // Almacenar la imagen
         if ($request->hasFile('imagen')) {
             $image_ruta = $request->file('imagen')->storePublicly('portadas');
             $image_url = $aws_ruta . $image_ruta;
         }
+
         // Obtener el valor máximo actual de "orden" y sumarle 1
         $maxOrden = Portada::max('orden');
         $newOrden = $maxOrden ? $maxOrden + 1 : 1;
+
         // Crear el registro en la base de datos
-        Portada::create([
+        $portada = Portada::create([
             'imagen' => $image_url,
             'titulo' => $request->titulo,
             'inicio' => $request->inicio,
             'fin' => $request->fin,
             'activo' => $request->activo,
-            'orden' => $newOrden // Asignar el valor de orden si está presente
+            'orden' => $newOrden
         ]);
+
+        // Crear registro en bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de una portada";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Portada";
+        $bitacora->registro_id = $portada->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
 
         session()->flash('swal', [
             'icon' => 'success',
@@ -122,6 +140,7 @@ class PortadaController extends Controller
             'activo.required' => 'El campo activo es obligatorio.',
             'activo.boolean' => 'El campo activo debe ser verdadero o falso.',
         ]);
+
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         $image_url = $portada->imagen;
 
@@ -146,6 +165,18 @@ class PortadaController extends Controller
             'activo' => $request->activo
         ]);
 
+        // Crear registro en bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de una portada";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Portada";
+        $bitacora->registro_id = $portada->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Bien Hecho',
@@ -155,20 +186,37 @@ class PortadaController extends Controller
         return redirect()->route('admin.portadas.index');
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Portada $portada)
+    public function destroy(Portada $portada, Request $request)
     {
+        if ($portada->imagen) {
+            $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+            $oldImagePath = str_replace($aws_ruta, '', $portada->imagen);
+            Storage::delete($oldImagePath);
+        }
+
         $portada->delete();
+
+        // Crear registro en bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Eliminación de una portada";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Portada";
+        $bitacora->registro_id = $portada->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         session()->flash('swal',[
             'icon'=> 'success',
             'title'=>'Excelente!',
-            'text' => 'La portada fue Eliminada con existo.'
+            'text' => 'La portada fue eliminada con éxito.'
         ]);
 
-        return redirect()->route('admin.portadas.index' );
+        return redirect()->route('admin.portadas.index');
     }
 }

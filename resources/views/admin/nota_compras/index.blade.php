@@ -10,7 +10,7 @@
         <!--boton y el llamado a buttons.css-->
     <x-slot name="action">
         <a class="btn btn-blue" href="{{route('admin.nota_compras.create')}}">
-            Nuevo 
+            Nuevo
             {{-- {{$premio_promotor}} --}}
         </a>
     </x-slot>
@@ -33,7 +33,7 @@
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Monto Total
-                        </th>                     
+                        </th>
                         <th scope="col" class="px-6 py-3">
 
                         </th>
@@ -73,7 +73,7 @@
         {{-- <div>
             {{ $compras->links() }}
         </div> --}}
-        
+
     @else
         <!--estilo de alertas-->
         <div class="flex items-center p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
@@ -85,7 +85,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se registraron proveedores
+                <span class="font-medium">Info alert!</span> Aun no se registro una nota de compra
             </div>
     @endif
 </x-admin-layout>
