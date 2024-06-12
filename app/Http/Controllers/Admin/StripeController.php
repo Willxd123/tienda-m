@@ -3,26 +3,48 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetalleVenta;
+use App\Models\NotaVenta;
+use App\Models\Producto;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StripeController extends Controller
 {
-    public function checkout(){
+    public function checkout()
+    {
         return view('welcome');
     }
 
-    public function session(Request $request){
+    public function session(Request $request)
+    {
 
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
         $productos = Cart::instance('shopping')->content();
 
+
+
         $items = [];
 
         foreach ($productos as $producto) {
+
+            $producto_original = Producto::where('nombre', $producto->name)->first();
+            if ($producto->qty > $producto_original->stock) {
+                // return session()->flash('swal', [
+                //     'icon' => 'error',
+                //     'title' => '¡Ups!',
+                //     'text' => 'Stock insuficiente para el producto '. $producto->name
+                // ]);
+                return redirect()->back()->with(session()->flash('swal', [
+                    'icon' => 'error',
+                    'title' => '¡Ups!',
+                    'text' => 'Stock insuficiente para el producto ' . $producto->name
+                ]));
+            }
             $productName = $producto->name;
             $totalprice = $producto->price;
             $unitAmount = $totalprice * 100;
@@ -52,12 +74,37 @@ class StripeController extends Controller
 
     public function success()
     {
-        return "Thanks for you order You have just completed your payment. The seeler will reach out to you as soon as possible";
-    }
-
-    public function prueba(){
         $pdf = Pdf::loadView('pdf.factura');
-        return $pdf->download('factura-'.Carbon::now().'.pdf');
+        $productos = Cart::instance('shopping')->content();
+        $nota_venta = NotaVenta::create([
+            'monto_total'=>Cart::instance('shopping')->subTotal(),
+            'fecha'=>Carbon::now(),
+            'promotor_id' => Auth::user()->promotor->id
+        ]);
+        foreach ($productos as $producto) {
+            $producto_original = Producto::where('nombre', $producto->name)->first();
+            DetalleVenta::create([
+                'cantidad' => $producto->qty,
+                'precio' => $producto->price,
+                'producto_id' => $producto_original->id,
+                'nota_venta_id' => $nota_venta->id
+            ]);
+            $producto_original->update([
+                'stock' => ($producto_original->stock - $producto->qty)
+            ]);
+        }
+        Cart::instance('shopping')->destroy();
+        return $pdf->download('factura-' . Carbon::now() . '.pdf');
     }
 
+    public function redireccionar()
+    {
+        return view('welcome');
+    }
+
+    public function prueba()
+    {
+        $pdf = Pdf::loadView('pdf.factura');
+        return $pdf->download('factura-' . Carbon::now() . '.pdf');
+    }
 }

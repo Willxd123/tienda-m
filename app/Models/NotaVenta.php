@@ -13,4 +13,10 @@ class NotaVenta extends Model
         'fecha',
         'promotor_id'
     ];
+
+    public function promotor(){
+        return $this->belongsTo(Promotor::class);
+    }
+
+
 }

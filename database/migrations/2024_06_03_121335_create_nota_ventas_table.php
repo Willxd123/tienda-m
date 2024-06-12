@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('nota_ventas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('monto_total');
+            $table->float('monto_total');
             $table->date('fecha');
             $table->unsignedBigInteger('promotor_id');
             $table->foreign('promotor_id')->references('id')->on('promotors');

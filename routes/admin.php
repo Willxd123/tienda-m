@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\PremioPromotorController;
 use App\Http\Controllers\Admin\PromotorController;
 use App\Http\Controllers\Admin\RangoController;
 use App\Http\Controllers\Admin\PortadaController;
+use App\Http\Controllers\Api\ProductoApiController;
 use App\Http\Controllers\ImageController;
 use App\Models\Categoria;
 use App\Models\Color;
@@ -49,5 +50,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/imagenes/{id}', [ImageController::class, 'store'])->name('imagenes.store');
     Route::get('/reportes', [ExportController::class, 'create'])->name('reporte.create');
     Route::post('/reportes', [ExportController::class, 'store'])->name('reporte.store');
+    Route::post('/reporte', [ExportController::class, 'store2'])->name('reporte.store2');
     Route::resource('catalogos', CatalogoController::class);
+    Route::get('/pdf-factura/{id}',[ProductoController::class, 'pdfFactura']);
+
 });
