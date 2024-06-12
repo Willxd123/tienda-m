@@ -19,77 +19,94 @@
             ver catalogo
         </a>
     </div>
-    <div class="px-4 py-3">
-        <x-container>
-            @auth
-            <div class="w-full mx-auto">
-                <!-- Swiper -->
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        @foreach ($premios as $premio)
-                            <div class="swiper-slide flex w-full h-full">
-                                <article class="bg-white shadow rounded overflow-hidden mx-auto flex flex-col justify-between h-72">
-                                    <div class="py-3 flex-shrink-0">
-                                        <img src="{{ $premio->producto->imagen }}" class="w-4/5 mx-auto rounded-t max-h-36 object-contain">
+    @auth
+        <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
+        <div class="w-full mx-auto">
+            <!-- Swiper -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach ($premios as $premio)
+                        <div class="swiper-slide flex w-full h-full">
+                            <article
+                                class="bg-white shadow-xl rounded overflow-hidden mx-auto flex flex-col justify-between h-72">
+                                <div class="py-3 flex-shrink-0">
+                                    <img src="{{ $premio->producto->imagen }}"
+                                        class="w-4/5 mx-auto rounded-t max-h-36 object-contain">
+                                </div>
+                                <div class="p-2 flex flex-col justify-between flex-grow">
+                                    <div>
+                                        <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]">
+                                            {{ $premio->producto->nombre }}
+                                        </h1>
+                                        <p class="text-base sm:text-lg text-gray-600 mb-2">
+                                            Puntos: {{ $premio->precio_puntos }}
+                                        </p>
                                     </div>
-                                    <div class="p-2 flex flex-col justify-between flex-grow">
-                                        <div>
-                                            <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]">
-                                                {{ $premio->producto->nombre }}
-                                            </h1>
-                                            <p class="text-base sm:text-lg text-gray-600 mb-2">
-                                                Puntos: {{ $premio->precio_puntos }}
-                                            </p>
-                                        </div>
-                                        <a href="{{ route('cliente.premios.show', $premio) }}" class="btn btn-gray block w-full text-center sm:w-auto">
+                                    @if ($premio->stock > 0)
+                                        <a href="{{ route('cliente.premios.show', $premio) }}"
+                                            class="btn btn-blue block w-full text-center sm:w-auto">
                                             Ver más
                                         </a>
-                                    </div>
-                                </article>
-                            </div>
-                        @endforeach
-                    </div>
+                                    @else
+                                        <span class="text-white-500 block btn btn-red w-full text-center">Agotado</span>
+                                    @endif
+                                </div>
+                            </article>
+                        </div>
+                    @endforeach
                 </div>
             </div>
+        </div>
+        <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
 
-            @endauth
+    @endauth
+    <div class="px-4">
+        <x-container>
+
             <!-- Productos -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 ">
                 @foreach ($productos as $producto)
-                    <article class="bg-white shadow rounded overflow-hidden">
-                        <img src="{{ $producto->imagen }}" class="aspect-[1/1] w-full object-cover object-center">
-                        <div class="p-4">
-                            <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[56px]">
-                                {{ $producto->nombre }}
-                            </h1>
-                            <p class="text-gray-600 mb-2">
-                                Bs/ {{ $producto->precio }}
-                            </p>
-                            @can('promotor')
-                                <p class="text-gray-600 mb-2">
-                                    {{ $producto->puntos }} pt
-                                </p>
-                            @endcan
-                            @if ($producto->stock > 0)
-                                <a href="{{ route('cliente.productos.show', $producto) }}"
-                                    class="btn btn-blue block w-full text-center">
-                                    Ver más
-                                </a>
-                            @else
-                                <span class="text-white-500 block btn btn-red w-full text-center">Agotado</span>
-                            @endif
-                        </div>
-                    </article>
+                    <div class="hover:shadow-2xl hover:shadow-gray-600">
+                        <article class="bg-white shadow-xl rounded-lg overflow-hidden ">
+                            <img src="{{ $producto->imagen }}" class="aspect-[1/1] w-full object-cover object-center">
+                            <div class="p-4">
+                                <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[40px]">
+                                    {{ $producto->nombre }}
+                                </h1>
+                                <div class="flex justify-between items-center mb-2">
+                                    <p class="text-gray-600 text-lg font-semibold">
+                                        Bs/ {{ $producto->precio }}
+                                    </p>
+                                    @can('admin')
+                                        <p class="text-gray-600">
+                                            {{ $producto->puntos }} Puntos
+                                        </p>
+                                    @endcan
+                                </div>
+                                @if ($producto->stock > 0)
+                                    <a href="{{ route('cliente.productos.show', $producto) }}"
+                                        class="btn btn-blue block w-full text-center">
+                                        Ver más
+                                    </a>
+                                @else
+                                    <span class="text-white-500 block btn btn-red w-full text-center">Agotado</span>
+                                @endif
+                            </div>
+                        </article>
+                    </div>
                 @endforeach
             </div>
+
         </x-container>
     </div>
+
     <style>
         .swiper-slide h1 {
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* Número de líneas que queremos mostrar */
+            -webkit-line-clamp: 2;
+            /* Número de líneas que queremos mostrar */
             -webkit-box-orient: vertical;
         }
     </style>
@@ -105,7 +122,7 @@
                     delay: 3000,
                 },
                 pagination: {
-                    el: '.swiper-pagination',
+                    el: '.swiper-paginations',
                     clickable: true,
                 },
                 breakpoints: {

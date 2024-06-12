@@ -7,9 +7,9 @@
         'name' => 'Familias',
     ],
 ]">
-        <!--boton y el llamado a buttons.css-->
+    <!--boton y el llamado a buttons.css-->
     <x-slot name="action">
-        <a class="btn btn-blue" href="{{route('admin.familias.create')}}">
+        <a class="btn btn-blue" href="{{ route('admin.familias.create') }}">
             Nuevo
         </a>
     </x-slot>

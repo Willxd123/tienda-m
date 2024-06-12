@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\catalogo;
+use App\Models\Bitacora;
+use App\Models\Catalogo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PdfToImage\Pdf;
+use Carbon\Carbon;
 
 class CatalogoController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $catalogos = Catalogo::all();
-
         return view('admin.catalogos.index', compact('catalogos'));
     }
 
@@ -48,10 +47,22 @@ class CatalogoController extends Controller
         }
 
         // Crear el registro en la base de datos
-        Catalogo::create([
+        $catalogo = Catalogo::create([
             'nombre' => $request->input('nombre'),
             'catalogo' => $pdfUrl,
         ]);
+
+        // Crear registro en bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de un catálogo";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Catalogo";
+        $bitacora->registro_id = $catalogo->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
 
         session()->flash('swal', [
             'icon' => 'success',
@@ -62,11 +73,10 @@ class CatalogoController extends Controller
         return redirect()->route('admin.catalogos.index');
     }
 
-
     /**
      * Display the specified resource.
      */
-    public function show(catalogo $catalogo)
+    public function show(Catalogo $catalogo)
     {
         return $this->viewPdf($catalogo->catalogo);
     }
@@ -74,7 +84,7 @@ class CatalogoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(catalogo $catalogo)
+    public function edit(Catalogo $catalogo)
     {
         return view('admin.catalogos.edit', compact('catalogo'));
     }
@@ -115,6 +125,18 @@ class CatalogoController extends Controller
         $catalogo->nombre = $request->input('nombre');
         $catalogo->save();
 
+        // Crear registro en bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de un catálogo";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Catalogo";
+        $bitacora->registro_id = $catalogo->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Bien Hecho',
@@ -127,9 +149,35 @@ class CatalogoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(catalogo $catalogo)
+    public function destroy(Catalogo $catalogo, Request $request)
     {
-        //
+        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        if ($catalogo->catalogo) {
+            $oldPdfPath = str_replace($aws_ruta, '', $catalogo->catalogo);
+            Storage::disk('s3')->delete($oldPdfPath);
+        }
+
+        $catalogo->delete();
+
+        // Crear registro en bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Eliminación de un catálogo";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Catalogo";
+        $bitacora->registro_id = $catalogo->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Bien Hecho',
+            'text' => 'Catálogo eliminado correctamente.'
+        ]);
+
+        return redirect()->route('admin.catalogos.index');
     }
 
     private function viewPdf($url)

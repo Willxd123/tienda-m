@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bitacora;
 use App\Models\Color;
 use App\Models\configuracion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +19,7 @@ class ConfiguracionController extends Controller
     {
         $configuracions = Configuracion::with('colors')->get();
         $colors = Color::all();
-        return view('admin.configuracions.index', compact('configuracions','colors'));
+        return view('admin.configuracions.index', compact('configuracions', 'colors'));
     }
 
 
@@ -68,6 +70,17 @@ class ConfiguracionController extends Controller
             'configuracion_id' => $configuracion_id,
         ]);
 
+        // Register the action in the Bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Creación de una Configuración";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Configuracion";
+        $bitacora->registro_id = $configuracion->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
 
         session()->flash('swal', [
             'icon' => 'success',
@@ -130,7 +143,17 @@ class ConfiguracionController extends Controller
 
         // Sincronizar colores seleccionados
         $configuracion->colors()->sync($request->input('colors'));
-
+        // Register the action in the Bitacora
+        $bitacora = new Bitacora();
+        $bitacora->descripcion = "Actualización de una Configuración";
+        $bitacora->usuario = auth()->user()->name;
+        $bitacora->usuario_id = auth()->user()->id;
+        $bitacora->direccion_ip = $request->ip();
+        $bitacora->navegador = $request->header('user-agent');
+        $bitacora->tabla = "Configuracion";
+        $bitacora->registro_id = $configuracion->id;
+        $bitacora->fecha_hora = Carbon::now();
+        $bitacora->save();
         session()->flash('swal', [
             'icon' => 'success',
             'title' => '¡Bien Hecho!',
