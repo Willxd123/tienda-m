@@ -9,11 +9,16 @@ use App\Models\Producto;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotaVentaController extends Controller
 {
 
-
+    public function index(){
+        
+        $ventas = NotaVenta::orderBy('id', 'desc')->paginate(10);
+        return view('admin.detalle_ventas.index', compact('ventas'));
+    }
 
     /////////////////API/////////////////
     public function store(Request $request, $id)
@@ -38,8 +43,14 @@ class NotaVentaController extends Controller
             $detalle_venta->save();
             
         }
-        
 
         return response()->json($nota_venta, 200);
+    }
+
+    public function show(string $id)
+    {
+        $ventas = NotaVenta::findOrFail($id);
+        $detalles = DetalleVenta::where('nota_venta_id', $id)->get();
+        return view('admin.detalle_ventas.ver', compact('ventas', 'detalles'));
     }
 }

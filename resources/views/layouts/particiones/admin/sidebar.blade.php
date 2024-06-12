@@ -104,6 +104,13 @@
             //'can' => 'admin.nota_compras.index',
         ],
         [
+            //venta
+            'name' => 'Venta',
+            'icon' => 'fa-solid fa-sack-dollar',
+            'route' => route('admin.detalle_ventas.index'),
+            'active' => request()->routeIs('admin.detalle_ventas.*'),
+        ],
+        [
             'name' => 'Reportes',
             'icon' => 'fa-solid fa-file-invoice',
             'route' => route('admin.reporte.create'),

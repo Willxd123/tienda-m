@@ -4,18 +4,11 @@
         'route' => route('admin.dashboard'),
     ],
     [
-        'name' => 'Promotor',
+        'name' => 'Venta',
     ],
 ]">
-        <!--boton y el llamado a buttons.css-->
-    <x-slot name="action">
-        <a class="btn btn-blue" href="{{route('admin.promotors.create')}}">
-            Nuevo
-        </a>
-    </x-slot>
 
-
-    @if ($promotores->count())
+    @if ($ventas->count())
 
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -25,60 +18,41 @@
                             ID
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Nombre
+                            Promotor
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            NIT
+                            Fecha
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Telefono
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Direccion
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Correo
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Puntos
+                            Monto Total
                         </th>
                         <th scope="col" class="px-6 py-3">
 
                         </th>
-
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($promotores as $promotor)
+                    @foreach ($ventas as $venta)
                         <tr class="bg-white dark:bg-gray-800">
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $promotor->id }}
+                                {{ $venta->id }}
+                            </th>
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $venta->promotor->user->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $promotor->nit }}
+                                {{ $venta->fecha }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $promotor->user->name }}
+                                {{ $venta->monto_total }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $promotor->telefono }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $promotor->direccion }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $promotor->user->email }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $promotor->puntos }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href="{{ route('admin.promotors.edit', $promotor) }}">
-                                    Editar
+                                <a href="{{ route('admin.detalle_ventas.show', $venta) }}">
+                                    Ver
                                 </a>
                             </td>
-
                         </tr>
                     @endforeach
 
@@ -88,9 +62,10 @@
 
 
         <!-- paginacion-->
-        <div>
-            {{ $promotores->links() }}
-        </div>
+        {{-- <div>
+            {{ $compras->links() }}
+        </div> --}}
+
     @else
         <!--estilo de alertas-->
         <div class="flex items-center p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
@@ -102,7 +77,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Info alert!</span> Aun no se registraron promotores...
+                <span class="font-medium">Info alert!</span> Aun no se registro una nota de venta
             </div>
     @endif
 </x-admin-layout>

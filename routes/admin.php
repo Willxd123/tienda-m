@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProveedorController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ExportController;
+use App\Http\Controllers\Admin\NotaVentaController;
 use App\Http\Controllers\Admin\PremioController;
 use App\Http\Controllers\Admin\PremioPromotorController;
 use App\Http\Controllers\Admin\PromotorController;
@@ -40,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('portadas', PortadaController::class);
     Route::get('/admin-bitacora', [BitacoraController::class, 'index'])->name('bitacora.index');
     Route::resource('nota_compras', NotaCompraController::class);
+    Route::resource('detalle_ventas', NotaVentaController::class);
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('rangos', RangoController::class);

@@ -14,11 +14,11 @@
         </div>
     </figure>
 
-    <div class="flex items-center justify-center h-screenobject-cover object-center ">
+    {{-- <div class="flex items-center justify-center h-screenobject-cover object-center ">
         <a href="{{ route('welcome.show', $catalogo) }}" target="_blank" class="btn btn-gray">
             ver catalogo
         </a>
-    </div>
+    </div> --}}
     @auth
         <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
         <div class="w-full mx-auto">
