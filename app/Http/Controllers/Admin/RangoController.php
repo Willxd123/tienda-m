@@ -109,9 +109,38 @@ class RangoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Rango $rango)
-    {
+    public function destroy(Rango $rango, Request $request)
+{
+    if ($rango->promotor()->count() > 0) {
+        session()->flash('swal', [
+            'icon' => 'error',
+            'title' => '¡Ups!',
+            'text' => 'No se puede eliminar el rango porque tiene promotores asociados.'
+        ]);
+        return redirect()->route('admin.rangos.show', $rango);
     }
+
+    $rango->delete();
+
+    session()->flash('swal', [
+        'icon' => 'success',
+        'title' => '¡Bien hecho!',
+        'text' => 'Rango eliminado correctamente.'
+    ]);
+
+    $bitacora = new Bitacora();
+    $bitacora->descripcion = "Eliminación de un Rango";
+    $bitacora->usuario = auth()->user()->name;
+    $bitacora->usuario_id = auth()->user()->id;
+    $bitacora->direccion_ip = $request->ip();
+    $bitacora->navegador = $request->header('user-agent');
+    $bitacora->tabla = "Rango";
+    $bitacora->registro_id = $rango->id;
+    $bitacora->fecha_hora = Carbon::now();
+    $bitacora->save();
+
+    return redirect()->route('admin.rangos.index');
+}
 
     /**
      * Create bitacora log.
