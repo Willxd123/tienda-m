@@ -11,6 +11,7 @@ class NotaVenta extends Model
     protected $fillable = [
         'monto_total',
         'fecha',
+        'factura',
         'promotor_id'
     ];
 
