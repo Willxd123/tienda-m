@@ -14,11 +14,12 @@
         </div>
     </figure>
 
-    {{-- <div class="flex items-center justify-center h-screenobject-cover object-center ">
+    <div class="flex items-center justify-center h-screenobject-cover object-center ">
         <a href="{{ route('welcome.show', $catalogo) }}" target="_blank" class="btn btn-gray">
             ver catalogo
         </a>
-    </div> --}}
+    </div>
+    
     @auth
         <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
         <div class="w-full mx-auto ">
@@ -77,11 +78,11 @@
                                     <p class="text-gray-600 text-lg font-semibold">
                                         Bs/ {{ $producto->precio }}
                                     </p>
-                                    @can('admin')
+                                    @auth
                                         <p class="text-gray-600">
                                             {{ $producto->puntos }} Puntos
                                         </p>
-                                    @endcan
+                                    @endauth
                                 </div>
                                 @if ($producto->stock > 0)
                                     <a href="{{ route('cliente.productos.show', $producto) }}"

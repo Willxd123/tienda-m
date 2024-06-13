@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\DetalleVenta;
 use App\Models\NotaVenta;
+use App\Models\PemioPromotor;
 use App\Models\Producto;
 use App\Models\User;
 use Carbon\Carbon;
@@ -15,9 +16,23 @@ class NotaVentaController extends Controller
 {
 
     public function index(){
-        
-        $ventas = NotaVenta::orderBy('id', 'desc')->paginate(10);
-        return view('admin.detalle_ventas.index', compact('ventas'));
+        $user = Auth::user();
+        $promotor = $user->promotor;
+
+        if ($promotor){
+            $prom = $user->promotor;
+            $ventas = NotaVenta::
+                where('promotor_id', $prom->id )
+                ->get();
+            return view('admin.detalle_ventas.index', compact('ventas'));
+        }else{
+            $ventas = NotaVenta::orderBy('id', 'desc')
+            ->paginate(10);
+            return view('admin.detalle_ventas.index', compact('ventas'));
+        }
+
+        //$ventas = NotaVenta::orderBy('id', 'desc')->paginate(10);
+        //return view('admin.detalle_ventas.index', compact('ventas'));
     }
 
     /////////////////API/////////////////
@@ -47,7 +62,7 @@ class NotaVentaController extends Controller
         return response()->json($nota_venta, 200);
     }
 
-    public function show(string $id)
+    public function show($id)
     {
         $ventas = NotaVenta::findOrFail($id);
         $detalles = DetalleVenta::where('nota_venta_id', $id)->get();
