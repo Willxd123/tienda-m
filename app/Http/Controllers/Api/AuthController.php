@@ -31,6 +31,23 @@ class AuthController extends Controller
         return response()->json($usuario, 200);
     }
     
+    public function usuario(LoginRequest $request)
+    {
+
+        $user = User::where('email', $request->email)->first();
+        $promotor = $user->promotor;
+        $usuario = [];
+        $usuario['id'] = $user->id;
+        $usuario['name'] = $user->name;
+        $usuario['email'] = $user->email;
+        $usuario['admin'] = $user->esAdministrador();
+        $usuario['nit'] = $promotor->nit;
+        $usuario['telefono'] = $promotor->telefono;
+        $usuario['puntos'] = $promotor->puntos;
+        $usuario['direccion'] = $promotor->direccion;
+        
+        return response()->json($usuario, 200);
+    }
 
 
 }

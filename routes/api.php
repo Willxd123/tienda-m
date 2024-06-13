@@ -15,6 +15,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/login',[AuthController::class, 'login']);
+Route::post('/usuario',[AuthController::class, 'usuario']);
 Route::get('/productos-categoria/{categoria}',[ProductoApiController::class, 'productosPorCategoria']);
 Route::get('/productos',[ProductoApiController::class, 'todosLosProductos']);
 Route::get('/productos-subcategoria/{categoria}',[ProductoApiController::class, 'productosPorSubCategoria']);
