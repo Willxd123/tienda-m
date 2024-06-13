@@ -2,12 +2,12 @@
 //use Illuminate\Http\Request;
 
 use App\Http\Controllers\Admin\BitacoraController;
-use App\Http\Controllers\admin\CatalogoController;
+use App\Http\Controllers\Admin\CatalogoController;
 use App\Http\Controllers\Admin\FamiliaController;
 use App\Http\Controllers\Admin\SubcategoriaController;
 use App\Http\Controllers\Admin\CategoriaController;
-use App\Http\Controllers\admin\ColorController;
-use App\Http\Controllers\admin\ConfiguracionController;
+use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\ConfiguracionController;
 use App\Http\Controllers\Admin\NotaCompraController;
 use App\Http\Controllers\Admin\ProductoController;
 use App\Http\Controllers\Admin\ProveedorController;
