@@ -28,3 +28,4 @@ Route::post('/factura/{id}',[NotaVentaController::class, 'store']);
 Route::get('/pdf-factura/{id}',[ProductoApiController::class, 'pdfFactura']);
 Route::get('/pdf-factura/{id}/{prods}',[ProductoApiController::class, 'pdfFacturaUrl']);
 Route::put('/promotor/{id}',[PromotorApiController::class, 'actualizarPuntos']);
+Route::get('/prom/{id}',[PromotorApiController::class, 'promotor']);

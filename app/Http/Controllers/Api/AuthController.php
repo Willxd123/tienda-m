@@ -30,7 +30,7 @@ class AuthController extends Controller
         
         return response()->json($usuario, 200);
     }
-
+    
 
 
 }
