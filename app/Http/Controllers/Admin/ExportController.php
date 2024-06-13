@@ -22,7 +22,8 @@ class ExportController extends Controller
     {
         return view('admin.reporte.create');
     }
-
+    
+    //reportes para compra de productos
     public function store(Request $request)
     {
         $camposSeleccionados = $request->input('campos', []);
@@ -75,6 +76,7 @@ class ExportController extends Controller
         }
     }
 
+    //reportes para venta de productos
     public function store2(Request $request)
     {
         $camposSeleccionados = $request->input('campos', []);

@@ -88,8 +88,12 @@ class StripeController extends Controller
         $productos = Cart::instance('shopping')->content();
         $promotor = Auth::user()->promotor;
         $puntos = $promotor->puntos;
+        $monto = 0;
+        foreach ($productos as $producto) {
+            $monto = $monto + ($producto-> qty * $producto->price);
+        }
         $nota_venta = NotaVenta::create([
-            'monto_total'=>Cart::instance('shopping')->subTotal(),
+            'monto_total'=>$monto,
             'fecha'=>Carbon::now(),
             'factura'=>$url,
             'promotor_id' => $promotor->id
