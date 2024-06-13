@@ -7,9 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        th, tr{
+        th, tr, td{
             padding-left: 4px; 
             padding-right: 4px; 
+            margin-left: 4px;
+            margin-right: 4px;
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
 
     </style>
