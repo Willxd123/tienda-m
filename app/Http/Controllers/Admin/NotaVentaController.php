@@ -21,8 +21,7 @@ class NotaVentaController extends Controller
 
         if ($promotor){
             $prom = $user->promotor;
-            $ventas = NotaVenta::
-                where('promotor_id', $prom->id )
+            $ventas = NotaVenta::orderBy('id', 'desc')->where('promotor_id', $prom->id )
                 ->get();
             return view('admin.detalle_ventas.index', compact('ventas'));
         }else{
