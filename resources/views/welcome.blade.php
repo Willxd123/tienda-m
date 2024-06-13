@@ -16,12 +16,15 @@
 
     <div class="flex items-center justify-center h-screenobject-cover object-center ">
         <a href="{{ route('welcome.show', $catalogo) }}" target="_blank" class="btn btn-gray">
-            ver catalogo
+            Ver catálogo
         </a>
     </div>
-    
+
     @auth
         <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
+        <div class="flex items-center justify-center text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px] -mt-5">Premios
+        </div>
+
         <div class="w-full mx-auto ">
             <!-- Swiper -->
             <div class="swiper-container">
@@ -61,9 +64,12 @@
         <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
 
     @endauth
+
     <div class="px-4">
         <x-container>
-
+            <div>
+                <p class="text-center text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]">Últimos productos listados</p>
+            </div>
             <!-- Productos -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 ">
                 @foreach ($productos as $producto)
