@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetalleVenta;
 use App\Models\NotaVenta;
 use App\Models\Producto;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -77,15 +78,29 @@ class StripeController extends Controller
 
     public function success()
     {
-        $pdf = Pdf::loadView('pdf.factura');
+        $productos = Cart::instance('shopping')->content();
+        $user = Auth::user();
+        $promotor = $user->promotor;
+        $fecha = Carbon::now()->format('d-m-Y');
+        $fecha_actual = Carbon::now();
+        $fecha_limite = $fecha_actual->addMonths(3)->format('d-m-Y');
+        $hora = Carbon::now()->format('H:i:s');
+
+        $pdf = Pdf::loadView('pdf.factura',[
+            'productos' => $productos,
+            'user' => $user,
+            'promotor' => $promotor,
+            'fecha' => $fecha,
+            'hora' => $hora,
+            'fecha_limite' => $fecha_limite
+        ]);
+
         $pdf_archivo = $pdf->output();
         $filename = 'factura-'.Carbon::now() . '.pdf';
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
         $url = $aws_ruta.$filename;
-
-
-        $productos = Cart::instance('shopping')->content();
+        
         $promotor = Auth::user()->promotor;
         $puntos = $promotor->puntos;
         $monto = 0;

@@ -592,11 +592,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
         }
 
         .border-main {
-            border-color: #5c6ac4;
+            border-color: #4286c6;
         }
 
         .bg-main {
-            background-color: #5c6ac4;
+            background-color: #4286c6;
         }
 
         .bg-slate-100 {
@@ -692,7 +692,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
         }
 
         .text-main {
-            color: #5c6ac4;
+            color: #2e77bb;
         }
 
         .text-neutral-600 {
@@ -736,8 +736,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                         <tr>
                             <td class="w-full align-top">
                                 <div>
-                                    <img src="https://raw.githubusercontent.com/templid/email-templates/main/templid-dynamic-templates/invoice-02/brand-sample.png"
-                                        class="h-12" />
+                                    <img src="https://laravel-f.s3.amazonaws.com/productos/Asset+3%404x.png"
+                                        class="" style="width: 120px; height: auto;" />
                                 </div>
                             </td>
 
@@ -748,9 +748,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                                             <tr>
                                                 <td class="border-r pr-4">
                                                     <div>
-                                                        <p class="whitespace-nowrap text-slate-400 text-right">Fecha</p>
-                                                        <p class="whitespace-nowrap font-bold text-main text-right">25
-                                                            de mayo de 2024</p>
+                                                        <p class="whitespace-nowrap text-slate-400 text-right">Fecha y
+                                                            hora</p>
+                                                        <p class="whitespace-nowrap font-bold text-main text-right">
+                                                            {{ $fecha }} | {{ $hora }}</p>
                                                     </div>
                                                 </td>
                                                 <td class="pl-4">
@@ -787,13 +788,13 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                             </td>
                             <td class="w-1/2 align-top text-right">
                                 <div class="text-sm text-neutral-600">
-                                    <p class="font-bold">Rafael Salvatierra Valle</p>
-                                    <p>Teléfono: 74688024</p>
-                                    <p>NIT/CI: 23456789</p>
+                                    <p class="font-bold">{{ $user->name }}</p>
+                                    <p>Teléfono: {{ $promotor->telefono }}</p>
+                                    <p>NIT/CI: {{ $promotor->nit }}</p>
                                     <p></p>
-                                    <p>Calle 24 de septiembre #254</p>
+                                    <p>{{ $promotor->direccion }}</p>
                                     <p>Santa Cruz - Bolivia</p>
-                                    <p>Fecha límite de emisión: 25/08/24</p>
+                                    <p>Fecha límite de emisión: {{ $fecha_limite }}</p>
                                 </div>
                             </td>
                         </tr>
@@ -815,14 +816,15 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                     </thead>
                     <tbody>
                         {{ $contador = 1 }}
-                        @foreach (Cart::instance('shopping')->content() as $producto)
+                        @foreach ($productos as $producto)
                             <tr>
                                 <td class="border-b py-3 pl-3">{{ $contador }}</td>
                                 <td class="border-b py-3 pl-2">{{ $producto->name }}</td>
                                 <td class="border-b py-3 pl-2 text-right">{{ $producto->price }}</td>
                                 <td class="border-b py-3 pl-2 text-center">{{ $producto->qty }}</td>
                                 <td class="border-b py-3 pl-2 text-center">13%</td>
-                                <td class="border-b py-3 pl-2 text-right">{{ $producto->price * $producto->qty }}</td>
+                                <td class="border-b py-3 pl-2 text-right">
+                                    {{ $producto->price * $producto->qty }}</td>
                                 {{ $contador = $contador + 1 }}
                             </tr>
                         @endforeach
@@ -836,34 +838,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                                             <td>
                                                 <table class="w-full border-collapse border-spacing-0">
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="border-b p-3">
-                                                                <div class="whitespace-nowrap text-slate-400">Total
-                                                                    Neto:</div>
-                                                            </td>
-                                                            <td class="border-b p-3 text-right">
-                                                                <div class="whitespace-nowrap font-bold text-main">
-                                                                    {{ Cart::instance('shopping')->subtotal() }}</div>
-                                                            </td>
-                                                        </tr>
                                                         @php
-                                                            $iva = 0;
-                                                            $subtotal= 0;
-                                                            foreach (Cart::instance('shopping')->content() as $producto) {
-                                                                $subtotal = $subtotal + ($producto->price * $producto->qty);
-                                                                $iva = $iva + ($producto->price * 0.13 * $producto->qty);  
+                                                            $subtotal = 0;
+                                                            foreach ($productos as $producto) {
+                                                                $subtotal =
+                                                                    $subtotal +
+                                                                    $producto->price * $producto->qty;
                                                             }
                                                         @endphp
-                                                        <tr>
-                                                            <td class="p-3">
-                                                                <div class="whitespace-nowrap text-slate-400">IVA total:
-                                                                </div>
-                                                            </td>
-                                                            <td class="p-3 text-right">
-                                                                <div class="whitespace-nowrap font-bold text-main">
-                                                                    {{ $iva }}</div>
-                                                            </td>
-                                                        </tr>
                                                         <tr>
                                                             <td class="bg-main p-3">
                                                                 <div class="whitespace-nowrap font-bold text-white">

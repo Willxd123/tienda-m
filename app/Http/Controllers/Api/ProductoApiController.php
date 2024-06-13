@@ -89,7 +89,7 @@ class ProductoApiController extends Controller
             'fecha' => $fecha,
             'hora' => $hora,
             'fecha_limite' => $fecha_limite
-        ]);
+        ]); 
         $pdf_archivo = $pdf->output();
         $filename = Str::random(20) . '.pdf';
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
