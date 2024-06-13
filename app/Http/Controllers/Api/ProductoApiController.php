@@ -17,14 +17,16 @@ use function PHPUnit\Framework\isEmpty;
 class ProductoApiController extends Controller
 {
 
-    public function show($id){
-        $producto =Producto::find($id);
-        return response()->json($producto,200);
+    public function show($id)
+    {
+        $producto = Producto::find($id);
+        return response()->json($producto, 200);
     }
-    
+
     public function todosLosProductos()
     {
-        $productos = Producto::all();
+        $productos = Producto::where('stock', '>', 0)->get();
+
         return response()->json($productos, 200);
     }
 
@@ -51,11 +53,12 @@ class ProductoApiController extends Controller
         return response()->json($productos, 200);
     }
 
-    public function productosPorSubCategoria($id){
+    public function productosPorSubCategoria($id)
+    {
         $subcategoria = Subcategoria::find($id);
         $products = $subcategoria->productos;
         $productos = [];
-        foreach($products as $prod){
+        foreach ($products as $prod) {
             $productos[] = [
                 'id' => $prod->id,
                 'nombre' => $prod->nombre,
@@ -70,7 +73,8 @@ class ProductoApiController extends Controller
         return response()->json($productos, 200);
     }
 
-    public function pdfFactura(Request $request, $id){
+    public function pdfFactura(Request $request, $id)
+    {
         $productos = $request->json()->all();
         $user = User::find($id);
         $promotor = $user->promotor;
@@ -85,16 +89,17 @@ class ProductoApiController extends Controller
             'fecha' => $fecha,
             'hora' => $hora,
             'fecha_limite' => $fecha_limite
-        ]); 
+        ]);
         $pdf_archivo = $pdf->output();
         $filename = Str::random(20) . '.pdf';
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
-        $url = $aws_ruta.$filename;
-        return response()->json($url,200);
+        $url = $aws_ruta . $filename;
+        return response()->json($url, 200);
     }
 
-    public function pdfFacturaUrl(Request $request, $id, $prods){
+    public function pdfFacturaUrl(Request $request, $id, $prods)
+    {
         $productos = json_decode(urldecode($prods), true);
         $user = User::find($id);
         $promotor = $user->promotor;
@@ -110,7 +115,6 @@ class ProductoApiController extends Controller
             'hora' => $hora,
             'fecha_limite' => $fecha_limite
         ]);
-        return $pdf->download('factura-'.Carbon::now().'.pdf');
+        return $pdf->download('factura-' . Carbon::now() . '.pdf');
     }
-
 }
