@@ -11,7 +11,9 @@ use Carbon\Carbon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class StripeController extends Controller
 {
@@ -76,12 +78,20 @@ class StripeController extends Controller
     public function success()
     {
         $pdf = Pdf::loadView('pdf.factura');
+        $pdf_archivo = $pdf->output();
+        $filename = 'factura-'.Carbon::now() . '.pdf';
+        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
+        $url = $aws_ruta.$filename;
+
+
         $productos = Cart::instance('shopping')->content();
         $promotor = Auth::user()->promotor;
         $puntos = $promotor->puntos;
         $nota_venta = NotaVenta::create([
             'monto_total'=>Cart::instance('shopping')->subTotal(),
             'fecha'=>Carbon::now(),
+            'factura'=>$url,
             'promotor_id' => $promotor->id
         ]);
         foreach ($productos as $producto) {
@@ -105,7 +115,7 @@ class StripeController extends Controller
         ]);
 
         Cart::instance('shopping')->destroy();
-        return $pdf->download('factura-' . Carbon::now() . '.pdf');
+        return redirect()->back();
     }
 
     public function redireccionar()
