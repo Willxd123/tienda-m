@@ -76,7 +76,8 @@ class Cange extends Component
 
     public function render()
     {
-        return view('livewire.cliente.premios.cange');
+        $prom = Auth::user()->promotor;
+        return view('livewire.cliente.premios.cange', compact('prom'));
     }
 }
 ?>
