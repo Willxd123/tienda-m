@@ -28,6 +28,10 @@
                 </div>
                 <div class="col-span-1">
                     <h1 class="text-xl text-gray-600 mb-2">
+                        Tus puntos: {{ $promotor->puntos }}
+                    </h1>
+                    <br>
+                    <h1 class="text-xl text-gray-600 mb-2">
                         {{ $premio->producto->nombre }}
                     </h1>
 
