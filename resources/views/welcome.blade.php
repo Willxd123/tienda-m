@@ -39,13 +39,8 @@
                                         class="w-4/5 mx-auto rounded-t max-h-36 object-contain">
                                 </div>
                                 <div class="p-2 flex flex-col justify-between flex-grow">
-                                    <div>
-                                        <h1 class="single-line-text text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]"
-                                            style=".single-line-text {
-                                                    white-space: nowrap;
-                                                    overflow: hidden;
-                                                    text-overflow: ellipsis;
-                                                }">
+                                    <div >
+                                        <h1 class="single-line-text text-xs font-bold text-gray-700 line-clamp-2 min-h-[20px]">
                                             {{ $premio->producto->nombre }}
                                         </h1>
                                         <p class="text-base sm:text-lg text-gray-600 mb-2">
