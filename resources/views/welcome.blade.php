@@ -22,7 +22,8 @@
 
     @auth
         <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
-        <div class="flex items-center justify-center text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px] -mt-5">Premios
+        <div class="flex items-center justify-center text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px] -mt-5">
+            Premios
         </div>
 
         <div class="w-full mx-auto ">
@@ -39,7 +40,12 @@
                                 </div>
                                 <div class="p-2 flex flex-col justify-between flex-grow">
                                     <div>
-                                        <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]">
+                                        <h1 class="single-line-text text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]"
+                                            style=".single-line-text {
+                                                    white-space: nowrap;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;
+                                                }">
                                             {{ $premio->producto->nombre }}
                                         </h1>
                                         <p class="text-base sm:text-lg text-gray-600 mb-2">
@@ -68,7 +74,8 @@
     <div class="px-4">
         <x-container>
             <div>
-                <p class="text-center text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]">Últimos productos listados</p>
+                <p class="text-center text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px]">Últimos productos
+                    listados</p>
             </div>
             <!-- Productos -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 ">
