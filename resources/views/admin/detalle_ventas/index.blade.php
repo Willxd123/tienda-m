@@ -57,9 +57,14 @@
                                 </a>
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ $venta->factura }}" target="_blank">
-                                    Factura
-                                </a>
+                                @if ($venta->factura == null)
+                                    <span>Móvil</span>
+                                @else
+                                    <a href="{{ $venta->factura }}" target="_blank">
+                                        Factura
+                                    </a>
+                                @endif
+
                             </td>
                         </tr>
                     @endforeach
@@ -73,7 +78,6 @@
         {{-- <div>
             {{ $compras->links() }}
         </div> --}}
-
     @else
         <!--estilo de alertas-->
         <div class="flex items-center p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
