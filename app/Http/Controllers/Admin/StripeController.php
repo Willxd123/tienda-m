@@ -77,10 +77,12 @@ class StripeController extends Controller
     {
         $pdf = Pdf::loadView('pdf.factura');
         $productos = Cart::instance('shopping')->content();
+        $promotor = Auth::user()->promotor;
+        $puntos = $promotor->puntos;
         $nota_venta = NotaVenta::create([
             'monto_total'=>Cart::instance('shopping')->subTotal(),
             'fecha'=>Carbon::now(),
-            'promotor_id' => Auth::user()->promotor->id
+            'promotor_id' => $promotor->id
         ]);
         foreach ($productos as $producto) {
             $producto_original = Producto::where('nombre', $producto->name)->first();
@@ -90,10 +92,18 @@ class StripeController extends Controller
                 'producto_id' => $producto_original->id,
                 'nota_venta_id' => $nota_venta->id
             ]);
+
+            $puntos = $puntos + ($producto_original->puntos * $producto->qty);
+
             $producto_original->update([
                 'stock' => ($producto_original->stock - $producto->qty)
             ]);
         }
+
+        $promotor->update([
+            'puntos' => $puntos, 
+        ]);
+
         Cart::instance('shopping')->destroy();
         return $pdf->download('factura-' . Carbon::now() . '.pdf');
     }
