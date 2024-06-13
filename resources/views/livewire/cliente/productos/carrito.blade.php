@@ -28,6 +28,10 @@
                 </div>
                 <div class="col-span-1">
                     <h1 class="text-xl text-gray-600 mb-2">
+                        HOLA A TODOS
+                    </h1>
+                    <br>
+                    <h1 class="text-xl text-gray-600 mb-2">
                         {{ $producto->nombre }}
                     </h1>
                     <div class="flex items-center space-x-2 mb-4">
