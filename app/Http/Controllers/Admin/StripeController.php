@@ -38,11 +38,6 @@ class StripeController extends Controller
 
             $producto_original = Producto::where('nombre', $producto->name)->first();
             if ($producto->qty > $producto_original->stock) {
-                // return session()->flash('swal', [
-                //     'icon' => 'error',
-                //     'title' => '¡Ups!',
-                //     'text' => 'Stock insuficiente para el producto '. $producto->name
-                // ]);
                 return redirect()->back()->with(session()->flash('swal', [
                     'icon' => 'error',
                     'title' => '¡Ups!',
