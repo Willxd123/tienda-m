@@ -31,3 +31,4 @@ Route::get('/pdf-factura/{id}/{prods}',[ProductoApiController::class, 'pdfFactur
 Route::put('/promotor/{id}',[PromotorApiController::class, 'actualizarPuntos']);
 Route::get('/prom/{id}',[PromotorApiController::class, 'promotor']);
 Route::post('/examen',[PromotorApiController::class, 'examen']);
+Route::post('/examenexcel',[PromotorApiController::class, 'examenexcel']);

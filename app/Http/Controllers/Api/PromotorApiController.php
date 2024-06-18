@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\AsistenciaExport;
 use App\Http\Controllers\Controller;
 use App\Models\Promotor;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PromotorApiController extends Controller
 {
@@ -46,6 +48,27 @@ class PromotorApiController extends Controller
         Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
         $url = $aws_ruta.$filename;
         return response()->json($url,200);
+    }
+
+    public function examenexcel(Request $request){
+        $data = $request->json()->all();
+
+        $filename = 'asistencias-'.Carbon::now().'.xlsx';
+
+        $filePath = storage_path('app/public/'.$filename);
+
+        Excel::store(new AsistenciaExport($data), $filename, 'public');
+
+        $excelContent = file_get_contents($filePath);
+
+        Storage::disk('s3')->put($filename, $excelContent, 'public');
+
+        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $url = $aws_ruta.$filename;
+
+        unlink($filePath);
+
+        return response()->json($url, 200);
     }
 
 }
