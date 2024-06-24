@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Exports\AsistenciaExport;
 use App\Http\Controllers\Controller;
+use App\Models\NotaVenta;
 use App\Models\Promotor;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -69,6 +70,17 @@ class PromotorApiController extends Controller
         unlink($filePath);
 
         return response()->json($url, 200);
+    }
+
+    public function totalComprado($id){
+        $user = User::find($id);
+        $promotor = $user->promotor;
+        $compras = NotaVenta::where('promotor_id',$promotor->id)->get();
+        $monto = 0;
+        foreach($compras as $compra){
+            $monto = $monto + $compra->monto_total;
+        }
+        return response()->json($monto,200);
     }
 
 }

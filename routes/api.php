@@ -30,5 +30,10 @@ Route::get('/pdf-factura/{id}',[ProductoApiController::class, 'pdfFactura']);
 Route::get('/pdf-factura/{id}/{prods}',[ProductoApiController::class, 'pdfFacturaUrl']);
 Route::put('/promotor/{id}',[PromotorApiController::class, 'actualizarPuntos']);
 Route::get('/prom/{id}',[PromotorApiController::class, 'promotor']);
+Route::get('/prom-compras/{id}',[PromotorApiController::class, 'totalComprado']);
+
+
+
+//Examen si2 reportes
 Route::post('/examen',[PromotorApiController::class, 'examen']);
 Route::post('/examenexcel',[PromotorApiController::class, 'examenexcel']);

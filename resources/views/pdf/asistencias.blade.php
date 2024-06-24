@@ -10,7 +10,6 @@
             <th>Estado</th>
             <th>Observación</th>
         </tr>
-
     </thead>
     <tbody>
         {{ $contador = 1 }}
