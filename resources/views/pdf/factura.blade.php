@@ -810,7 +810,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                             <td class="border-b-2 border-main pb-3 pl-2 font-bold text-main">Detalle del Producto</td>
                             <td class="border-b-2 border-main pb-3 pl-2 text-right font-bold text-main">Precio</td>
                             <td class="border-b-2 border-main pb-3 pl-2 text-center font-bold text-main">Cantidad</td>
-                            <td class="border-b-2 border-main pb-3 pl-2 text-center font-bold text-main">IVA</td>
                             <td class="border-b-2 border-main pb-3 pl-2 text-right font-bold text-main">Subtotal</td>
                         </tr>
                     </thead>
@@ -822,7 +821,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                                 <td class="border-b py-3 pl-2">{{ $producto->name }}</td>
                                 <td class="border-b py-3 pl-2 text-right">{{ $producto->price }}</td>
                                 <td class="border-b py-3 pl-2 text-center">{{ $producto->qty }}</td>
-                                <td class="border-b py-3 pl-2 text-center">13%</td>
                                 <td class="border-b py-3 pl-2 text-right">
                                     {{ $producto->price * $producto->qty }}</td>
                                 {{ $contador = $contador + 1 }}
