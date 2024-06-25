@@ -31,6 +31,7 @@ Route::get('/pdf-factura/{id}/{prods}',[ProductoApiController::class, 'pdfFactur
 Route::put('/promotor/{id}',[PromotorApiController::class, 'actualizarPuntos']);
 Route::get('/prom/{id}',[PromotorApiController::class, 'promotor']);
 Route::get('/prom-compras/{id}',[PromotorApiController::class, 'totalComprado']);
+Route::get('/prom-historial/{id}',[PromotorApiController::class, 'historial']);
 
 
 

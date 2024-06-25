@@ -20,4 +20,8 @@ class NotaVenta extends Model
     }
 
 
+    public function detalleVentas(){
+        return $this->hasMany(DetalleVenta::class);
+    }
+
 }

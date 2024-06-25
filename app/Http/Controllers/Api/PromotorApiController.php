@@ -9,6 +9,7 @@ use App\Models\Promotor;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -81,6 +82,32 @@ class PromotorApiController extends Controller
             $monto = $monto + $compra->monto_total;
         }
         return response()->json($monto,200);
+    }
+
+    public function historial($id){
+
+        $user = User::find($id);
+        $promotor = $user->promotor;
+
+        $compras = NotaVenta::where('promotor_id',$promotor->id)->get();
+        $compras_promotor = new Collection();
+        $compra_total = [];
+        $detalle_total = [];
+        foreach($compras as $compra){
+            $compra_total['id'] = $compra->id;
+            $compra_total['fecha'] = $compra->fecha;
+            $compra_total['monto_total'] = $compra->monto_total;
+
+            foreach($compra->detalleVentas as $detalle){
+                $detalle_total['cantidad'] = $detalle->cantidad;
+                $detalle_total['precio'] = $detalle->precio;
+                $detalle_total['producto'] = $detalle->producto->nombre;
+            }
+
+            $compra_total['detalle'] = $detalle_total;
+            $compras_promotor->push($compra_total);
+        }
+        return response()->json($compras_promotor,200);
     }
 
 }
