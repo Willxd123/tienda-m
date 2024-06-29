@@ -819,10 +819,24 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                             <tr>
                                 <td class="border-b py-3 pl-3">{{ $contador }}</td>
                                 <td class="border-b py-3 pl-2">{{ $producto->name }}</td>
-                                <td class="border-b py-3 pl-2 text-right">{{ $producto->price }}</td>
+
+                                @php
+                                    $precioOriginal = $producto->price;
+                                    $precioConDescuento = $precioOriginal;
+                                    $user = Auth::user();
+
+                                    if ($user && $user->promotor) {
+                                        $promotor = $user->promotor;
+                                        $rango = $promotor->rango;
+                                        $descuento = $rango->descuento;
+                                        $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
+                                    }
+                                @endphp
+
+                                <td class="border-b py-3 pl-2 text-right">{{ $precioConDescuento }}</td>
                                 <td class="border-b py-3 pl-2 text-center">{{ $producto->qty }}</td>
                                 <td class="border-b py-3 pl-2 text-right">
-                                    {{ $producto->price * $producto->qty }}</td>
+                                    {{ $precioConDescuento * $producto->qty }}</td>
                                 {{ $contador = $contador + 1 }}
                             </tr>
                         @endforeach
@@ -840,8 +854,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                                                             $subtotal = 0;
                                                             foreach ($productos as $producto) {
                                                                 $subtotal =
-                                                                    $subtotal +
-                                                                    $producto->price * $producto->qty;
+                                                                    $subtotal + $precioConDescuento * $producto->qty;
                                                             }
                                                         @endphp
                                                         <tr>

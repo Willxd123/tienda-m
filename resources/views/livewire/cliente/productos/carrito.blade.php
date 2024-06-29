@@ -11,9 +11,10 @@
                                 <div class="swiper-wrapper">
                                     <!-- Slides -->
                                     @foreach ($producto->imagenes as $imagen)
-                                    <div class="swiper-slide">
-                                        <img src="{{ $imagen->ruta }}" class="mx-auto object-center size-[520px]" style="max-height: 100%; max-width: 100%;" />
-                                    </div>
+                                        <div class="swiper-slide">
+                                            <img src="{{ $imagen->ruta }}" class="mx-auto object-center size-[520px]"
+                                                style="max-height: 100%; max-width: 100%;" />
+                                        </div>
                                     @endforeach
                                 </div>
                                 <!-- If we need pagination -->
@@ -52,12 +53,27 @@
                             </p>
                         </ul>
                     </div>
+                    @php
+                        $precioOriginal = $producto->precio;
+                        $precioConDescuento = $precioOriginal;
+                        
+                        $user = Auth::user();
+
+                        if ($user && $user->promotor) {
+                            $promotor = $user->promotor;
+                            $rango = $promotor->rango;
+                            $descuento = $rango->descuento;
+                            $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
+                        }
+                    @endphp
+
                     <p class="font-semibold text-2xl text-gray-600 mb-4">
-                        Bs/ {{ $producto->precio }}
+                        Bs/ {{ $precioConDescuento }}
                     </p>
+                    
                     <div class="flex items-center space-x-6 mb-6" x-data="{
                         qty: @entangle('qty'),
-                         }">
+                    }">
                         <button class="btn btn-gray" x-on:click="qty = qty - 1" x-bind:disabled="qty == 1">
                             -
                         </button>

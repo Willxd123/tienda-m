@@ -34,6 +34,7 @@ class StripeController extends Controller
 
 
         $items = [];
+        $user = Auth::user();
 
         foreach ($productos as $producto) {
 
@@ -46,7 +47,22 @@ class StripeController extends Controller
                 ]));
             }
             $productName = $producto->name;
-            $totalprice = $producto->price;
+
+
+            $precioOriginal = $producto->price;
+            $precioConDescuento = $precioOriginal;
+            
+
+            if ($user && $user->promotor) {
+                $promotor = $user->promotor;
+                $rango = $promotor->rango;
+                $descuento = $rango->descuento;
+                $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
+            }
+
+            $totalprice = $precioConDescuento;
+            //$totalprice = $producto->price;
+
             $unitAmount = $totalprice * 100;
             $quantity = $producto->qty;
 
@@ -82,7 +98,7 @@ class StripeController extends Controller
         $fecha_limite = $fecha_actual->addMonths(3)->format('d-m-Y');
         $hora = Carbon::now()->format('H:i:s');
 
-        $pdf = Pdf::loadView('pdf.factura',[
+        $pdf = Pdf::loadView('pdf.factura', [
             'productos' => $productos,
             'user' => $user,
             'promotor' => $promotor,
@@ -92,28 +108,49 @@ class StripeController extends Controller
         ]);
 
         $pdf_archivo = $pdf->output();
-        $filename = 'factura-'.Carbon::now() . '.pdf';
+        $filename = 'factura-' . Carbon::now() . '.pdf';
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
-        $url = $aws_ruta.$filename;
-        
+        $url = $aws_ruta . $filename;
+
         $promotor = Auth::user()->promotor;
         $puntos = $promotor->puntos;
         $monto = 0;
         foreach ($productos as $producto) {
-            $monto = $monto + ($producto-> qty * $producto->price);
+            $precioOriginal = $producto->price;
+            $precioConDescuento = $precioOriginal;
+
+            if ($user && $user->promotor) {
+                $promotor = $user->promotor;
+                $rango = $promotor->rango;
+                $descuento = $rango->descuento;
+                $precioConDescuento = $precioOriginal - ($precioOriginal * ($descuento / 100));
+            }
+
+            $monto = $monto + ($producto->qty * $precioConDescuento);
+            //$monto = $monto + ($producto->qty * $producto->price);
         }
         $nota_venta = NotaVenta::create([
-            'monto_total'=>$monto,
-            'fecha'=>Carbon::now(),
-            'factura'=>$url,
+            'monto_total' => $monto,
+            'fecha' => Carbon::now(),
+            'factura' => $url,
             'promotor_id' => $promotor->id
         ]);
         foreach ($productos as $producto) {
             $producto_original = Producto::where('nombre', $producto->name)->first();
+            $precioOriginal = $producto->price;
+            $precioConDescuento = $precioOriginal;
+
+            if ($user && $user->promotor) {
+                $promotor = $user->promotor;
+                $rango = $promotor->rango;
+                $descuento = $rango->descuento;
+                $precioConDescuento = $precioOriginal - ($precioOriginal * ($descuento / 100));
+            }
+
             DetalleVenta::create([
                 'cantidad' => $producto->qty,
-                'precio' => $producto->price,
+                'precio' => $precioConDescuento,
                 'producto_id' => $producto_original->id,
                 'nota_venta_id' => $nota_venta->id
             ]);
@@ -126,12 +163,12 @@ class StripeController extends Controller
         }
 
         $promotor->update([
-            'puntos' => $puntos, 
+            'puntos' => $puntos,
         ]);
 
         // Calcular el total de compras del promotor    
         $totalCompras = NotaVenta::where('promotor_id', $promotor->id)->sum('monto_total');
-        
+
         // Obtener todos los rangos ordenados por compras_minimas
         $rangos = Rango::orderBy('compras_minimas')->get();
 
@@ -159,8 +196,8 @@ class StripeController extends Controller
         } else {
             session()->flash('swal', [
                 'icon' => 'success',
-                'title' => 'Venta registrada',
-                'text' => 'La venta se registró correctamente.',
+                'title' => 'Compra registrada',
+                'text' => 'La Compra se registró correctamente.',
             ]);
         }
 
