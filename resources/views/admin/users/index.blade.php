@@ -24,6 +24,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">Id</th>
                             <th scope="col" class="px-6 py-3">Nombre</th>
+                            <th scope="col" class="px-6 py-3">Perfil</th>
                             <th scope="col" class="px-6 py-3">Correo</th>
                             <th scope="col" class="px-6 py-3">Rol</th>
                             <th scope="col" class="px-6 py-3"></th>
@@ -35,11 +36,14 @@
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"> 
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $user->id }}
                                 </th>
                                 <td class="px-6 py-4">
                                     {{ $user->name }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <img src="{{ $user->profile_photo_path }}" alt="Foto de perfil" class="w-10 h-10 rounded-full">
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $user->email }}
@@ -50,7 +54,7 @@
                                             <li>{{ $role->name }}</li>
                                         @endforeach
                                     </ul>
-                                </td>                           
+                                </td>
                                 <td class="px-6 py-4 text-center md:text-left">
                                     <a href="{{ route('admin.users.edit', $user) }}" class="inline-block">
                                         <b>Editar</b>

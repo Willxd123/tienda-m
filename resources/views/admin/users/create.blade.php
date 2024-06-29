@@ -13,10 +13,10 @@
 ]">
 
 <div class="card">
-    <form action="{{ route('admin.users.store') }}" method="POST" class="card-body">
+    <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data" class="card-body">
         @csrf
 
-        
+
 
         <div class="mb-4">
 
@@ -26,7 +26,7 @@
             </x-label>
             <x-input type="text" name="name" id="name" class="w-full"
                 placeholder="ingrese el nombre del usuario"
-                value="{{ old('name') }}" 
+                value="{{ old('name') }}"
                 required autofocus />
 
             <!-- CORREO ELECTRÓNICO -->
@@ -35,18 +35,24 @@
             </x-label>
             <x-input type="email" name="email" id="email" class="w-full"
                 placeholder="ingrese el correo electronico"
-                value="{{ old('email') }}" 
+                value="{{ old('email') }}"
                 required />
 
             <!-- CONTRASEÑA -->
             <x-label for="password" class="block font-medium mt-4 mb-2">
                 Contraseña
             </x-label>
-            <x-input type="password" name="password" id="password" class="w-full" required 
+            <x-input type="password" name="password" id="password" class="w-full" required
                 placeholder="ingrese la contraseña"/>
-        
-        </div>
 
+        </div>
+        <div class="mb-4">
+            <!-- FOTO DE PERFIL -->
+            <x-label for="profile_photo" class="block font-medium mb-2">
+                Foto de Perfil
+            </x-label>
+            <x-input type="file" name="profile_photo_path" id="profile_photo_path" class="w-full" />
+        </div>
         <div class="mb-4">
             {{-- Roles --}}
             <x-label for="roles" class="block font-medium mb-2">Roles:</x-label>
@@ -66,7 +72,7 @@
                 Guardar
             </x-button>
         </div>
-        
+
     </form>
 </div>
 

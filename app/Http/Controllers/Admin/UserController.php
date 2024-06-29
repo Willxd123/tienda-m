@@ -8,12 +8,13 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
 
 class UserController extends Controller
 {
-
+    protected $awsRuta = 'https://laravel-f.s3.amazonaws.com/';
     public function index()
     {
         $users = User::where('email', '!=', 'admin@gmail.com')
@@ -36,19 +37,25 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'roles' => 'required|array',
+            'profile_photo_path' => 'nullable|image',
         ], [
             'name.required' => 'El campo nombre es obligatorio',
-            'name.unique' => 'El nombre ya se encuentra registrado',
             'email.required' => 'El campo correo es obligatorio',
             'password.required' => 'La contraseña debe tener un minimo de 8 caracteres',
-            'roles.required' => 'Se debe asignar un rol'
+            'roles.required' => 'Se debe asignar un rol',
+            'profile_photo_path.image' => 'El archivo debe ser una imagen',
         ]);
-
+        $imageUrl = null;
+        if ($request->hasFile('profile_photo_path')) {
+            $imageRuta = $request->file('profile_photo_path')->storePublicly('profile_photos');
+            $imageUrl = $this->awsRuta . $imageRuta;
+        }
         // Crea el usuario
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password, //bcrypt($request->password),
+            'profile_photo_path' => $imageUrl,
         ]);
 
         $user->syncRoles($request->roles);
@@ -92,13 +99,25 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:6',
             'roles' => 'required|array',
+            'profile_photo_path' => 'required|image',
         ]);
+        $imageUrl = $user->profile_photo_path;
 
+        if ($request->hasFile('profile_photo_path')) {
+            if ($user->profile_photo_path) {
+                $oldImagePath = str_replace($this->awsRuta, '', $user->profile_photo_path);
+                Storage::delete($oldImagePath);
+            }
+
+            $imageRuta = $request->file('profile_photo_path')->storePublicly('profile_photos');
+            $imageUrl = $this->awsRuta . $imageRuta;
+        }
         // Actualiza los datos del usuario
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'profile_photo_path' => $imageUrl,
         ]);
 
         // Asigna roles al usuario

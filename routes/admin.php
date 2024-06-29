@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Admin\NotaVentaController;
+use App\Http\Controllers\Admin\OrdenController;
 use App\Http\Controllers\Admin\PremioController;
 use App\Http\Controllers\Admin\PremioPromotorController;
 use App\Http\Controllers\Admin\PromotorController;
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rangos', RangoController::class);
     Route::resource('premios', PremioController::class);
     Route::resource('configuracions', ConfiguracionController::class);
+    Route::resource('ordens', OrdenController::class);
     Route::resource('premios_promotors', PremioPromotorController::class);
     Route::get('/imagenes/{id}', [ImageController::class, 'create'])->name('imagenes.create');
     Route::post('/imagenes/{id}', [ImageController::class, 'store'])->name('imagenes.store');
@@ -55,5 +57,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/reporte', [ExportController::class, 'store2'])->name('reporte.store2');
     Route::resource('catalogos', CatalogoController::class);
     Route::get('/pdf-factura/{id}',[ProductoController::class, 'pdfFactura']);
+
 
 });
