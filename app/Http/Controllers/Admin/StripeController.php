@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetalleVenta;
 use App\Models\NotaVenta;
 use App\Models\Producto;
+use App\Models\Rango;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -127,6 +128,41 @@ class StripeController extends Controller
         $promotor->update([
             'puntos' => $puntos, 
         ]);
+
+        // Calcular el total de compras del promotor    
+        $totalCompras = NotaVenta::where('promotor_id', $promotor->id)->sum('monto_total');
+        
+        // Obtener todos los rangos ordenados por compras_minimas
+        $rangos = Rango::orderBy('compras_minimas')->get();
+
+        // Verificar si el promotor califica para un nuevo rango
+        $nuevoRango = $promotor->rango_id;
+        foreach ($rangos as $rango) {
+            if ($totalCompras >= $rango->compras_minimas) {
+                $nuevoRango = $rango->id;
+            }
+        }
+
+        // Actualizar el rango del promotor si es necesario
+        if ($nuevoRango != $promotor->rango_id) {
+            $promotor->rango_id = $nuevoRango;
+            $promotor->save();
+
+            // Obtener el nuevo nivel del rango
+            $nivelRango = Rango::find($nuevoRango)->nivel;
+
+            session()->flash('swal', [
+                'icon' => 'success',
+                'title' => '¡Felicidades!',
+                'text' => 'Has avanzado al ' . $nivelRango,
+            ]);
+        } else {
+            session()->flash('swal', [
+                'icon' => 'success',
+                'title' => 'Venta registrada',
+                'text' => 'La venta se registró correctamente.',
+            ]);
+        }
 
         Cart::instance('shopping')->destroy();
         return redirect()->back();

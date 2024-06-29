@@ -39,8 +39,9 @@
                                         class="w-4/5 mx-auto rounded-t max-h-36 object-contain">
                                 </div>
                                 <div class="p-2 flex flex-col justify-between flex-grow">
-                                    <div >
-                                        <h1 class="single-line-text text-xs font-bold text-gray-700 line-clamp-2 min-h-[20px]">
+                                    <div>
+                                        <h1
+                                            class="single-line-text text-xs font-bold text-gray-700 line-clamp-2 min-h-[20px]">
                                             {{ $premio->producto->nombre }}
                                         </h1>
                                         <p class="text-base sm:text-lg text-gray-600 mb-2">
@@ -82,9 +83,23 @@
                                 <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[40px]">
                                     {{ $producto->nombre }}
                                 </h1>
+                                
+                                @php
+                                    $precioOriginal = $producto->precio;
+                                    $precioConDescuento = $precioOriginal;
+                                    $user = Auth::user();
+
+                                    if ($user && $user->promotor) {
+                                        $promotor = $user->promotor;
+                                        $rango = $promotor->rango;
+                                        $descuento = $rango->descuento;
+                                        $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
+                                    }
+                                @endphp
+
                                 <div class="flex justify-between items-center mb-2">
                                     <p class="text-gray-600 text-lg font-semibold">
-                                        Bs/ {{ $producto->precio }}
+                                        Bs/ {{ $precioConDescuento }}
                                     </p>
                                     @auth
                                         <p class="text-gray-600">
@@ -92,6 +107,7 @@
                                         </p>
                                     @endauth
                                 </div>
+
                                 @if ($producto->stock > 0)
                                     <a href="{{ route('cliente.productos.show', $producto) }}"
                                         class="btn btn-blue block w-full text-center">
