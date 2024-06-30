@@ -117,6 +117,7 @@ class StripeController extends Controller
         $puntos = $promotor->puntos;
         $monto = 0;
         foreach ($productos as $producto) {
+
             $precioOriginal = $producto->price;
             $precioConDescuento = $precioOriginal;
 
@@ -129,6 +130,7 @@ class StripeController extends Controller
 
             $monto = $monto + ($producto->qty * $precioConDescuento);
             //$monto = $monto + ($producto->qty * $producto->price);
+
         }
         $nota_venta = NotaVenta::create([
             'monto_total' => $monto,
@@ -136,6 +138,10 @@ class StripeController extends Controller
             'factura' => $url,
             'promotor_id' => $promotor->id
         ]);
+        $orden = $nota_venta->orden()->create([
+            'estado' => false // Estado inicial pendiente
+        ]);
+
         foreach ($productos as $producto) {
             $producto_original = Producto::where('nombre', $producto->name)->first();
             $precioOriginal = $producto->price;

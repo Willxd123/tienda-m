@@ -37,13 +37,17 @@
 
 
     </div>
-    @include('layouts.particiones.admin.navegation')
+    <div>
+        @livewire('admin.navegation')
+    </div>
+
+{{--     @include('layouts.particiones.admin.navegation') --}}
     @include('layouts.particiones.admin.sidebar')
 
 
 
     <div class="p-4 sm:ml-64">
-        <div class="mt-14">
+        <div class="mt-[100px]">
 
             <div class="flex justify-between items-center">
                 @include('layouts.particiones.admin.breadcrumb')

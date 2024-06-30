@@ -13,7 +13,7 @@
 ]">
 
 <div class="card">
-    <form action="{{ route('admin.users.update', $user) }}" method="POST">
+    <form action="{{ route('admin.users.update', $user) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="mb-4">
@@ -34,7 +34,18 @@
             </x-label>
             <x-input type="password" class="w-full" placeholder="Ingrese la nueva contraseña" name="password" />
         </div>
-
+        <div class="mb-4">
+            <!-- FOTO DE PERFIL -->
+            <x-label for="profile_photo_path" class="block font-medium mb-2">
+                Foto de Perfil
+            </x-label>
+            @if ($user->profile_photo_path)
+                <div class="mb-4">
+                    <img src="{{ $user->profile_photo_path }}" alt="Foto de perfil" class="w-20 h-20 rounded-full">
+                </div>
+            @endif
+            <x-input type="file" name="profile_photo_path" id="profile_photo_path" class="w-full" />
+        </div>
         {{-- Para tener checkboxes de roles --}}
         <div class="space-y-2">
             <label for="roles" class="block font-medium mb-2">

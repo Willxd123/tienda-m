@@ -35,7 +35,7 @@
                                                 class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                                 <!-- link de la imagen-->
                                                 <img class="h-8 w-8 rounded-full object-cover"
-                                                    src="{{ Auth::user()->profile_photo_url }}"
+                                                    src="{{ Auth::user()->profile_photo_path }}"
                                                     alt="{{ Auth::user()->name }}" />
                                             </button>
                                         @else

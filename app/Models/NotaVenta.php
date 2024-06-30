@@ -18,7 +18,10 @@ class NotaVenta extends Model
     public function promotor(){
         return $this->belongsTo(Promotor::class);
     }
-
+    public function orden()
+    {
+        return $this->hasOne(Orden::class);
+    }
 
     public function detalleVentas(){
         return $this->hasMany(DetalleVenta::class);

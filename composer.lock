@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7addd40145b5f26f38e5da0794ff828d",
+    "content-hash": "bfc7b1ac10c025fe422a736c9f52b75c",
     "packages": [
         {
             "name": "archtechx/enums",
@@ -5588,16 +5588,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v14.9.0",
+            "version": "v14.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "7165f64ec1b19cb0ce288d553909cd68d8e6a3b1"
+                "reference": "7e1c4b5d2beadeaeddc42fd1f8a50fdb18b37f30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/7165f64ec1b19cb0ce288d553909cd68d8e6a3b1",
-                "reference": "7165f64ec1b19cb0ce288d553909cd68d8e6a3b1",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/7e1c4b5d2beadeaeddc42fd1f8a50fdb18b37f30",
+                "reference": "7e1c4b5d2beadeaeddc42fd1f8a50fdb18b37f30",
                 "shasum": ""
             },
             "require": {
@@ -5641,9 +5641,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v14.9.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v14.10.0"
             },
-            "time": "2024-05-30T20:12:41+00:00"
+            "time": "2024-06-13T21:04:47+00:00"
         },
         {
             "name": "symfony/clock",
@@ -11309,5 +11309,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
