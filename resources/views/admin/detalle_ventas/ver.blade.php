@@ -20,27 +20,27 @@
     <!-- Información de la nota de venta -->
     <div class="mt-4">
         <p><b><th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-            ID: 
+            ID:
         </th></b>
             {{ $ventas->id }}
         </p>
         <p><b><th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-            Promotor: 
+            Promotor:
         </th></b>
             {{ $ventas->promotor->user->name }}
         </p>
         <p><b><th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-            Cantidad: 
+            Cantidad:
         </th></b>
             {{ $ventas->cantidad }}
         </p>
         <p><b><th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-            Fecha: 
+            Fecha:
         </th></b>
             {{ $ventas->fecha }}
         </p>
         <p><b><th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-            Monto Total: 
+            Monto Total:
         </th></b>
             {{ $ventas->monto_total }}
         </p>

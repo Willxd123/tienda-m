@@ -81,7 +81,7 @@ class StripeController extends Controller
         $fecha_limite = $fecha_actual->addMonths(3)->format('d-m-Y');
         $hora = Carbon::now()->format('H:i:s');
 
-        $pdf = Pdf::loadView('pdf.factura',[
+        $pdf = Pdf::loadView('pdf.factura', [
             'productos' => $productos,
             'user' => $user,
             'promotor' => $promotor,
@@ -91,23 +91,27 @@ class StripeController extends Controller
         ]);
 
         $pdf_archivo = $pdf->output();
-        $filename = 'factura-'.Carbon::now() . '.pdf';
+        $filename = 'factura-' . Carbon::now() . '.pdf';
         $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
         Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
-        $url = $aws_ruta.$filename;
-        
+        $url = $aws_ruta . $filename;
+
         $promotor = Auth::user()->promotor;
         $puntos = $promotor->puntos;
         $monto = 0;
         foreach ($productos as $producto) {
-            $monto = $monto + ($producto-> qty * $producto->price);
+            $monto = $monto + ($producto->qty * $producto->price);
         }
         $nota_venta = NotaVenta::create([
-            'monto_total'=>$monto,
-            'fecha'=>Carbon::now(),
-            'factura'=>$url,
+            'monto_total' => $monto,
+            'fecha' => Carbon::now(),
+            'factura' => $url,
             'promotor_id' => $promotor->id
         ]);
+        $orden = $nota_venta->orden()->create([
+            'estado' => false // Estado inicial pendiente
+        ]);
+
         foreach ($productos as $producto) {
             $producto_original = Producto::where('nombre', $producto->name)->first();
             DetalleVenta::create([
@@ -125,7 +129,7 @@ class StripeController extends Controller
         }
 
         $promotor->update([
-            'puntos' => $puntos, 
+            'puntos' => $puntos,
         ]);
 
         Cart::instance('shopping')->destroy();
