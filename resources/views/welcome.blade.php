@@ -78,12 +78,12 @@
                 @foreach ($productos as $producto)
                     <div class="hover:shadow-2xl hover:shadow-gray-600">
                         <article class="bg-white shadow-xl rounded-lg overflow-hidden ">
-                            <img src="{{ $producto->imagen }}" class="aspect-[1/1] w-full object-cover object-center">
+                            <img src="{{ $producto->imagen }}" class="aspect-[1/1] w-full  object-center">
                             <div class="p-4">
                                 <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[40px]">
                                     {{ $producto->nombre }}
                                 </h1>
-                                
+
                                 @php
                                     $precioOriginal = $producto->precio;
                                     $precioConDescuento = $precioOriginal;

@@ -1,5 +1,6 @@
 <div x-data="{
-    open: false
+    open: false,
+    abrir:false
 }">
     @foreach ($configuracions as $configuracion)
         @foreach ($configuracion->colors as $color)
@@ -10,6 +11,9 @@
                             <button class="text-xl md:text-3xl" x-on:click="open = true">
                                 <i class="fas fa-bars text-white"></i>
                             </button>
+                            {{-- <button class="text-xl md:text-3xl" x-on:click="abrir = true">
+                                <i class="fas fa-bars text-black"></i>
+                            </button> --}}
                             <div class=" items-center">
                                 <a href="/" class="items-center">
                                     <div class="">
@@ -25,7 +29,8 @@
 
 
                             <div class="flex-1 hidden md:block">
-                                <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar producto" />
+                                @livewire('welcome-productos')
+                                {{-- <x-input oninput="search(this.value)" class="w-full" placeholder="Buscar producto" /> --}}
                             </div>
                             <div class="flex items-center space-x-4 md:space-x-8">
                                 <x-dropdown>
@@ -135,15 +140,7 @@
                                 </a>
                             </li>
                         @endforeach
-
-
                     </ul>
-                    <!-- Aquí agregamos el enlace a "Premios" -->
-                    {{-- <a href="{{ route('cliente.premios.show') }}"
-                         class="flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-blue-200">
-                            Premios
-                            <i class="fa-solid fa-trophy"></i>
-                    </a> --}}
                 </div>
             </div>
             <div class="w-[780px] pt-[52px] ">
@@ -185,11 +182,12 @@
         <script>
             Livewire.on('cartUpdated', (count) => {
                 document.getElementById('cart-count').innerText = count;
-            })
-
-            function search(value) {
-                Livewire.emit('search', value);
-            }
+            });
+            /* function search(value) {
+                Livewire.dispatch('search', {
+                    search: value
+                });
+            } */
         </script>
     @endpush
 </div>
