@@ -26,11 +26,7 @@
                                 @endphp
 
                                 <p class="text-gray-600 text-sm">{{ $precioConDescuento }} Bs</p>
-                                @auth
-                                    <p class="text-gray-600 text-sm">
-                                        {{ $producto->puntos }} Puntos
-                                    </p>
-                                @endauth
+
                                 @if ($producto->stock > 0)
                                     <a href="{{ route('cliente.productos.show', $producto) }}"
                                         class="btn btn-blue block w-full text-center">

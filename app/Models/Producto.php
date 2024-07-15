@@ -16,7 +16,6 @@ class Producto extends Model
         'stock',
         'descripcion',
         'precio',
-        'puntos',
         'imagen',
         'subcategoria_id',
     ];
@@ -39,30 +38,15 @@ class Producto extends Model
         return $this->belongsTo(Subcategoria::class);
     }
 
-    //relacion uno a muchos
-    public function variantes()
-    {
-        return $this->hasMany(Variante::class);
-    }
 
-    //relacion muchos a muchos 
-    public function opcions()
-    {
-        return $this->belongsToMany(Opcion::class)
-            ->withPivot('valor')
-            ->withTimestamps();
-    }
 
-    //relacion muchos a muchos 
+
+    //relacion muchos a muchos
     public function nota_compras()
     {
         return $this->belongsToMany(NotaCompra::class)
             ->withTimestamps();
     }
 
-    //relacion uno a muchos
-    public function premios()
-    {
-        return $this->hasMany(Premio::class);
-    }
+
 }

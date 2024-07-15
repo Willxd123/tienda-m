@@ -24,16 +24,8 @@ Route::get('subcategorias/{subcategoria}', [SubcategoriaController::class, 'show
 Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('cliente.productos.show');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 
-//rutas stripe
-Route::get('/checkout',[StripeController::class, 'checkout'])->name('checkout');
-Route::post('/session',[StripeController::class, 'session'])->name('session');
-Route::get('/success',[StripeController::class, 'success'])->name('success');
-Route::get('/redireccionar',[StripeController::class, 'redireccionar'])->name('redireccionar');
 
-Route::get('/prueba', [StripeController::class, 'prueba'])->name('prueba');
 Route::get('/catalogos/{catalogo}', [WelcomeController::class, 'show'])->name('welcome.show');
-
-Route::get('premios/{premio}', [PremioController::class, 'show'])->name('cliente.premios.show');
 
 
 Route::middleware([

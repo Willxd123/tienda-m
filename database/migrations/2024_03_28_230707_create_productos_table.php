@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('stock');
             $table->text('descripcion')->nullable();
             $table->float('precio');
-            $table->float('puntos');
             $table->string('imagen');
             $table->foreignId('subcategoria_id')
             ->constrained();

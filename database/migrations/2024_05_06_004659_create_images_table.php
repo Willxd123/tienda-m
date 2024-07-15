@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('ruta');
             $table->unsignedBigInteger('producto_id');
-            $table->foreign('producto_id')->references('id')->on('productos');
+            $table->foreign('producto_id')
+                  ->references('id')
+                  ->on('productos')
+                  ->onDelete('cascade'); // Agrega esta línea
             $table->timestamps();
         });
     }

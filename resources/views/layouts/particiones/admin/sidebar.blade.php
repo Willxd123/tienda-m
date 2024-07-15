@@ -19,30 +19,6 @@
             'active' => request()->routeIs('admin.users.*'),
             //'can' => 'admin.users.index',
         ],
-
-        [
-            //Promotor
-            'name' => 'Promotor',
-            'icon' => 'fa-solid fa-users',
-            'route' => route('admin.promotors.index'),
-            'active' => request()->routeIs('admin.promotors.*'),
-            //'can' => 'admin.promotors.index',
-        ],
-        [
-            //roles
-            'name' => 'Rol',
-            'icon' => 'fa-solid fa-address-book',
-            'route' => route('admin.roles.index'),
-            'active' => request()->routeIs('admin.roles.*'),
-            //'can' => 'admin.roles.index',
-        ],
-        [
-            'name' => 'Bitacora',
-            'icon' => 'fa-solid fa-book',
-            'route' => route('admin.bitacora.index'),
-            'active' => request()->routeIs('admin.bitacora.index'),
-            //'can' => 'admin.bitacora.index',
-        ],
         //configuracion
         [
             'name' => 'Configuracion',
@@ -66,22 +42,6 @@
             'route' => route('admin.portadas.index'),
             'active' => request()->routeIs('admin.portadas.*'),
             //'can' => 'admin.bitacora.index',
-        ],
-        
-        [
-            //rango
-            'name' => 'Rango',
-            'icon' => 'fa-solid fa-list-ol',
-            'route' => route('admin.rangos.index'),
-            'active' => request()->routeIs('admin.rangos.*'),
-            //'can' => 'admin.rangos.index',
-        ],
-        [
-            'name' => 'Reportes',
-            'icon' => 'fa-solid fa-file-invoice',
-            'route' => route('admin.reporte.create'),
-            'active' => request()->routeIs('admin.reporte.create'),
-            //'can' => 'admin.reporte.index',
         ],
         [
             'header' => 'Inventario'
@@ -119,22 +79,7 @@
             //'can' => 'admin.productos.index',
         ],
         [
-            //premios
-            'name' => 'Premios',
-            'icon' => 'fa-solid fa-award',
-            'route' => route('admin.premios.index'),
-            'active' => request()->routeIs('admin.premios.*'),
-            //'can' => 'admin.premios.index',
-        ],
-        [
-            //premio del promotor detalle
-            'name' => 'Mis premios',
-            'icon' => 'fa-solid fa-gift',
-            'route' => route('admin.premios_promotors.index'),
-            'active' => request()->routeIs('admin.premios_promotors.*'),
-        ],
-        [
-            'header' => 'Compra y Venta'
+            'header' => 'Compra y provedores'
         ],
         [
             //proveedores
@@ -152,21 +97,8 @@
             'active' => request()->routeIs('admin.nota_compras.*'),
             //'can' => 'admin.nota_compras.index',
         ],
-        [
-            //venta
-            'name' => 'Venta',
-            'icon' => 'fa-solid fa-sack-dollar',
-            'route' => route('admin.detalle_ventas.index'),
-            'active' => request()->routeIs('admin.detalle_ventas.*'),
-        ],
-        [
-            'name' => 'Ordenes',
-            'icon' => 'fa-solid fa-book-open',
-            'route' => route('admin.ordens.index'),
-            'active' => request()->routeIs('admin.ordens.*'),
-            //'can' => 'admin.bitacora.index',
-        ],
-        
+
+
 
 
     ];

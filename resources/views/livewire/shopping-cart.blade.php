@@ -83,14 +83,13 @@
                             @endif
                         </p>
                     </div>
-                    <form action="{{ route('session') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-blue block w-full text-center">
-                            Continuar compra
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-blue block w-full text-center" wire:click="compra">
+                        Continuar compra
+                    </button>
+
                 </div>
             </div>
         </div>
     </div>
+   
 </div>

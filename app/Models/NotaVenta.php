@@ -12,16 +12,8 @@ class NotaVenta extends Model
         'monto_total',
         'fecha',
         'factura',
-        'promotor_id'
     ];
 
-    public function promotor(){
-        return $this->belongsTo(Promotor::class);
-    }
-    public function orden()
-    {
-        return $this->hasOne(Orden::class);
-    }
 
     public function detalleVentas(){
         return $this->hasMany(DetalleVenta::class);

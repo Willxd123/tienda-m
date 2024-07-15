@@ -40,9 +40,6 @@
                             Stock
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Puntos
-                        </th>
-                        <th scope="col" class="px-6 py-3">
                             Precio
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -71,9 +68,6 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $producto->stock }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $producto->puntos }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $producto->precio }}

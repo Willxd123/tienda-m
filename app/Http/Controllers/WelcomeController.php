@@ -13,7 +13,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $premios = Premio::all();
+
         $portadas = Portada::where('activo', true)
             ->whereDate('inicio', '<=', now())
             ->where(function ($query) {
@@ -24,7 +24,7 @@ class WelcomeController extends Controller
         $productos = Producto::orderBy('created_at', 'desc')->get();
         $catalogo = Catalogo::first(); // Obteniendo el primer catálogo para pasar a la vista
 
-        return view('welcome', compact('productos', 'premios', 'portadas', 'catalogo'));
+        return view('welcome', compact('productos', 'portadas', 'catalogo'));
     }
 
     /* public function index()

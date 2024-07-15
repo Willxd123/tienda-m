@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         //$role = Role::create(['name' => 'admin']);
         // User::factory(10)->create();
         $this->call([FamiliaSeeder::class,]);
-        $this->call(RangoSeeder::class);
         $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ConfiguracionSeeder::class);

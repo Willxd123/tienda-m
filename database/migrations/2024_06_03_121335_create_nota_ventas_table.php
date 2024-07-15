@@ -16,8 +16,6 @@ return new class extends Migration
             $table->float('monto_total');
             $table->date('fecha');
             $table->string('factura')->nullable();
-            $table->unsignedBigInteger('promotor_id');
-            $table->foreign('promotor_id')->references('id')->on('promotors');
             $table->timestamps();
         });
     }

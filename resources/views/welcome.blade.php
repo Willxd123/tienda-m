@@ -23,33 +23,33 @@
     @auth
         <hr class="my-6 border-2 border-dashed border-gray-400 sm:mx-auto lg:my-8" />
         <div class="flex items-center justify-center text-lg font-bold text-gray-700 line-clamp-2 min-h-[20px] -mt-5">
-            Premios
+       {{--  Premios --}}
         </div>
 
         <div class="w-full mx-auto ">
             <!-- Swiper -->
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    @foreach ($premios as $premio)
+                    @foreach ($productos as $producto)
                         <div class="swiper-slide flex w-full h-full hover:shadow-2xl hover:shadow-gray-600">
                             <article
                                 class="bg-white shadow-xl rounded overflow-hidden mx-auto flex flex-col justify-between h-72">
                                 <div class="py-3 flex-shrink-0">
-                                    <img src="{{ $premio->producto->imagen }}"
+                                    <img src="{{ $producto->imagen }}"
                                         class="w-4/5 mx-auto rounded-t max-h-36 object-contain">
                                 </div>
                                 <div class="p-2 flex flex-col justify-between flex-grow">
                                     <div>
                                         <h1
                                             class="single-line-text text-xs font-bold text-gray-700 line-clamp-2 min-h-[20px]">
-                                            {{ $premio->producto->nombre }}
+                                            {{ $producto->nombre }}
                                         </h1>
                                         <p class="text-base sm:text-lg text-gray-600 mb-2">
-                                            Puntos: {{ $premio->precio_puntos }}
+                                            Bs {{ $producto->precio }}
                                         </p>
                                     </div>
-                                    @if ($premio->stock > 0)
-                                        <a href="{{ route('cliente.premios.show', $premio) }}"
+                                    @if ($producto->stock > 0)
+                                        <a href="{{ route('cliente.productos.show', $producto) }}"
                                             class="btn btn-blue block w-full text-center sm:w-auto">
                                             Ver más
                                         </a>
@@ -101,11 +101,7 @@
                                     <p class="text-gray-600 text-lg font-semibold">
                                         Bs/ {{ $precioConDescuento }}
                                     </p>
-                                    @auth
-                                        <p class="text-gray-600">
-                                            {{ $producto->puntos }} Puntos
-                                        </p>
-                                    @endauth
+                                    
                                 </div>
 
                                 @if ($producto->stock > 0)
