@@ -50,7 +50,7 @@ class WelcomeController extends Controller
         ini_set('max_execution_time', 300);
 
         // Extraer el path relativo del URL
-        $path = str_replace('https://laravel-f.s3.amazonaws.com/', '', $url);
+        $path = str_replace('https://tienda-m.s3.amazonaws.com/', '', $url);
 
         // Obtener el contenido del archivo desde S3
         $content = Storage::disk('s3')->get($path);

@@ -39,7 +39,7 @@ class CatalogoController extends Controller
         ]);
 
         // Almacenar el PDF en S3
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         $pdfPath = null;
         if ($request->hasFile('catalogo')) {
             $pdfPath = $request->file('catalogo')->store('catalogos', 's3');
@@ -108,7 +108,7 @@ class CatalogoController extends Controller
         ]);
 
         // Almacenar el nuevo PDF en S3, si se proporciona
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         if ($request->hasFile('catalogo')) {
             // Eliminar el PDF anterior de S3 si existe
             if ($catalogo->catalogo) {
@@ -151,7 +151,7 @@ class CatalogoController extends Controller
      */
     public function destroy(Catalogo $catalogo, Request $request)
     {
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         if ($catalogo->catalogo) {
             $oldPdfPath = str_replace($aws_ruta, '', $catalogo->catalogo);
             Storage::disk('s3')->delete($oldPdfPath);
@@ -186,7 +186,7 @@ class CatalogoController extends Controller
         ini_set('max_execution_time', 300);
 
         // Extraer el path relativo del URL
-        $path = str_replace('https://laravel-f.s3.amazonaws.com/', '', $url);
+        $path = str_replace('https://tienda-m.s3.amazonaws.com/', '', $url);
 
         // Obtener el contenido del archivo desde S3
         $content = Storage::disk('s3')->get($path);

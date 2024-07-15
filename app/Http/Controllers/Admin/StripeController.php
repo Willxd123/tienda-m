@@ -51,7 +51,7 @@ class StripeController extends Controller
 
             $precioOriginal = $producto->price;
             $precioConDescuento = $precioOriginal;
-            
+
 
             if ($user && $user->promotor) {
                 $promotor = $user->promotor;
@@ -109,7 +109,7 @@ class StripeController extends Controller
 
         $pdf_archivo = $pdf->output();
         $filename = 'factura-' . Carbon::now() . '.pdf';
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
         $url = $aws_ruta . $filename;
 
@@ -172,7 +172,7 @@ class StripeController extends Controller
             'puntos' => $puntos,
         ]);
 
-        // Calcular el total de compras del promotor    
+        // Calcular el total de compras del promotor
         $totalCompras = NotaVenta::where('promotor_id', $promotor->id)->sum('monto_total');
 
         // Obtener todos los rangos ordenados por compras_minimas

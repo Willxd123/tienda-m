@@ -18,7 +18,7 @@ class EditarPerfil extends Component
     public $password;
     public $photo; // Rename profile_photo_path to photo for consistency with Fortify example
 
-    protected $awsRuta = 'https://laravel-f.s3.amazonaws.com/';
+    protected $awsRuta = 'https://tienda-m.s3.amazonaws.com/';
 
     public function mount(User $user)
     {

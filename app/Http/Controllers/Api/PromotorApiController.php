@@ -21,7 +21,7 @@ class PromotorApiController extends Controller
         $promotor = $user->promotor;
         $puntos = $promotor->puntos + $request->puntos;
         $promotor->update([
-            'puntos' => $puntos 
+            'puntos' => $puntos
         ]);
 
         return response()->json([
@@ -46,7 +46,7 @@ class PromotorApiController extends Controller
         ]);
         $pdf_archivo = $pdf->output();
         $filename = 'factura-'.Carbon::now() . '.pdf';
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
         $url = $aws_ruta.$filename;
         return response()->json($url,200);
@@ -65,7 +65,7 @@ class PromotorApiController extends Controller
 
         Storage::disk('s3')->put($filename, $excelContent, 'public');
 
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         $url = $aws_ruta.$filename;
 
         unlink($filePath);

@@ -55,7 +55,7 @@ class PortadaController extends Controller
             'activo.boolean' => 'El campo activo debe ser verdadero o falso.',
         ]);
 
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         $image_url = null;
 
         // Almacenar la imagen
@@ -141,7 +141,7 @@ class PortadaController extends Controller
             'activo.boolean' => 'El campo activo debe ser verdadero o falso.',
         ]);
 
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         $image_url = $portada->imagen;
 
         if ($request->hasFile('imagen')) {
@@ -192,7 +192,7 @@ class PortadaController extends Controller
     public function destroy(Portada $portada, Request $request)
     {
         if ($portada->imagen) {
-            $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+            $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
             $oldImagePath = str_replace($aws_ruta, '', $portada->imagen);
             Storage::delete($oldImagePath);
         }

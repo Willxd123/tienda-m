@@ -28,7 +28,7 @@ class VerOrden extends Component
         $this->promotor = $this->venta->promotor;
         $this->totalCantidad = $this->detalles->sum('cantidad');
         $this->profilePhotoUrl = $this->venta->promotor->user->profile_photo_path ?
-            'https://laravel-f.s3.amazonaws.com/' . $this->venta->promotor->user->profile_photo_path : null;
+            'https://tienda-m.s3.amazonaws.com/' . $this->venta->promotor->user->profile_photo_path : null;
     }
 
     public function verificarOrden()

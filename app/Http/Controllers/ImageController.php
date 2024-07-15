@@ -17,7 +17,7 @@ class ImageController extends Controller
     public function store(Request $request, $id)
     {
         $producto = Producto::find($id);
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
 
         $image_ruta = $request->file('ruta1')->storePublicly('productos');
         $image_url = $aws_ruta . $image_ruta;

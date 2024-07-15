@@ -14,7 +14,7 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    protected $awsRuta = 'https://laravel-f.s3.amazonaws.com/';
+    protected $awsRuta = 'https://tienda-m.s3.amazonaws.com/';
     public function index()
     {
         $users = User::where('email', '!=', 'admin@gmail.com')

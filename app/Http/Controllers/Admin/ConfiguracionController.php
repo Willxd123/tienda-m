@@ -42,7 +42,7 @@ class ConfiguracionController extends Controller
             'logotipo' => 'nullable|image|mimes:png|max:1024', // Validar solo imágenes PNG
         ]);
 
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         $image_url = null;
         // Almacenar el logotipo
         if ($request->hasFile('logotipo')) {
@@ -121,7 +121,7 @@ class ConfiguracionController extends Controller
             'colors.required' => 'Debe seleccionar al menos un color.',
             'colors.array' => 'Los colores seleccionados deben ser un arreglo válido.'
         ]);
-        $aws_ruta = 'https://laravel-f.s3.amazonaws.com/';
+        $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
         $image_url = $configuracion->logotipo;
 
         if ($request->hasFile('logotipo')) {

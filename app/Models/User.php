@@ -91,7 +91,7 @@ class User extends Authenticatable
     }
     /* public function getProfilePhotoUrlAttribute($value)
     {
-        return $value ? 'https://laravel-f.s3.amazonaws.com/' . $value : null;
+        return $value ? 'https://tienda-m.s3.amazonaws.com/' . $value : null;
     } */
 
 }
