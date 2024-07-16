@@ -16,6 +16,7 @@
 
     <div class="flex items-center justify-center h-screenobject-cover object-center ">
         <a href="{{ route('welcome.show', $catalogo) }}" target="_blank" class="btn btn-gray">
+
             Ver catálogo
         </a>
     </div>
@@ -29,6 +30,7 @@
         <div class="w-full mx-auto ">
             <!-- Swiper -->
             <div class="swiper-container">
+                
                 <div class="swiper-wrapper">
                     @foreach ($productos as $producto)
                         <div class="swiper-slide flex w-full h-full hover:shadow-2xl hover:shadow-gray-600">
