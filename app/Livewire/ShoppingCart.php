@@ -91,30 +91,60 @@ class ShoppingCart extends Component
     {
         $productos = Cart::instance('shopping')->content();
         $user = Auth::user();
+        $promotor = $user->promotor;
         $fecha = Carbon::now()->format('d-m-Y');
         $fecha_actual = Carbon::now();
         $fecha_limite = $fecha_actual->addMonths(3)->format('d-m-Y');
         $hora = Carbon::now()->format('H:i:s');
 
+        // Generar el PDF
+        $pdf = Pdf::loadView('pdf.factura', [
+            'productos' => $productos,
+            'user' => $user,
+            'promotor' => $promotor,
+            'fecha' => $fecha,
+            'hora' => $hora,
+            'fecha_limite' => $fecha_limite
+        ]);
+
+        $pdf_archivo = $pdf->output();
         $filename = 'factura-' . Carbon::now() . '.pdf';
         $aws_ruta = 'https://tienda-m.s3.amazonaws.com/';
-
+        Storage::disk('s3')->put($filename, $pdf_archivo, 'public');
         $url = $aws_ruta . $filename;
 
+        $puntos = $promotor->puntos;
         $monto = 0;
         foreach ($productos as $producto) {
             $precioOriginal = $producto->price;
-            $monto += $producto->qty * $precioOriginal;
+            $precioConDescuento = $precioOriginal;
+
+            if ($user && $user->promotor) {
+                $promotor = $user->promotor;
+                $descuento = $promotor->descuento ?? 0;
+                $precioConDescuento = $precioOriginal - ($precioOriginal * ($descuento / 100));
+            }
+
+            $monto += $producto->qty * $precioConDescuento;
         }
 
         $nota_venta = NotaVenta::create([
             'monto_total' => $monto,
             'fecha' => Carbon::now(),
             'factura' => $url,
+            'promotor_id' => $promotor->id
         ]);
 
         foreach ($productos as $producto) {
             $producto_original = Producto::find($producto->id);
+            $precioOriginal = $producto->price;
+            $precioConDescuento = $precioOriginal;
+
+            if ($user && $user->promotor) {
+                $promotor = $user->promotor;
+                $descuento = $promotor->descuento ?? 0;
+                $precioConDescuento = $precioOriginal - ($precioOriginal * ($descuento / 100));
+            }
 
             DetalleVenta::create([
                 'cantidad' => $producto->qty,
@@ -123,21 +153,28 @@ class ShoppingCart extends Component
                 'nota_venta_id' => $nota_venta->id
             ]);
 
+            $puntos += ($producto_original->puntos * $producto->qty);
+
             $producto_original->update([
                 'stock' => ($producto_original->stock - $producto->qty)
             ]);
         }
 
-        Cart::instance('shopping')->destroy();
-        $this->dispatch('cartUpdated', Cart::content()->count());
-        $this->dispatch('swal', [
+        $promotor->update([
+            'puntos' => $puntos,
+        ]);
+
+        session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Compra registrada',
             'text' => 'La Compra se registró correctamente.',
         ]);
-
+        $this->dispatch('cartUpdated', Cart::content()->count());
+        Cart::instance('shopping')->destroy();
         return redirect()->back();
     }
+
+
 
 
     public function render()

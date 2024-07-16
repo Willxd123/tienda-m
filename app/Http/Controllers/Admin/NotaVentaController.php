@@ -55,7 +55,7 @@ class NotaVentaController extends Controller
             $detalle_venta->producto_id = $prod['id'];
             $detalle_venta->nota_venta_id = $nota_venta->id;
             $detalle_venta->save();
-            
+
         }
 
         return response()->json($nota_venta, 200);

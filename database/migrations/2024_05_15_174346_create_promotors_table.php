@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nota_ventas', function (Blueprint $table) {
+        Schema::create('promotors', function (Blueprint $table) {
             $table->id();
-            $table->float('monto_total');
-            $table->date('fecha');
-            $table->string('factura')->nullable();
-            $table->unsignedBigInteger('promotor_id');
-            $table->foreign('promotor_id')->references('id')->on('promotors');
+            $table->integer('nit');
+            $table->integer('telefono');
+            $table->string('direccion');
+            $table->foreignId('user_id')
+                ->constrained();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nota_ventas');
+        Schema::dropIfExists('promotors');
     }
 };

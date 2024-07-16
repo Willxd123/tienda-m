@@ -83,25 +83,11 @@
                                 <h1 class="text-lg font-bold text-gray-700 line-clamp-2 min-h-[40px]">
                                     {{ $producto->nombre }}
                                 </h1>
-
-                                @php
-                                    $precioOriginal = $producto->precio;
-                                    $precioConDescuento = $precioOriginal;
-                                    $user = Auth::user();
-
-                                    if ($user && $user->promotor) {
-                                        $promotor = $user->promotor;
-                                        $rango = $promotor->rango;
-                                        $descuento = $rango->descuento;
-                                        $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
-                                    }
-                                @endphp
-
                                 <div class="flex justify-between items-center mb-2">
                                     <p class="text-gray-600 text-lg font-semibold">
-                                        Bs/ {{ $precioConDescuento }}
+                                        Bs/ {{ $producto->precio }}
                                     </p>
-                                    
+
                                 </div>
 
                                 @if ($producto->stock > 0)

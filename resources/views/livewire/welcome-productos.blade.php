@@ -12,20 +12,8 @@
                                 class="aspect-[1/1] size-32 object-center">
                             <div class="ml-4">
                                 <p class="font-semibold text-gray-700">{{ $producto->nombre }}</p>
-                                @php
-                                    $precioOriginal = $producto->precio;
-                                    $precioConDescuento = $precioOriginal;
-                                    $user = Auth::user();
 
-                                    if ($user && $user->promotor) {
-                                        $promotor = $user->promotor;
-                                        $rango = $promotor->rango;
-                                        $descuento = $rango->descuento;
-                                        $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
-                                    }
-                                @endphp
-
-                                <p class="text-gray-600 text-sm">{{ $precioConDescuento }} Bs</p>
+                                <p class="text-gray-600 text-sm">{{ $producto->precio }} Bs</p>
 
                                 @if ($producto->stock > 0)
                                     <a href="{{ route('cliente.productos.show', $producto) }}"

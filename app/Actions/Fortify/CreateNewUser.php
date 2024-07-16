@@ -39,10 +39,9 @@ class CreateNewUser implements CreatesNewUsers
 
         $user->assignRole('promotor');
         // Obtener el rango con el menor descuento
-        $rango = Rango::orderBy('descuento', 'asc')->first();
+
         Promotor::create([
             'user_id' => $user->id,
-            'rango_id' => $rango->id,
             'telefono' => $input['telefono'],
             'direccion' => $input['direccion'],
             'nit' => $input['nit'],

@@ -53,24 +53,11 @@
                             </p>
                         </ul>
                     </div>
-                    @php
-                        $precioOriginal = $producto->precio;
-                        $precioConDescuento = $precioOriginal;
-                        
-                        $user = Auth::user();
-
-                        if ($user && $user->promotor) {
-                            $promotor = $user->promotor;
-                            $rango = $promotor->rango;
-                            $descuento = $rango->descuento;
-                            $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
-                        }
-                    @endphp
 
                     <p class="font-semibold text-2xl text-gray-600 mb-4">
-                        Bs/ {{ $precioConDescuento }}
+                        Bs/ {{ $producto->precio}}
                     </p>
-                    
+
                     <div class="flex items-center space-x-6 mb-6" x-data="{
                         qty: @entangle('qty'),
                     }">

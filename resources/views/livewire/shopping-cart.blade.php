@@ -17,19 +17,7 @@
                             $subtotalConDescuento = 0;
                         @endphp
                         @forelse (Cart::content() as $item)
-                            @php
-                                $precioOriginal = $item->price;
-                                $precioConDescuento = $precioOriginal;
-
-                                if ($user && $user->promotor && !$user->admin) {
-                                    $promotor = $user->promotor;
-                                    $rango = $promotor->rango;
-                                    $descuento = $rango->descuento;
-                                    $precioConDescuento = $precioOriginal - $precioOriginal * ($descuento / 100);
-                                }
-
-                                $subtotalConDescuento += $precioConDescuento * $item->qty;
-                            @endphp
+                            
                             <li class="lg:flex">
                                 <img class="w-full lg:w-36 aspect-square object-cover object-center mr-2"
                                     src="{{ $item->options->image }}" alt="">
@@ -47,7 +35,7 @@
                                     </button>
                                 </div>
                                 <p>
-                                    Bs/ {{ $precioConDescuento }}
+                                    Bs/ {{ $item->price }}
                                 </p>
                                 <div class="ml-auto space-x-3">
                                     <button class="btn btn-gray" wire:click="decrease('{{ $item->rowId }}')">
@@ -91,5 +79,5 @@
             </div>
         </div>
     </div>
-   
+
 </div>

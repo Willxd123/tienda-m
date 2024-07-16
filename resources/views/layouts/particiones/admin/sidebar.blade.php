@@ -90,6 +90,13 @@
             //'can' => 'admin.proveedors.index',
         ],
         [
+            //venta
+            'name' => 'Venta',
+            'icon' => 'fa-solid fa-sack-dollar',
+            'route' => route('admin.detalle_ventas.index'),
+            'active' => request()->routeIs('admin.detalle_ventas.*'),
+        ],
+        [
             //compra
             'name' => 'Compra',
             'icon' => 'fa-solid fa-bag-shopping',
